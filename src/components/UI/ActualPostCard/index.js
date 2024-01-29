@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     image: {
         transition: "all 0.3s ease-out",
         width: '100%',
-        height: '45vh',
+        height: '30vh',
         objectFit: 'cover',
         objectPosition: 'center',
         borderRadius: '10px',
@@ -86,6 +86,13 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         marginBottom: '32px',
+    },
+    mainTitle: {
+        lineClamp: 2,
+        boxOrient: 'vertical',
+        display: '-webkit-box',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     }
 }));
 

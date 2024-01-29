@@ -35,7 +35,7 @@ const DonatBadgeComponent = () => {
     const classes = useStyles(themes[theme]);
 
     return (
-        <SectionWrapper id="main-donat-badge">
+        <>
             <Box className={classes.badge}>
                 <Box>
                     <a href={'/'}>
@@ -48,11 +48,11 @@ const DonatBadgeComponent = () => {
                         quis. Malesuada integer ac aliquet maecenas blandit orci adipiscing sagittis.
                     </Typography>
                 </Box>
-                <Box>
-                    <StyledButton text="Zobacz więcej" width="100%" to="/"/>
+                <Box style={{width: '25%'}}>
+                    <StyledButton text="Wesprzyj nas" width="100%" to="/" variant="white"/>
                 </Box>
             </Box>
-        </SectionWrapper>
+        </>
     );
 };
 

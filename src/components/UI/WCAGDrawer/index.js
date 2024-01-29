@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) =>
         },
         wcagButton: {
             padding: 0,
-            fontFamily: 'Helvetica-Regular',
+            fontFamily: 'Inter-Regular',
             fontSize: '20px',
             fontWeight: 400,
             lineHeight: '23px',

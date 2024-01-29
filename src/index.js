@@ -16,6 +16,13 @@ import DocumentPage from "./components/pages/Document";
 import About from "./components/pages/About";
 import {FloatingButtonProvider} from "./components/UI/FloatingButton/FloatingButtonContext";
 import {FontSizeProvider} from "./components/UI/FontSizeChange/FontSizeContext";
+import CategoryPage from "./components/UI/CategoryPageComponent";
+import BydgoszczPage from "./components/pages/Category/BydgoszczPage";
+import KrajePage from "./components/pages/Category/KrajePage";
+import RegionyPage from "./components/pages/Category/RegionyPage";
+import ActualsPageComponent from "./components/pages/Category/ActualsPage";
+import WycieczkiPageComponent from "./components/pages/Category/WycieczkiPage";
+import FilmyPage from "./components/pages/Filmy";
 
 const App = () => {
 
@@ -29,7 +36,12 @@ const App = () => {
                                 <Header/>
                                 <Routes>
                                     <Route path="/" element={<MainPage/>}/>
-                                    <Route path="/aktualnosci" element={<Posts/>}/>
+                                    <Route path="/bydgoszcz" element={<BydgoszczPage/>}/>
+                                    <Route path="/regiony" element={<RegionyPage/>}/>
+                                    <Route path="/kraje" element={<KrajePage/>}/>
+                                    <Route path="/aktualnosci" element={<ActualsPageComponent/>}/>
+                                    <Route path="/wez-udzial" element={<WycieczkiPageComponent/>}/>
+                                    <Route path="/filmy" element={<FilmyPage/>}/>
                                     <Route path="/aktualnosci/:postSlug" element={<PostDetails/>}/>
                                     <Route path="/projekty" element={<ProjectsList/>}/>
                                     <Route path="/projekty/:projectSlug" element={<ProjectDetails/>}/>

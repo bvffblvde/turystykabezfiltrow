@@ -16,8 +16,9 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 400,
         color: ({useLocationLinkColor}) => useLocationLinkColor,
         //textTransform: 'none',
+        opacity: 0.7,
         textDecoration: 'none',
-        fontFamily: 'Helvetica-Regular',
+        fontFamily: 'Inter-Regular',
         textTransform: 'capitalize',
         '&:hover': {
             color: ({useLocationLinkColorHover}) => useLocationLinkColorHover,
@@ -26,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
     },
     useLocationLinkNow: {
         fontSize: '16px',
-        fontWeight: 400,
+        fontWeight: 500,
         color: ({useLocationLinkColorNow}) => useLocationLinkColorNow,
         textTransform: 'capitalize',
         textDecoration: 'none',
-        fontFamily: 'Helvetica-Regular',
+        fontFamily: 'Inter-Bold',
         '&:hover': {
             textDecoration: 'none',
         }

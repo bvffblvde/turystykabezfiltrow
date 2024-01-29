@@ -102,6 +102,9 @@ const useStyles = makeStyles((theme) => ({
     textContainerLarge: {
         flex: 1,
         padding: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         // Убрать границу у больших карточек
     },
     textContainerSmall: {

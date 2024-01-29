@@ -15,39 +15,79 @@ import FloatingButton from "../../UI/FloatingButton";
 
 const navLinksData = [
     {
-        url: '/o-fundacji',
-        text: 'O fundacji',
+        url: '/bydgoszcz',
+        text: 'Bydgoszcz',
         subLinks: [
-            { url: '/o-fundacji/misja', text: 'Misja' },
-            { url: '/o-fundacji/historia', text: 'Historia' },
+            {url: '/o-fundacji/misja', text: 'BYDGOSZCZ PRZEZ DZIURKĘ OD KLUCZA'},
+            {url: '/o-fundacji/historia', text: 'BYDGOSKIE OSIEDLA BEZ FILTRÓW'},
+            {url: '/o-fundacji/historia', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
+            {url: '/o-fundacji/historia', text: 'CUDA BYDGOSKIE'},
+            {url: '/o-fundacji/historia', text: 'INNE BYDGOSKIE'},
+            {url: '/o-fundacji/historia', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+
         ],
     },
     {
-        url: '/projekty',
-        text: 'Projekty',
+        url: '/regiony',
+        text: 'Regiony',
         subLinks: [
-            { url: '/projekty/projekt-1', text: 'Projekt 1' },
-            { url: '/projekty/projekt-2', text: 'Projekt 2' },
+            {url: '/projekty/projekt-1', text: 'WŁOCŁAWEK'},
+            {url: '/projekty/projekt-2', text: 'INOWROCŁAW'},
+            {url: '/projekty/projekt-1', text: 'KRAKÓW'},
+            {url: '/projekty/projekt-2', text: 'SZCZECIN'},
+            {url: '/projekty/projekt-1', text: 'GRUDZIĄDZ'},
+            {url: '/projekty/projekt-2', text: 'CHOJNICE I OKOLICE'},
+            {url: '/projekty/projekt-1', text: 'GÓRY SOWIE'},
         ],
     },
     {
-        url: '/aktualnosci',
-        text: 'Aktualności',
+        url: '/kraje',
+        text: 'Kraje',
         subLinks: [
-            { url: '/aktualnosci/wydarzenie-1', text: 'Wydarzenie 1' },
-            { url: '/aktualnosci/wydarzenie-2', text: 'Wydarzenie 2' },
+            {url: '/aktualnosci/wydarzenie-1', text: 'UKRAINA'},
+            {url: '/aktualnosci/wydarzenie-2', text: 'NIEMCY'},
         ],
     },
-    { url: 'https://turystykabezfiltrow.com/', text: 'Blog', subLinks: [] },
+    {
+        url: '/o-nas',
+        text: 'O nas',
+        subLinks: [
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'BEZ FILTRÓW - czyli?'},
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wesprzyj nas!'},
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wydarzenia'},
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Projekty'},
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wydawnictwa'},
+
+        ],
+    },
+    {
+        url: '/filmy',
+        text: 'Filmy',
+        // subLinks: [
+        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Bydgoszcz?'},
+        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Dzieje się !'},
+        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Szlak Piastowski'},
+        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Żnin BEZ FILTRÓW'},
+        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Bydgoscy Avengersi'},
+        //
+        // ],
+    },
+    // {
+    //     url: 'https://turystykabezfiltrow.com/wycieczki/',
+    //     text: 'Sklep',
+    // },
+    {
+        url: 'https://pisanieiprojekty.com/',
+        text: 'Firma P&P',
+    },
+    {
+        url: '/wez-udzial',
+        text: 'WEŹ UDZIAŁ',
+    },
     {
         url: 'https://turystykabezfiltrow.com/wycieczki/',
-        text: 'Wycieczki',
-        subLinks: [
-            { url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Wycieczka 1' },
-            { url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wycieczka 2' },
-        ],
+        text: 'Wesprzyj nas!',
     },
-    { url: '/kontakt', text: 'Kontakt', subLinks: [] },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -67,6 +107,8 @@ const useStyles = makeStyles((theme) => ({
     },
     toolbar: {
         padding: '20px',
+        justifyContent: 'space-between',
+        display: 'flex',
         [theme.breakpoints.down('sm')]: {
             padding: '10px 20px',
             display: 'flex',
@@ -96,23 +138,33 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         }
     },
+    navButtonsWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '20px',
+    },
     navButton: {
         color: ({postsTextColor}) => postsTextColor,
         transition: "all 0.3s ease-out",
         textDecoration: 'none',
-        fontSize: '20px',
-        fontFamily: 'Helvetica-Regular',
-        textTransform: 'none',
-        fontWeight: 400,
-        lineHeight: '27.6px',
-        padding: '10px',
+        fontSize: '16px',
+        fontFamily: 'Inter-Regular',
+        textTransform: 'Uppercase',
+        fontWeight: 500,
+        padding: '0',
+
         '&:hover': {
             backgroundColor: 'transparent',
             color: ({postsHoverTextColor}) => postsHoverTextColor,
         },
+        '&:hover $subMenu': {
+            display: 'flex',
+        },
         [theme.breakpoints.down('sm')]: {
             display: 'none',
-        }
+        },
     },
     wcagButton: {
         border: 'none',
@@ -132,6 +184,7 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
+        color: 'inherit',
         "& path": {
             transition: '300ms ease-in-out',
             fill: ({iconColorFill}) => iconColorFill,
@@ -150,6 +203,38 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'row',
             gap: '32px',
         }
+    },
+    subMenu: {
+        display: 'none',
+        position: 'absolute',
+        flexDirection: 'column',
+        gap: '10px',
+        backgroundColor: ({backgroundColor}) => backgroundColor,
+        borderRadius: '8px',
+        boxShadow: 'none',
+        zIndex: 1,
+        minWidth: '160px',
+        paddingTop: '30px',
+        textTransform: 'capitalize',
+        transition: "all 0.3s ease-out",
+        '& a': {
+            textAlign: 'left',
+            padding: '5px 10px 5px 10px',
+            textTransform: 'capitalize',
+            textDecoration: 'none',
+            transition: "all 0.3s ease-out",
+            color: ({postsTextColor}) => postsTextColor,
+            '&:hover': {
+                transition: "all 0.3s ease-out",
+                backgroundColor: '#f5f5f5',  // Цвет фона при наведении на подпункт
+                color: ({postsHoverTextColor}) => postsHoverTextColor,
+            },
+        },
+    },
+    line: {
+        height: '2px',
+        width: '50%',
+        backgroundColor: ({lineBackgroundColor}) => lineBackgroundColor,
     }
 }));
 
@@ -161,27 +246,43 @@ function Header() {
     return (
         <AppBar position={'fixed'} className={classes.appBar}>
             <Toolbar className={classes.toolbar}>
-                <a href={'/'}>
-                    <img src={Logo} alt="logo" className={classes.logo}/>
-                </a>
+                <Box>
+                    <a href={'/'}>
+                        <img src={Logo} alt="logo" className={classes.logo}/>
+                    </a>
+                </Box>
                 <Box className={classes.title}>
-                    {/*{navLinksData.map((link) => (*/}
-                    {/*    <Link*/}
-                    {/*        key={link.url}*/}
-                    {/*        to={link.url}*/}
-                    {/*        className={classes.navButton}*/}
-                    {/*    >*/}
-                    {/*        {link.text}*/}
-                    {/*    </Link>*/}
-                    {/*))}*/}
-                    {/*    тут нужен твой код кнопок навигации*/}
+                    <Box className={classes.navButtonsWrapper}>
+                        {navLinksData.map((navLink, index) => (
+                            <Box
+                                key={index}
+                                className={classes.navButton}
+                                onMouseEnter={(e) => e.currentTarget.classList.add('hovered')}
+                                onMouseLeave={(e) => e.currentTarget.classList.remove('hovered')}
+                            >
+                                <Link to={navLink.url} className={classes.link}>
+                                    {navLink.text}
+                                </Link>
+                                {navLink.subLinks && navLink.subLinks.length > 0 && (
+                                    <Box className={classes.subMenu}>
+                                        <div className={classes.line}/>
+                                        {navLink.subLinks.map((subLink, subIndex) => (
+                                            <Link key={subIndex} to={subLink.url} className={classes.link}>
+                                                {subLink.text}
+                                            </Link>
+                                        ))}
+                                    </Box>
+                                )}
+                            </Box>
+                        ))}
+                    </Box>
                 </Box>
                 <Box className={classes.buttonWrapper}>
                     <Box>
                         <SettingsDrawer/>
                     </Box>
                 </Box>
-                <FloatingButton />
+                <FloatingButton/>
                 <Box className={classes.mobileButtonSection}>
                     <SettingsDrawer/>
                     <ToggleMenu/>

@@ -9,10 +9,10 @@ const useStyles = makeStyles((theme) => ({
     h4: {
         color: ({postsTextColor}) => postsTextColor,
         transition: "all 0.5s ease-out",
-        fontSize: '32px',
+        fontSize: '20px',
         fontWeight: '500',
         fontFamily: 'Inter-Regular',
-        marginBottom: '32px',
+        marginBottom: '12px',
         [theme.breakpoints.down('sm')]: {
             fontSize: '18px',
             lineHeight: '20px',

@@ -30,16 +30,16 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '14px',
         },
     },
-    darkButton: {
+    whiteButton: {
         color: ({darkButtonTextColor}) => darkButtonTextColor,
         backgroundColor: ({darkButtonBackgroundColor}) => darkButtonBackgroundColor,
         border: `1px solid`,
         borderColor: ({darkButtonBorderColor}) => darkButtonBorderColor,
-        borderRadius: '0',
-        padding: '10px 32px',
-        fontFamily: 'Helvetica-Regular',
+        borderRadius: '6px',
+        padding: '10px',
+        fontFamily: 'Inter-Regular',
         fontSize: '16px',
-        lineHeight: '19px',
+        lineHeight: '20px',
         fontWeight: '400',
         textTransform: 'none',
 
@@ -66,8 +66,8 @@ const StyledButton = ({ variant, text, width, to }) => {
                 return classes.outlinedButton;
             case 'blackOutlined':
                 return classes.blackOutlinedButton;
-            case 'dark':
-                return classes.darkButton;
+            case 'white':
+                return classes.whiteButton;
             default:
                 return classes.defaultButton;
         }

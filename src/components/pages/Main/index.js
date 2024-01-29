@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import MainBannerComponent from "./MainBanner";
 import ActualPostsBlock from "./ActualPosts";
 import ActualProjectsBlock from "./Wycieczki";
 import InvestBlock from "./FinancePartners";
-import { Backdrop, CircularProgress } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {Backdrop, CircularProgress} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import DonatBadgeComponent from "../../UI/DonatBadge";
 import ContactForm from "../../UI/ContactForm";
+import SectionWrapper from "../../UI/SectionWrapper";
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -30,14 +31,16 @@ const MainPage = () => {
 
     return (
         <div>
-            <MainBannerComponent />
-            <ActualPostsBlock />
-            <DonatBadgeComponent />
-            <ActualProjectsBlock />
-            <InvestBlock />
-            <ContactForm />
+            <MainBannerComponent/>
+            <ActualPostsBlock/>
+            <SectionWrapper id="badge">
+                <DonatBadgeComponent/>
+            </SectionWrapper>
+            <ActualProjectsBlock/>
+            <InvestBlock/>
+            <ContactForm/>
             <Backdrop className={classes.backdrop} open={loading}>
-                <CircularProgress color="inherit" />
+                <CircularProgress color="inherit"/>
             </Backdrop>
         </div>
     );

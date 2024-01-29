@@ -129,7 +129,7 @@ const Carousel = ({slides}) => {
                             <>
                                 <Typography className={classes.description}>{slide.description}</Typography>
                                 <div className={classes.buttonContainer}>
-                                    <CustomButton width="100%" text="test"/>
+                                    <CustomButton width="100%" text="Wszystkie Artykuły" variant="white"/>
                                 </div>
                             </>
                         ) : null}

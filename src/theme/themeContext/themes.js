@@ -6,7 +6,7 @@ const themes = {
     light: {
         sectionWrapperBackgroundColor: '#F5F5F7',
         backgroundColor: '#ffffff',
-        textColor: 'black',
+        textColor: '#252525',
         footerTextColor: 'white',
         footerTextColorHover: '#39B2B9',
         footerBackgroundColor: '#001F1A',
@@ -16,16 +16,16 @@ const themes = {
         mainBannerBackgroundImage: `url(${MainBannerLight})`,
 
         postsTextColor: 'black',
-        postsHoverTextColor: '#39B2B9',
+        postsHoverTextColor: '#90AFFF',
 
         defaultButtonBackgroundColor: '#90AFFF',
-        darkButtonBackgroundColor: '#001F1A',
+        darkButtonBackgroundColor: 'white',
 
         defaultButtonBorderColor: '#90AFFF',
-        darkButtonBorderColor: '#001F1A',
+        darkButtonBorderColor: 'white',
 
         defaultButtonTextColor: 'black',
-        darkButtonTextColor: 'white',
+        darkButtonTextColor: '#252525',
 
         iconColorFill: '#001F1A',
 
@@ -34,24 +34,24 @@ const themes = {
         darkHoverButtonBackgroundColor: 'transparent',
 
         defaultHoverButtonBorderColor: '#90AFFF',
-        darkHoverButtonBorderColor: '#001F1A',
+        darkHoverButtonBorderColor: 'white',
 
         defaultHoverButtonTextColor: '#90AFFF',
-        darkHoverButtonTextColor: '#001F1A',
+        darkHoverButtonTextColor: 'white',
 
-        iconColorFillHover: '#39B2B9',
+        iconColorFillHover: '#90AFFF',
 
         paginationBackgroundColor: 'transparent',
         paginationTextColor: '#252525',
-        paginationBorderColor: '#252525',
+        paginationBorderColor: '#90AFFF',
 
-        paginationSelectedBackgroundColor: '#252525',
-        paginationSelectedTextColor: 'white',
-        paginationSelectedBorderColor: '#252525',
+        paginationSelectedBackgroundColor: '#90AFFF',
+        paginationSelectedTextColor: '#252525',
+        paginationSelectedBorderColor: '#90AFFF',
 
-        useLocationLinkColor: '#252525',
-        useLocationLinkColorHover: '#39B2B9',
-        useLocationLinkColorNow: '#39B2B9',
+        useLocationLinkColor: '#151515',
+        useLocationLinkColorHover: '#90AFFF',
+        useLocationLinkColorNow: '#90AFFF',
 
         galleryButtonBorderColor: 'white',
         galleryHoverButtonBorderColor: '#39B2B9',
@@ -73,9 +73,13 @@ const themes = {
         contactFormInputTextColor: '#252525',
         contactFormInputTextColorHover: '#90AFFF',
 
+        listIconColorFill: '#D9D9D9',
+        listIconColorFillHover: '#90AFFF',
+
     },
     dark: {
-
+        listIconColorFillHover: '#FFEA2E',
+        listIconColorFill: '#FFEA2E',
         defaultBorderColor: '#FFEA2E',
         hoverBorderColor: '#FFEA2E',
         contactFormInputTextColor: '#FFEA2E',
