@@ -8,20 +8,20 @@ import {
 } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import {useNavigate, useLocation, Link} from 'react-router-dom';
-import H4 from "../../../UI/H4";
-import SectionWrapper from "../../../UI/SectionWrapper";
-import {useTheme} from "../../../../theme/themeContext";
-import {themes} from "../../../../theme/themeContext/themes";
-import BreadCrumbs from "../../../UI/BreadCrumbs";
-import ContactForm from "../../../UI/ContactForm";
-import DonatBadgeComponent from "../../../UI/DonatBadge";
+import H4 from "../../UI/H4";
+import SectionWrapper from "../../UI/SectionWrapper";
+import {useTheme} from "../../../theme/themeContext";
+import {themes} from "../../../theme/themeContext/themes";
+import BreadCrumbs from "../../UI/BreadCrumbs";
+import ContactForm from "../../UI/ContactForm";
+import DonatBadgeComponent from "../../UI/DonatBadge";
 import axios from "axios";
-import useStyles from "../styles";
-import H1 from "../../../UI/H1";
-import ProjectCard from "../../../UI/ActualProjectsCard";
-import StyledButton from "../../../UI/StyledButton";
+import useStyles from "../Category/styles";
+import H1 from "../../UI/H1";
+import ProjectCard from "../../UI/ActualProjectsCard";
+import StyledButton from "../../UI/StyledButton";
 
-const WycieczkiPageComponent = () => {
+const SeasonPageComponent = () => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
@@ -43,19 +43,17 @@ const WycieczkiPageComponent = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                // Получаем все категории (categories)
-                const categoriesResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100`);
+                // Получаем ID тега "sezon"
+                const tagsResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/tags?per_page=100');
+                const sezonTag = tagsResponse.data.find(tag => tag.name.toLowerCase() === 'sezon');
 
-                // Ищем категорию 'wycieczki'
-                const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
-
-                if (!wycieczkiCategory) {
-                    console.error('Category not found');
+                if (!sezonTag) {
+                    console.error('Tag "sezon" not found.');
                     return;
                 }
 
-                // Получаем все посты с выбранной категорией 'wycieczki'
-                const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${postsPerPage}&page=${page}&_embed`);
+                // Загружаем все посты с тегом "sezon"
+                const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=${postsPerPage}&page=${page}&_embed`);
 
                 const categoriesData = response.data.map(post => {
                     const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
@@ -81,6 +79,8 @@ const WycieczkiPageComponent = () => {
         fetchData().then(() => console.log('Categories data fetched'));
     }, [location.pathname, location.search, page]);
 
+
+
     const handleChangePage = (event, newPage) => {
         console.log('New Page:', newPage);
         setPage(newPage);
@@ -93,7 +93,7 @@ const WycieczkiPageComponent = () => {
         <SectionWrapper id="actual" paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
             <Typography variant="h1" className={classes.title}>
-                Wycieczki
+                WEŹ UDZIAŁ
             </Typography>
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {categoriesData.map((post, index) => (
@@ -141,6 +141,15 @@ const WycieczkiPageComponent = () => {
                 boundaryCount={window.innerWidth < 600 ? 1 : 2}
                 shape="rounded"
             />
+            <Box className={classes.addsPosts}>
+                <H1 text="Wycieczki"/>
+                <ProjectCard projectLimit={5}/>
+                <Grid container spacing={3} className={classes.buttonContainer}>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <StyledButton text="Wszystkie Wycieczki" href="/aktualnosci" width="100%" to="/aktualnosci"/>
+                    </Grid>
+                </Grid>
+            </Box>
             <DonatBadgeComponent/>
             <ContactForm/>
             <Backdrop className={classes.backdrop} open={loading}>
@@ -150,4 +159,4 @@ const WycieczkiPageComponent = () => {
     );
 };
 
-export default WycieczkiPageComponent;
+export default SeasonPageComponent;

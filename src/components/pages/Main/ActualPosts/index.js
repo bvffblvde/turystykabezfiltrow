@@ -18,7 +18,7 @@ const ActualPostsBlock = () => {
 
     return (
         <SectionWrapper id="main-actual-posts" paddingTop="30px">
-            <H1 text="Aktualności"/>
+            <H1 text="Artykuły"/>
             <PostsCard postLimit={6}/>
             <Grid container spacing={3} className={classes.buttonContainer}>
                 <Grid item xs={12} sm={6} md={4}>

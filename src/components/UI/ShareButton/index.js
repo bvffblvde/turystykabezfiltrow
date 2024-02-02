@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { IconButton, Tooltip, useMediaQuery, useTheme } from '@material-ui/core';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import ShareIcon from '@material-ui/icons/Share';
+import { Icon, IconButton, makeStyles, Tooltip, useMediaQuery } from '@material-ui/core';
+import { ReactComponent as ShareIcon } from "../../../assets/Icons/Share.svg";
+import { themes } from "../../../theme/themeContext/themes";
+
+const useStyles = makeStyles((theme) => ({
+    icon: {
+
+    },
+}));
 
 const ShareButton = ({ url }) => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const classes = useStyles();
+    const isMobile = useMediaQuery('(max-width:600px)'); // Установите медиа-запрос в соответствии с вашими требованиями
 
     const [copied, setCopied] = useState(false);
 
@@ -33,11 +39,16 @@ const ShareButton = ({ url }) => {
     return (
         <Tooltip title={isMobile ? 'Udział' : copied ? 'Skopiowano!' : 'Skopiuj link'}>
             <IconButton color="inherit" onClick={handleButtonClick}>
-                {isMobile ? <ShareIcon /> : <FileCopyIcon />}
+                <Icon
+                    component={ShareIcon}
+                    className={classes.icon}
+                    src={ShareIcon}
+                />
             </IconButton>
         </Tooltip>
     );
 };
 
 export default ShareButton;
+
 

@@ -173,19 +173,11 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '32px',
         fontWeight: '700',
         color: ({textColor}) => textColor,
-
     },
-    buttonContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-    },
-    addsPosts: {
-        marginBottom: '80px',
-    },
-    link: {
+     link: {
         textDecoration: 'none',
         color: 'inherit',
-    }
+     }
 }));
 
 export default useStyles;

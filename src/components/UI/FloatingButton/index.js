@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
             right: '20px',
             backgroundColor: ({floatingButtonBackgroundColor}) => floatingButtonBackgroundColor,
             zIndex: 100,
-            borderRadius: '0',
+            borderRadius: '6px',
             width: '50px !important',
             height: '50px !important',
             padding: 0,

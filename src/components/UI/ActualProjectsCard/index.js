@@ -31,8 +31,20 @@ const useStyles = makeStyles((theme) => ({
             transition: "all 0.3s ease-out",
             color: ({postsHoverTextColor}) => postsHoverTextColor,
         },
+        '& $h4': {
+            [theme.breakpoints.down('sm')]: {
+                    fontSize: '20px',
+                    marginBottom: '0',
+                    lineClamp: 2,
+                    boxOrient: 'vertical',
+                    display: '-webkit-box',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+            },
+        },
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'row',
+            gap: '20px',
             alignItems: 'center',
         },
         [theme.breakpoints.down('xs')]: {
@@ -105,7 +117,14 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        // Убрать границу у больших карточек
+        [theme.breakpoints.down('sm')]: {
+            flex: 'unset',
+            padding: '0',
+            display: 'flex',
+            height: '100%',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+        }
     },
     textContainerSmall: {
         //flex: 1,
@@ -149,8 +168,11 @@ const useStyles = makeStyles((theme) => ({
         transition: "all 0.5s ease-out",
 
         [theme.breakpoints.down('sm')]: {
-            width: '100px',
-            height: '132px',
+            width: '200px',
+            aspectRatio: '16/9',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            borderRadius: '8px',
         },
         [theme.breakpoints.up('md')]: {
             width: '100%',
@@ -234,8 +256,8 @@ const ProjectCard = ({ project, projectMediaData }) => {
 };
 
 
-const Projects = ({projectLimit}) => {
-    const {theme} = useTheme();
+const Projects = ({ projectLimit, seasonCard }) => {
+    const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [projectData, setProjectData] = useState([]);
     const [projectMediaData, setProjectMediaData] = useState({});
@@ -244,11 +266,7 @@ const Projects = ({projectLimit}) => {
         const fetchData = async () => {
             try {
                 // Получаем все категории (categories)
-                const categoriesResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100`);
-
-                console.log('All Categories:', categoriesResponse.data.map(category => category.name));
-
-                // Ищем категорию 'wycieczki'
+                const categoriesResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100');
                 const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
 
                 if (!wycieczkiCategory) {
@@ -256,44 +274,66 @@ const Projects = ({projectLimit}) => {
                     return;
                 }
 
-                // Получаем все посты с выбранной категорией 'wycieczki'
-                const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${projectLimit}`);
+                // Получаем последние посты с выбранной категорией 'wycieczki'
+                const latestWycieczkiResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${projectLimit}`);
 
-                if (response.data.length === 0) {
-                    console.error('No posts with category "wycieczki" found.');
-                    return;
+                // Если есть seasonCard, добавляем последний пост с тегом "sezon"
+                if (seasonCard) {
+                    const tagsResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/tags?per_page=100');
+                    const sezonTag = tagsResponse.data.find(tag => tag.name.toLowerCase() === 'sezon');
+
+                    if (!sezonTag) {
+                        console.error('Tag "sezon" not found.');
+                        return;
+                    }
+
+                    const latestSezonResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=1&_embed`);
+                    const combinedData = [...latestSezonResponse.data, ...latestWycieczkiResponse.data];
+                    setProjectData(combinedData);
+
+                    const mediaIds = combinedData.map((project) => project.featured_media);
+                    const mediaPromises = mediaIds.map((mediaId) =>
+                        axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/media/${mediaId}`)
+                    );
+                    const mediaResults = await Promise.all(mediaPromises);
+
+                    const mediaDataObject = mediaResults.reduce((acc, media) => {
+                        acc[media.data.id] = media.data;
+                        return acc;
+                    }, {});
+                    setProjectMediaData(mediaDataObject);
+                } else {
+                    setProjectData(latestWycieczkiResponse.data);
+
+                    const mediaIds = latestWycieczkiResponse.data.map((project) => project.featured_media);
+                    const mediaPromises = mediaIds.map((mediaId) =>
+                        axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/media/${mediaId}`)
+                    );
+                    const mediaResults = await Promise.all(mediaPromises);
+
+                    const mediaDataObject = mediaResults.reduce((acc, media) => {
+                        acc[media.data.id] = media.data;
+                        return acc;
+                    }, {});
+                    setProjectMediaData(mediaDataObject);
                 }
-
-                setProjectData(response.data);
-
-                const mediaIds = response.data.map((project) => project.featured_media);
-                const mediaPromises = mediaIds.map((mediaId) =>
-                    axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/media/${mediaId}`)
-                );
-                const mediaResults = await Promise.all(mediaPromises);
-
-                const mediaDataObject = mediaResults.reduce((acc, media) => {
-                    acc[media.data.id] = media.data;
-                    return acc;
-                }, {});
-                setProjectMediaData(mediaDataObject);
-
             } catch (error) {
-                console.error('Error fetching project data:', error);
+                console.error(`Error fetching project data: ${error}`);
             }
         };
 
         fetchData().then(r => console.log('Project data fetched'));
-    }, [projectLimit]);
+    }, [projectLimit, seasonCard]);
 
-    const smallProjects = projectData.slice(0, 4).map(project => ({...project, large: false}));
-    const largeProject = projectData.slice(4, 5).map(project => ({...project, large: true}));
+
+    const smallProjects = projectData.slice(1, 5).map(project => ({ ...project, large: false }));
+    const largeProject = projectData.slice(0, 1).map(project => ({ ...project, large: true }));
 
     return (
         <Box className={classes.boxWrapper}>
             <Box className={classes.largeCardBoxWrapper}>
                 {largeProject.length > 0 && (
-                    <ProjectCard project={largeProject[0]} projectMediaData={projectMediaData}/>
+                    <ProjectCard project={largeProject[0]} projectMediaData={projectMediaData} />
                 )}
             </Box>
             <Box className={classes.smallCardBoxWrapper}>
@@ -311,5 +351,7 @@ const Projects = ({projectLimit}) => {
 };
 
 export default Projects;
+
+
 
 

@@ -14,8 +14,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         marginBottom: '12px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '18px',
-            lineHeight: '20px',
+            fontSize: '16px',
+            marginBottom: '10px',
+
         }
     },
 }));

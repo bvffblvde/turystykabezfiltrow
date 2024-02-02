@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         color: ({textColor}) => textColor,
         display: 'inline-block',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '8px',
+            fontSize: '14px',
         },
     },
     inputWrapper: {
@@ -101,6 +101,9 @@ const useStyles = makeStyles((theme) => ({
                 color: ({hoverBorderColor}) => hoverBorderColor,
             }
         },
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        }
     },
     subTitleSection: {
         textAlign: 'center',
@@ -108,7 +111,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         fontSize: '24px',
         fontWeight: '500',
-        [theme.breakpoints.down('sm')]: {}
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '16px',
+        }
     },
     icon: {
         width: '24px',
@@ -172,7 +177,7 @@ const ContactForm = () => {
         <SectionWrapper id="main-contact">
             <H1 text="Kontakt"/>
             <Typography variant="h2" className={classes.subTitleSection}>
-                Zostaw prośbę o udział w wycieczce
+                Zapytaj o konkretny materiał, wycieczkę lub możliwość współpracy
             </Typography>
             <Box className={classes.formWrapper}>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}

@@ -7,7 +7,7 @@ import {
     CircularProgress, Box, Icon,
 } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation, Link} from 'react-router-dom';
+import {useNavigate, useLocation, Link, useParams} from 'react-router-dom';
 import H4 from "../../../UI/H4";
 import SectionWrapper from "../../../UI/SectionWrapper";
 import {useTheme} from "../../../../theme/themeContext";
@@ -19,30 +19,17 @@ import axios from "axios";
 import {ReactComponent as PostsCount} from "../../../../assets/Icons/posts-count-icon.svg";
 import useStyles from "../styles";
 
+
 const BydgoszczPage = () => {
-    const {theme} = useTheme();
+    const { categorySlug } = useParams();
+    const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
-    const [page, setPage] = useState(1);
-    //const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
-    //const postsPerPage = 9;
-
-    // const navigate = useNavigate();
-    const location = useLocation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-
-    // useEffect(() => {
-    //     const params = new URLSearchParams(location.search);
-    //     const newPage = parseInt(params.get('page')) || 1;
-    //
-    //     if (newPage !== page) {
-    //         setPage(newPage);
-    //     }
-    // }, [location.search, page]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -71,10 +58,11 @@ const BydgoszczPage = () => {
                             categoryName: category.name,
                             lastPostImage: imageUrl,
                             postCount: category.count,
+                            categorySlug: category.slug,
+                            categoryId: category.id, // Добавляем id категории
                         });
                     }
                 }
-
 
                 setCategoriesData(categoriesData);
             } catch (error) {
@@ -85,70 +73,66 @@ const BydgoszczPage = () => {
         };
 
         fetchData().then(() => console.log('Categories data fetched'));
-    }, [location.pathname, location.search, page]);
-
-
-    // const handleChangePage = (event, newPage) => {
-    //     navigate(`${location.pathname}?page=${newPage}`);
-    //     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // };
+    }, []);
 
     return (
         <SectionWrapper id="bydgoszcz" paddingBottom="100px" paddingTop="120px">
-            <BreadCrumbs/>
+            <BreadCrumbs />
             <Typography variant="h1" className={classes.title}>
                 Bydgoszcz
             </Typography>
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {categoriesData.map((category, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>
-                        <Box className={classes.root}>
-                            {category.lastPostImage && (
-                                <div className={classes.imageContainer}>
-                                    <img
-                                        src={category.lastPostImage}
-                                        alt={category.categoryName}
-                                        className={classes.image}
-                                        loading="lazy"
-                                    />
-                                </div>
-                            )}
-                            <Box className={classes.textContainer}>
-                                <Box>
-                                    <H4 className={classes.h4}>{category.categoryName}</H4>
-                                </Box>
-                                <Box className={classes.countSection}>
-                                    <Icon
-                                        component={PostsCount}
-                                        className={classes.icon}
-                                        src={PostsCount}
-                                    />
-                                    <Typography variant="body2" className={classes.date}>
-                                        {`${category.postCount}`}
-                                    </Typography>
+                        <Link to={`/bydgoszcz/${category.categorySlug}`} className={classes.linkWrapper}>
+                            <Box className={classes.root}>
+                                {category.lastPostImage && (
+                                    <div className={classes.imageContainer}>
+                                        <img
+                                            src={category.lastPostImage}
+                                            alt={category.categoryName}
+                                            className={classes.image}
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                )}
+                                <Box className={classes.textContainer}>
+                                    <Box>
+                                        <Typography
+                                            variant="h4"
+                                            className={classes.h4}
+                                        >
+                                            {category.categoryName}
+                                        </Typography>
+                                    </Box>
+                                    <Box className={classes.countSection}>
+                                        <Icon
+                                            component={PostsCount}
+                                            className={classes.icon}
+                                            src={PostsCount}
+                                        />
+                                        <Typography variant="body2" className={classes.date}>
+                                            {`${category.postCount}`}
+                                        </Typography>
+                                    </Box>
                                 </Box>
                             </Box>
-                        </Box>
+                        </Link>
                     </Grid>
                 ))}
             </Grid>
-            {/*<Pagination*/}
-            {/*    className={classes.pagination}*/}
-            {/*    count={totalPages}*/}
-            {/*    page={page}*/}
-            {/*    onChange={handleChangePage}*/}
-            {/*    boundaryCount={window.innerWidth < 600 ? 1 : 2}*/}
-            {/*    shape="rounded"*/}
-            {/*/>*/}
-            <DonatBadgeComponent/>
-            <ContactForm/>
+            <DonatBadgeComponent />
+            <ContactForm />
             <Backdrop className={classes.backdrop} open={loading}>
-                <CircularProgress color="inherit"/>
+                <CircularProgress color="inherit" />
             </Backdrop>
         </SectionWrapper>
     );
 };
 
 export default BydgoszczPage;
+
+
+
 
 

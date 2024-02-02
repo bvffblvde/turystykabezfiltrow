@@ -12,8 +12,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '30px',
         textAlign: 'center',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
-            lineHeight: '23px',
+            fontSize: '24px',
         }
     },
 }));

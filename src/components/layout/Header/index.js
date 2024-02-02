@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {makeStyles} from '@material-ui/core/styles';
 import Logo from "../../../assets/Logo/LOGO.svg";
-import {Box} from "@material-ui/core";
+import {Box, Icon, IconButton} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
@@ -11,6 +11,7 @@ import {ReactComponent as WCAGIcon} from "../../../assets/Icons/wcag-logo.svg";
 import SettingsDrawer from "../../UI/WCAGDrawer";
 import ToggleMenu from "../ToggleMenu";
 import FloatingButton from "../../UI/FloatingButton";
+import {ReactComponent as SearchIcon} from "../../../assets/Icons/search.svg";
 
 
 const navLinksData = [
@@ -18,75 +19,69 @@ const navLinksData = [
         url: '/bydgoszcz',
         text: 'Bydgoszcz',
         subLinks: [
-            {url: '/o-fundacji/misja', text: 'BYDGOSZCZ PRZEZ DZIURKĘ OD KLUCZA'},
-            {url: '/o-fundacji/historia', text: 'BYDGOSKIE OSIEDLA BEZ FILTRÓW'},
-            {url: '/o-fundacji/historia', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
-            {url: '/o-fundacji/historia', text: 'CUDA BYDGOSKIE'},
-            {url: '/o-fundacji/historia', text: 'INNE BYDGOSKIE'},
-            {url: '/o-fundacji/historia', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+            {url: '/bydgoszcz/cykl-bydgoszcz-przez-dziurke-od-klucza', text: 'BYDGOSZCZ PRZEZ DZIURKĘ OD KLUCZA'},
+            {url: '/bydgoszcz/cykl-bydgoskie-osiedla-bez-filtrow', text: 'BYDGOSKIE OSIEDLA BEZ FILTRÓW'},
+            {url: '/bydgoszcz/cykl-bydgoszcz-narodzona-z-wody', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
+            {url: '/bydgoszcz/cykl-cuda-bydgoskie', text: 'CUDA BYDGOSKIE'},
+            {url: '/bydgoszcz/inne-bydgoskie', text: 'INNE BYDGOSKIE'},
+            //{url: '/o-fundacji/historia', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
 
-        ],
+        ].sort((a, b) => a.text.localeCompare(b.text)),
     },
     {
         url: '/regiony',
         text: 'Regiony',
         subLinks: [
-            {url: '/projekty/projekt-1', text: 'WŁOCŁAWEK'},
-            {url: '/projekty/projekt-2', text: 'INOWROCŁAW'},
-            {url: '/projekty/projekt-1', text: 'KRAKÓW'},
-            {url: '/projekty/projekt-2', text: 'SZCZECIN'},
-            {url: '/projekty/projekt-1', text: 'GRUDZIĄDZ'},
-            {url: '/projekty/projekt-2', text: 'CHOJNICE I OKOLICE'},
-            {url: '/projekty/projekt-1', text: 'GÓRY SOWIE'},
-        ],
+            {url: '/regiony/wloclawek', text: 'WŁOCŁAWEK'},
+            {url: '/regiony/inowroclaw', text: 'INOWROCŁAW'},
+            {url: '/regiony/krakow', text: 'KRAKÓW'},
+            {url: '/regiony/szczecin', text: 'SZCZECIN'},
+            {url: '/regiony/grudziadz', text: 'GRUDZIĄDZ'},
+            {url: '/regiony/chojnice', text: 'CHOJNICE I OKOLICE'},
+            {url: '/regiony/dolnyslask', text: 'GÓRY SOWIE'},
+        ].sort((a, b) => a.text.localeCompare(b.text)),
     },
     {
         url: '/kraje',
         text: 'Kraje',
         subLinks: [
-            {url: '/aktualnosci/wydarzenie-1', text: 'UKRAINA'},
-            {url: '/aktualnosci/wydarzenie-2', text: 'NIEMCY'},
-        ],
-    },
-    {
-        url: '/o-nas',
-        text: 'O nas',
-        subLinks: [
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'BEZ FILTRÓW - czyli?'},
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wesprzyj nas!'},
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wydarzenia'},
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Projekty'},
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wydawnictwa'},
-
+            {url: '/kraje/ukraina', text: 'UKRAINA'},
+            {url: '/kraje/wycieczkazagraniczna', text: 'NIEMCY'},
         ],
     },
     {
         url: '/filmy',
         text: 'Filmy',
-        // subLinks: [
-        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Bydgoszcz?'},
-        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Dzieje się !'},
-        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Szlak Piastowski'},
-        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Żnin BEZ FILTRÓW'},
-        //     {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'Bydgoscy Avengersi'},
-        //
-        // ],
     },
     // {
     //     url: 'https://turystykabezfiltrow.com/wycieczki/',
     //     text: 'Sklep',
     // },
     {
-        url: 'https://pisanieiprojekty.com/',
-        text: 'Firma P&P',
-    },
-    {
         url: '/wez-udzial',
         text: 'WEŹ UDZIAŁ',
     },
     {
-        url: 'https://turystykabezfiltrow.com/wycieczki/',
+        url: '/o-nas',
+        text: 'O nas',
+        subLinks: [
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'BEZ FILTRÓW - czyli?'},
+            {url: 'https://www.instagram.com/carfortrip_/?fbclid=IwAR0AnzB3bveYLQbilGia_XFBPek4C9zSQop5rmu-Gd8MLlX5FpKx_fnkDTQ', text: 'Wycieczki do Gruzji'},
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Projekty'},
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wydawnictwa'},
+
+        ],
+    },
+    {
+        url: 'https://pisanieiprojekty.com/',
+        text: 'Firma P&P',
+        openInNewTab: true
+    },
+    {
+        //TODO: change url
+        url: 'https://patronite.pl/turystykabezfiltrow',
         text: 'Wesprzyj nas!',
+        openInNewTab: true
     },
 ];
 
@@ -235,7 +230,26 @@ const useStyles = makeStyles((theme) => ({
         height: '2px',
         width: '50%',
         backgroundColor: ({lineBackgroundColor}) => lineBackgroundColor,
+    },
+    iconLink: {
+        "& path": {
+            transition: '300ms ease-in-out',
+            stroke: ({ iconColorFill }) => iconColorFill,
+        },
+        '&:hover': {
+            backgroundColor: 'transparent',
+            "& path": {
+                transition: '300ms ease-in-out',
+                stroke: ({ iconColorFillHover }) => iconColorFillHover,
+            },
+        },
+    },
+    settingsDrawerBox: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
+        }
     }
+
 }));
 
 function Header() {
@@ -260,7 +274,10 @@ function Header() {
                                 onMouseEnter={(e) => e.currentTarget.classList.add('hovered')}
                                 onMouseLeave={(e) => e.currentTarget.classList.remove('hovered')}
                             >
-                                <Link to={navLink.url} className={classes.link}>
+                                <Link to={navLink.url} className={classes.link} {...(navLink.openInNewTab && {
+                                    target: '_blank',
+                                    rel: 'noopener noreferrer',
+                                })}>
                                     {navLink.text}
                                 </Link>
                                 {navLink.subLinks && navLink.subLinks.length > 0 && (
@@ -279,12 +296,21 @@ function Header() {
                 </Box>
                 <Box className={classes.buttonWrapper}>
                     <Box>
+                        <Link to="/wyszukiwarka" className={classes.iconLink}>
+                            <Icon
+                                component={SearchIcon}
+                                className={classes.icon}
+                                src={SearchIcon}
+                            />
+                        </Link>
+                    </Box>
+                    <Box>
                         <SettingsDrawer/>
                     </Box>
                 </Box>
                 <FloatingButton/>
                 <Box className={classes.mobileButtonSection}>
-                    <SettingsDrawer/>
+                    {/*<SettingsDrawer/>*/}
                     <ToggleMenu/>
                 </Box>
 

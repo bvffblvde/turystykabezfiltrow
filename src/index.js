@@ -23,6 +23,10 @@ import RegionyPage from "./components/pages/Category/RegionyPage";
 import ActualsPageComponent from "./components/pages/Category/ActualsPage";
 import WycieczkiPageComponent from "./components/pages/Category/WycieczkiPage";
 import FilmyPage from "./components/pages/Filmy";
+import Wyszukiwarka from "./components/pages/Search";
+import BydgoszczPostsPage from "./components/pages/Category/SubCategoryPages/BydgoszczPosts";
+import RegionyPostsPage from "./components/pages/Category/SubCategoryPages/RegionyPosts";
+import SeasonPageComponent from "./components/pages/Season";
 
 const App = () => {
 
@@ -36,17 +40,29 @@ const App = () => {
                                 <Header/>
                                 <Routes>
                                     <Route path="/" element={<MainPage/>}/>
+
                                     <Route path="/bydgoszcz" element={<BydgoszczPage/>}/>
+                                    <Route path="/bydgoszcz/:categorySlug" element={<BydgoszczPostsPage/>}/>
+                                    <Route path="/bydgoszcz/:categorySlug/:postSlug" element={<PostDetails/>}/>
+
                                     <Route path="/regiony" element={<RegionyPage/>}/>
+                                    <Route path="/regiony/:tagSlug" element={<RegionyPostsPage/>}/>
+                                    <Route path="/regiony/:tagSlug/:postSlug" element={<PostDetails/>}/>
+
                                     <Route path="/kraje" element={<KrajePage/>}/>
+                                    <Route path="/kraje/:tagSlug" element={<RegionyPostsPage/>}/>
+                                    <Route path="/kraje/:tagSlug/:postSlug" element={<PostDetails/>}/>
+
                                     <Route path="/aktualnosci" element={<ActualsPageComponent/>}/>
-                                    <Route path="/wez-udzial" element={<WycieczkiPageComponent/>}/>
+                                    <Route path="/wycieczki" element={<WycieczkiPageComponent/>}/>
+                                    <Route path="/wez-udzial" element={<SeasonPageComponent/>}/>
                                     <Route path="/filmy" element={<FilmyPage/>}/>
-                                    <Route path="/aktualnosci/:postSlug" element={<PostDetails/>}/>
-                                    <Route path="/projekty" element={<ProjectsList/>}/>
-                                    <Route path="/projekty/:projectSlug" element={<ProjectDetails/>}/>
+                                    <Route path="/wyszukiwarka" element={<Wyszukiwarka/>}/>
+                                    {/*<Route path="/aktualnosci/:postSlug" element={<PostDetails/>}/>*/}
+                                    {/*<Route path="/projekty" element={<ProjectsList/>}/>*/}
+                                    {/*<Route path="/projekty/:projectSlug" element={<ProjectDetails/>}/>*/}
                                     <Route path="/declaracja-dostepnosci" element={<DocumentPage/>}/>
-                                    <Route path="/o-fundacji" element={<About/>}/>
+                                    {/*<Route path="/o-fundacji" element={<About/>}/>*/}
                                     {/*<Route path="*" element={<NotFoundPage/>}/>*/}
                                 </Routes>
                                 <Footer/>

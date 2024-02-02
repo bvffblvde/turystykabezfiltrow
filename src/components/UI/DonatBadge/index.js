@@ -18,15 +18,33 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: ({defaultButtonBackgroundColor}) => defaultButtonBackgroundColor,
         border: 'none',
         borderRadius: '12px',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+            padding: '10px',
+            alignItems: 'flex-start',
+            gap: '16px',
+        }
     },
     badgeDescription: {
         color: ({defaultButtonTextColor}) => defaultButtonTextColor,
         fontSize: '20px',
         fontWeight: '500',
         fontFamily: 'Inter-Regular',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '16px',
+        }
     },
     descriptionWrapper: {
         width: '50%',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        }
+    },
+    buttonWrapper: {
+        width: '25%',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        }
     }
 }));
 
@@ -44,12 +62,12 @@ const DonatBadgeComponent = () => {
                 </Box>
                 <Box className={classes.descriptionWrapper}>
                     <Typography variant="h2" component="h2" className={classes.badgeDescription}>
-                        Lorem ipsum dolor sit amet consectetur. Mollis eget vel ut sit bibendum mauris gravida orci
-                        quis. Malesuada integer ac aliquet maecenas blandit orci adipiscing sagittis.
+                        Wspieraj “TURYSTYKĘ BEZ FILTRÓW” NA PATRONITE!
+                        Zbieramy na kolejny film o Bydgoszczy.
                     </Typography>
                 </Box>
-                <Box style={{width: '25%'}}>
-                    <StyledButton text="Wesprzyj nas" width="100%" to="/" variant="white"/>
+                <Box className={classes.buttonWrapper}>
+                    <StyledButton text="Wesprzyj Nas!" width="100%" to="https://patronite.pl/turystykabezfiltrow" variant="white"/>
                 </Box>
             </Box>
         </>

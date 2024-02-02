@@ -5,6 +5,8 @@ import CustomButton from "../StyledButton";
 import SwiperCore, {Pagination, Autoplay, EffectFade} from "swiper";
 import Typography from "@material-ui/core/Typography";
 import 'swiper/swiper.min.css';
+import {useTheme} from "../../../theme/themeContext";
+import {themes} from "../../../theme/themeContext/themes";
 
 SwiperCore.use([Pagination, Autoplay, EffectFade]);
 
@@ -22,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         borderRadius: '0 0 12px 12px',
+        [theme.breakpoints.down('sm')]: {
+            borderRadius: 0,
+        }
     },
     slideContent: {
         //position: 'absolute',
@@ -35,11 +40,14 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 1,
         [theme.breakpoints.down('sm')]: {
             // top: '50%',
-            // width: '80%',
+            width: 'calc(100% - 40px)',
         }
     },
     buttonContainer: {
         width: '60%',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        }
     },
     pagination: {
         padding: '0 20px 0 20px',
@@ -76,29 +84,32 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '20px',
         fontWeight: 700,
         textAlign: 'left',
-        color: '#fff',
+        color: ({inputBorderColor}) => inputBorderColor,
         textTransform: 'uppercase',
 
         fontFamily: 'Inter-Bold',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '22px',
+            fontSize: '32px',
         }
     },
     description: {
         fontFamily: 'Inter-Bold',
         textTransform: 'uppercase',
-        fontSize: '32px',
-        fontWeight: 700,
+        fontSize: '24px',
+        fontWeight: 500,
+        color: ({inputBorderColor}) => inputBorderColor,
         textAlign: 'left',
         marginBottom: '20px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '14px',
+            width: '80%',
+            fontSize: '20px',
         }
     }
 }));
 
 const Carousel = ({slides}) => {
-    const classes = useStyles();
+    const {theme} = useTheme();
+    const classes = useStyles(themes[theme]);
     const [activeSlide, setActiveSlide] = useState(0);
 
     const handleSlideChange = (swiper) => {
@@ -128,12 +139,11 @@ const Carousel = ({slides}) => {
                         {slide.description ? (
                             <>
                                 <Typography className={classes.description}>{slide.description}</Typography>
-                                <div className={classes.buttonContainer}>
-                                    <CustomButton width="100%" text="Wszystkie Artykuły" variant="white"/>
-                                </div>
                             </>
                         ) : null}
-
+                        <div className={classes.buttonContainer}>
+                                <CustomButton width="100%" text={slide.buttonText} variant="white" to={slide.link}/>
+                        </div>
                         {/*{index === 0 && (*/}
                         {/*    <CustomButton width="100%" text="Зателефонувати"/>*/}
                         {/*)}*/}

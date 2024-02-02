@@ -64,7 +64,7 @@ const themes = {
         downloadButtonBorderColorHover: '#39B2B9',
 
 
-        floatingButtonBackgroundColor: '#39B2B9',
+        floatingButtonBackgroundColor: '#0047FF',
         floatingButtonBorderColor: 'transparent',
 
 
@@ -75,9 +75,11 @@ const themes = {
 
         listIconColorFill: '#D9D9D9',
         listIconColorFillHover: '#90AFFF',
+        inputBorderColor: '#ffffff',
 
     },
     dark: {
+        inputBorderColor: '#FFEA2E',
         listIconColorFillHover: '#FFEA2E',
         listIconColorFill: '#FFEA2E',
         defaultBorderColor: '#FFEA2E',
@@ -110,6 +112,7 @@ const themes = {
         darkButtonBackgroundColor: '#FFEA2E',
 
         defaultButtonBorderColor: '#FFEA2E',
+        darkButtonBorderColor: '#151515',
 
         paginationSelectedBackgroundColor: '#FFEA2E',
         paginationSelectedTextColor: '#151515',
@@ -130,10 +133,10 @@ const themes = {
         darkHoverButtonBackgroundColor: 'transparent',
 
         defaultHoverButtonBorderColor: '#FFEA2E',
-        darkHoverButtonBorderColor: '#FFEA2E',
+        darkHoverButtonBorderColor: '#151515',
 
         defaultHoverButtonTextColor: '#FFEA2E',
-        darkHoverButtonTextColor: '#FFEA2E',
+        darkHoverButtonTextColor: '#151515',
 
         iconColorFillHover: '#FFEA2E',
 
