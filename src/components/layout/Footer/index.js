@@ -49,8 +49,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Regular',
         fontSize: '24px',
         fontWeight: '400',
-        lineHeight: '28px',
-        letterSpacing: '0em',
         marginBottom: '10px',
         color: ({footerTextColor}) => footerTextColor,
         transition: "all 0.3s ease-out",
@@ -86,8 +84,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Bold',
         fontSize: '20px',
         fontWeight: '700',
-        lineHeight: '23px',
-        letterSpacing: '0em',
         transition: "all 0.3s ease-out",
         color: ({footerTextColor}) => footerTextColor,
         [theme.breakpoints.down('sm')]: {
@@ -98,8 +94,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Regular',
         fontSize: '20px',
         fontWeight: '400',
-        lineHeight: '23px',
-        letterSpacing: '0em',
         transition: "all 0.3s ease-out",
         color: ({footerTextColor}) => footerTextColor,
         [theme.breakpoints.down('sm')]: {

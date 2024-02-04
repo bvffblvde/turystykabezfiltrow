@@ -6,7 +6,7 @@ import {
     CircularProgress,
 } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useNavigate, useLocation, Link} from 'react-router-dom';
 import SectionWrapper from '../../UI/SectionWrapper';
 import {useTheme} from '../../../theme/themeContext';
 import {themes} from '../../../theme/themeContext/themes';
@@ -63,6 +63,9 @@ const Wyszukiwarka = () => {
                         postCount: totalPosts,
                         postDescription: post.excerpt.rendered,
                         postDate: post.date,
+                        slug: post.slug,
+                        categories: post.categories,
+                        tags: post.tags,
                     }));
 
                     setPostsData(postsData);
@@ -124,41 +127,53 @@ const Wyszukiwarka = () => {
 
                 {postsData.map((post, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>
+                        <Link
+                            to={
+                                post.categories?.some(category => category === 730842049) ||
+                                post.tags?.some(tag => tag === 730842067)
+                                    ? `/wycieczki/${post.slug}`
+                                    : `/aktualnosci/${post.slug}`
+                            }
+                            onClick={() => console.log("Link Clicked:", post)}
+                            className={classes.linkWrapper}
+                        >
+
                         <Box className={classes.root}>
-                            {post.lastPostImage && (
-                                <div className={classes.imageContainer}>
-                                    <img
-                                        src={post.lastPostImage}
-                                        alt={post.postTitle}
-                                        className={classes.image}
-                                        loading="lazy"
-                                    />
-                                </div>
-                            )}
-                            <Box className={classes.textContainer}>
-                                <Box>
-                                    <Box>
-                                        <H4 className={classes.h4}>{post.postTitle}</H4>
-                                    </Box>
-                                    <Box className={classes.description}>
-                                        <Typography
-                                            variant="body2"
-                                            className={classes.postDescription}
-                                            dangerouslySetInnerHTML={{__html: post.postDescription}}
+                                {post.lastPostImage && (
+                                    <div className={classes.imageContainer}>
+                                        <img
+                                            src={post.lastPostImage}
+                                            alt={post.postTitle}
+                                            className={classes.image}
+                                            loading="lazy"
                                         />
+                                    </div>
+                                )}
+                                <Box className={classes.textContainer}>
+                                    <Box>
+                                        <Box>
+                                            <H4 className={classes.h4}>{post.postTitle}</H4>
+                                        </Box>
+                                        <Box className={classes.description}>
+                                            <Typography
+                                                variant="body2"
+                                                className={classes.postDescription}
+                                                dangerouslySetInnerHTML={{__html: post.postDescription}}
+                                            />
+                                        </Box>
                                     </Box>
-                                </Box>
-                                <Box>
-                                    <Typography variant="body2" className={classes.date}>
-                                        {new Date(post?.postDate).toLocaleDateString('pl-PL', {
-                                            month: 'long',
-                                            day: 'numeric',
-                                            year: 'numeric',
-                                        })}
-                                    </Typography>
+                                    <Box>
+                                        <Typography variant="body2" className={classes.date}>
+                                            {new Date(post?.postDate).toLocaleDateString('pl-PL', {
+                                                month: 'long',
+                                                day: 'numeric',
+                                                year: 'numeric',
+                                            })}
+                                        </Typography>
+                                    </Box>
                                 </Box>
                             </Box>
-                        </Box>
+                        </Link>
                     </Grid>
                 ))}
             </Grid>

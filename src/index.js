@@ -8,15 +8,11 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 
 import {ThemeProvider} from "./theme/themeContext";
-import Posts from "./components/pages/Posts";
-import ProjectsList from "./components/pages/Projects";
 import PostDetails from "./components/pages/PostPageComponent";
 import ProjectDetails from "./components/pages/ProjectPageComponent";
 import DocumentPage from "./components/pages/Document";
-import About from "./components/pages/About";
 import {FloatingButtonProvider} from "./components/UI/FloatingButton/FloatingButtonContext";
 import {FontSizeProvider} from "./components/UI/FontSizeChange/FontSizeContext";
-import CategoryPage from "./components/UI/CategoryPageComponent";
 import BydgoszczPage from "./components/pages/Category/BydgoszczPage";
 import KrajePage from "./components/pages/Category/KrajePage";
 import RegionyPage from "./components/pages/Category/RegionyPage";
@@ -54,8 +50,14 @@ const App = () => {
                                     <Route path="/kraje/:tagSlug/:postSlug" element={<PostDetails/>}/>
 
                                     <Route path="/aktualnosci" element={<ActualsPageComponent/>}/>
+                                    <Route path="/aktualnosci/:postSlug" element={<PostDetails/>}/>
+
                                     <Route path="/wycieczki" element={<WycieczkiPageComponent/>}/>
+                                    <Route path="/wycieczki/:projectSlug" element={<ProjectDetails/>}/>
+
                                     <Route path="/wez-udzial" element={<SeasonPageComponent/>}/>
+                                    <Route path="/wez-udzial/:postSlug" element={<PostDetails/>}/>
+
                                     <Route path="/filmy" element={<FilmyPage/>}/>
                                     <Route path="/wyszukiwarka" element={<Wyszukiwarka/>}/>
                                     {/*<Route path="/aktualnosci/:postSlug" element={<PostDetails/>}/>*/}

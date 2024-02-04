@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) =>
             fontSize: theme.typography.fontSize - 2,
         },
         button: {
-            fontFamily: 'Helvetica-Regular',
+            fontFamily: 'Inter-Regular',
             fontSize: '20px',
             fontWeight: 400,
             transition: "all 0.3s ease-out",

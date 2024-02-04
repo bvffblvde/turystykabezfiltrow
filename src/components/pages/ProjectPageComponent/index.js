@@ -1,239 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {Backdrop, Box, Button, CircularProgress, makeStyles, Typography,} from '@material-ui/core';
+import {Backdrop, Box, Button, CircularProgress, Typography,} from '@material-ui/core';
 import SectionWrapper from '../../UI/SectionWrapper';
 import {useTheme} from '../../../theme/themeContext';
 import {themes} from '../../../theme/themeContext/themes';
 import BreadCrumbs from '../../UI/BreadCrumbs';
 import FullscreenModal from "../../UI/ImageModalComponent";
 import DownloadButton from "../../UI/DownloadButton";
+import useStyles from './styles';
+import DonatBadgeComponent from "../../UI/DonatBadge";
+import ContactForm from "../../UI/ContactForm";
+import ProjectCard from "../../UI/ActualProjectsCard";
+import Sidebar from "../../UI/SideBar";
+import ShareButton from "../../UI/ShareButton";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginTop: '32px',
-    },
-    title: {
-        fontFamily: 'Helvetica-Bold',
-        fontSize: '56px',
-        fontWeight: 700,
-        lineHeight: '76px',
-        letterSpacing: '0em',
-        color: ({textColor}) => textColor,
-        marginBottom: '10px',
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
-            fontWeight: 700,
-            lineHeight: '23px',
-            letterSpacing: '0em',
-        },
-    },
-    description: {
-        fontFamily: 'Helvetica-Regular',
-        fontSize: '20px',
-        fontWeight: 400,
-        lineHeight: '23px',
-        letterSpacing: '0em',
-        color: ({textColor}) => textColor,
-        '& p': {
-            margin: '0',
-        },
-        '& a': {
-            color: ({textColor}) => textColor,
-        },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
-            lineHeight: '18px',
-        }
-    },
-    date: {
-        fontFamily: 'Helvetica-Regular',
-        fontSize: '20px',
-        fontWeight: 400,
-        lineHeight: '23px',
-        letterSpacing: '0em',
-        opacity: '0.6',
-        color: ({textColor}) => textColor,
-        marginBottom: '20px',
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
-            lineHeight: '18px',
-            marginBottom: '32px',
-        },
-    },
-    imageContainer: {
-        width: '100%',
-        height: '100%',
-        position: 'relative',
-        '& img': {
-            width: '100%',
-            maxHeight: '700px',
-            borderRadius: '0',
-            objectFit: 'cover',
-            aspectRatio: '3/4',
-            listStyle: 'none',
-            paddingLeft: 0,
-            cursor: 'pointer',
-            transition: 'transform 0.3s ease-in-out',
-        },
-    },
-    image: {
-        width: '100%',
-        height: 'auto',
-    },
-    imageMobile: {
-        display: 'none',
-        [theme.breakpoints.down('sm')]: {
-            display: 'block',
-            width: '100%',
-            height: 'auto',
-            marginBottom: '20px',
-        }
-    },
-    textContainer: {
-        width: '100%',
-        //height: '100%',
-        '& figure': {
-            display: 'none',
-        }
-    },
-    contentWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        gap: '20px',
-        paddingBottom: '30px',
-        borderBottom: '1px solid',
-        borderColor: ({borderColor}) => borderColor,
-    },
-    facebookStyleImage: {
-        width: '100%',
-        height: '100%',
-        marginBottom: '0',
-        borderRadius: '0',
-        objectFit: 'cover',
-        objectPosition: 'center',
-        aspectRatio: '3/4',
-        cursor: 'pointer',
-        listStyle: 'none',
-        paddingLeft: 0,
-        transition: 'transform 0.3s ease-in-out',
-    },
-    facebookStyleImageAlternative: {
-        height: '100%',
-        aspectRatio: '3/2',
-        [theme.breakpoints.down('sm')]: {
-            aspectRatio: '3/4',
-        }
-    },
-    facebookStyleImageLarge: {
-        width: '100%',
-        height: '100%',
-        borderRadius: '0',
-        objectFit: 'cover',
-        aspectRatio: '3/4',
-        cursor: 'pointer',
-        listStyle: 'none',
-        paddingLeft: 0,
-        transition: 'transform 0.3s ease-in-out',
-        [theme.breakpoints.down('sm')]: {
-            display: 'none',
-        }
-    },
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
-    },
-    columnsWithTwoImages: {
-        width: '25%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        [theme.breakpoints.down('sm')]: {
-            width: '50%',
-        }
-    },
-    columnsWithTwoImagesAlternative: {
-        width: '50%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        [theme.breakpoints.down('sm')]: {
-            width: '50%',
-        }
-    },
-    columnsWithOneImage: {
-        width: '50%',
-        [theme.breakpoints.down('sm')]: {
-            width: 'unset',
-            display: 'none',
-        }
-    },
-    columnsWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        gap: '20px',
-    },
-    viewAllButton: {
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        color: ({bannerTextColor}) => bannerTextColor,
-        width: '100%',
-        height: '100%',
-        borderRadius: '0',
-        position: 'absolute',
-        top: '50%',
-        fontFamily: 'Helvetica-Bold',
-        fontSize: '32px',
-        fontWeight: 700,
-        lineHeight: '24px',
-        textTransform: 'none',
-        letterSpacing: '0em',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        zIndex: 1,
-        padding: '10px 20px',
-        '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
-        }
-    },
-    textWrapper: {
-        width: '65%',
-        [theme.breakpoints.down('sm')]: {
-            width: '100%',
-        }
-    },
-    imageWrapper: {
-        width: '35%',
-        [theme.breakpoints.down('sm')]: {
-            display: 'none',
-        }
-    },
-    downloadButtonWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: '20px',
-        marginTop: '20px',
-        [theme.breakpoints.down('sm')]: {
-            flexDirection: 'column',
-        }
-    },
-    fullWidth: {
-        [theme.breakpoints.down('sm')]: {
-            width: '100%',
-        }
-    },
-    largeActiveViewForMobile: {
-        [theme.breakpoints.down('sm')]: {
-            display: 'block',
-        }
-    }
-
-}));
 
 const ProjectDetails = () => {
     const {theme} = useTheme();
@@ -254,19 +34,24 @@ const ProjectDetails = () => {
             setLoading(true);
 
             try {
-                // Получаем категорию "project"
-                const categoryResponse = await fetch(
-                    `https://fundacjanadrzeka.com/wp-json/wp/v2/categories?slug=project`
+                // Получаем все категории
+                const categoriesResponse = await fetch(
+                    'https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100'
                 );
-                const [category] = await categoryResponse.json();
+                const categories = await categoriesResponse.json();
 
-                if (!category) {
-                    throw new Error('Project category not found');
+                // Ищем категорию 'wycieczki' независимо от регистра
+                const wycieczkiCategory = categories.find(
+                    (category) => category.name.toLowerCase() === 'wycieczki'
+                );
+
+                if (!wycieczkiCategory) {
+                    throw new Error('Wycieczki category not found');
                 }
 
-                // Получаем посты из категории "project"
+                // Получаем посты из категории 'wycieczki'
                 const response = await fetch(
-                    `https://fundacjanadrzeka.com/wp-json/wp/v2/posts?categories=${category.id}&slug=${projectSlug}&_embed=true`
+                    `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${projectSlug}&_embed=true`
                 );
 
                 if (!response.ok) {
@@ -289,16 +74,34 @@ const ProjectDetails = () => {
 
     const extractImageUrls = (content) => {
         const imageUrls = [];
+        const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+
         const regex = /<img[^>]+src="([^">]+)"[^>]*>/g;
         let match;
         while ((match = regex.exec(content)) !== null) {
-            imageUrls.push(match[1]);
+            const imageUrl = match[1];
+
+            if (!imageUrl.match(emojiRegex)) {
+                imageUrls.push(imageUrl);
+            }
         }
         return imageUrls;
     };
 
     const imageUrls = extractImageUrls(project?.content?.rendered || '');
 
+    const extractImages = (content) => {
+        const images = [];
+        const regex = /<img[^>]+src="([^">]+)"[^>]*>/g;
+        let match;
+        while ((match = regex.exec(content)) !== null) {
+            const imgTag = match[0]; // полный тег img
+            images.push(imgTag);
+        }
+        return images;
+    };
+
+    const images = extractImages(project?.content?.rendered || '');
 
     const handleOpenFullscreenModal = (index) => {
         setSelectedImageIndex(index);
@@ -385,23 +188,25 @@ const ProjectDetails = () => {
         if (numImages === 1) {
             return (
                 <div style={{position: 'relative', height: '100%', width: '100%'}}>
-                    <img
-                        src={imageUrls[0]}
-                        alt="AlbumImage 1"
-                        className={classes.facebookStyleImageLarge + ' ' + classes.largeActiveViewForMobile}
-                        onClick={() => handleOpenFullscreenModal(0)}
-                    />
+                    {images.slice(0, 1).map((imgTag, index) => (
+                        <div
+                            key={index}
+                            dangerouslySetInnerHTML={{__html: imgTag}}
+                            className={classes.facebookStyleImageLarge + ' ' + classes.largeActiveViewForMobile}
+                            onClick={() => handleOpenFullscreenModal(0)}
+                        />
+                    ))}
                 </div>
             );
             // approve
         } else if (numImages === 2) {
             return (
                 <>
-                    {imageUrls.slice(0, 2).map((imageUrl, index) => (
+                    {images.slice(0, 2).map((imgTag, index) => (
                         <div key={index} style={{position: 'relative', height: '100%', width: '100%'}}>
-                            <img
-                                src={imageUrl}
-                                alt={`AlbumImage ${index + 1}`}
+                            <div
+                                key={index}
+                                dangerouslySetInnerHTML={{__html: imgTag}}
                                 className={classes.facebookStyleImage}
                                 onClick={() => handleOpenFullscreenModal(index)}
                             />
@@ -414,30 +219,28 @@ const ProjectDetails = () => {
 
             return (
                 <>
-                    <Box className={classes.columnsWithTwoImagesAlternative + ' ' + classes.fullWidth}>
-                        {imageUrls.slice(0, 2).map((imageUrl, index) => (
+                    <div className={classes.columnsWithTwoImagesAlternative + ' ' + classes.fullWidth}>
+                        {images.slice(0, 2).map((imgTag, index) => (
                             <div key={index} style={{position: 'relative', height: '100%'}}>
-                                <img
-                                    src={imageUrl}
-                                    alt={`AlbumImage ${index + 1}`}
-                                    className={classes.facebookStyleImage}
-                                    style={{aspectRatio: 'unset'}}
+                                <div
+                                    key={index}
+                                    dangerouslySetInnerHTML={{__html: imgTag}}
+                                    className={classes.facebookStyleImage + ' ' + classes.twoImagesBoxView}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
                             </div>
                         ))}
-                    </Box>
-                    <Box className={classes.columnsWithOneImage}>
-                        {imageUrls.slice(2, 3).map((imageUrl, index) => (
-                            <img
-                                key={index + 2}
-                                src={imageUrl}
-                                alt={`AlbumImage ${index + 3}`}
+                    </div>
+                    <div className={classes.columnsWithOneImage}>
+                        {images.slice(2, 3).map((imgTag, index) => (
+                            <div
+                                key={index}
+                                dangerouslySetInnerHTML={{__html: imgTag}}
                                 className={classes.facebookStyleImageLarge}
                                 onClick={() => handleOpenFullscreenModal(index + 2)}
                             />
                         ))}
-                    </Box>
+                    </div>
                 </>
             );
             //approve
@@ -445,30 +248,30 @@ const ProjectDetails = () => {
 
             return (
                 <>
-                    <Box className={classes.columnsWithTwoImagesAlternative}>
-                        {imageUrls.slice(0, 2).map((imageUrl, index) => (
+                    <div className={classes.columnsWithTwoImagesAlternative}>
+                        {images.slice(0, 2).map((imgTag, index) => (
                             <div key={index} style={{position: 'relative', height: '100%', width: '100%'}}>
-                                <img
-                                    src={imageUrl}
-                                    alt={`AlbumImage ${index + 1}`}
+                                <div
+                                    key={index}
+                                    dangerouslySetInnerHTML={{__html: imgTag}}
                                     className={classes.facebookStyleImage + ' ' + classes.facebookStyleImageAlternative}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
                             </div>
                         ))}
-                    </Box>
-                    <Box className={classes.columnsWithTwoImagesAlternative}>
-                        {imageUrls.slice(2, 4).map((imageUrl, index) => (
-                            <div key={index + 3} style={{position: 'relative', height: '100%', width: '100%'}}>
-                                <img
-                                    src={imageUrl}
-                                    alt={`AlbumImage ${index + 4}`}
+                    </div>
+                    <div className={classes.columnsWithTwoImagesAlternative}>
+                        {images.slice(2, 4).map((imgTag, index) => (
+                            <div key={index} style={{position: 'relative', height: '100%', width: '100%'}}>
+                                <div
+                                    key={index}
+                                    dangerouslySetInnerHTML={{__html: imgTag}}
                                     className={classes.facebookStyleImage + ' ' + classes.facebookStyleImageAlternative}
                                     onClick={() => handleOpenFullscreenModal(index + 2)}
                                 />
                             </div>
                         ))}
-                    </Box>
+                    </div>
                 </>
             );
             //approve
@@ -476,49 +279,49 @@ const ProjectDetails = () => {
 
             return (
                 <>
-                    <Box className={classes.columnsWithTwoImages}>
-                        {imageUrls.slice(0, 2).map((imageUrl, index) => (
-                            <div key={index} style={{position: 'relative', height: '100%'}}>
-                                <img
-                                    src={imageUrl}
-                                    alt={`AlbumImage ${index + 1}`}
+                    <div className={classes.columnsWithTwoImages}>
+                        {images.slice(0, 2).map((imgTag, index) => (
+                            <div key={index} style={{position: 'relative', width: '100%', height: '100%'}}>
+                                <div
+                                    key={index}
+                                    dangerouslySetInnerHTML={{__html: imgTag}}
                                     className={classes.facebookStyleImage}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
                             </div>
                         ))}
-                    </Box>
-                    <Box className={classes.columnsWithOneImage}>
-                        {imageUrls.slice(2, 3).map((imageUrl, index) => (
-                            <img
-                                key={index + 2}
-                                src={imageUrl}
-                                alt={`AlbumImage ${index + 3}`}
+                    </div>
+                    <div className={classes.columnsWithOneImage}>
+                        {images.slice(2, 3).map((imgTag, index) => (
+                            <div
+                                key={index}
+                                dangerouslySetInnerHTML={{__html: imgTag}}
                                 className={classes.facebookStyleImageLarge}
                                 onClick={() => handleOpenFullscreenModal(index + 2)}
                             />
                         ))}
-                    </Box>
-                    <Box className={classes.columnsWithTwoImages}>
-                        {imageUrls.slice(3, 5).map((imageUrl, index) => (
-                            <div key={index + 3} style={{position: 'relative', height: '100%'}}>
-                                <img
-                                    src={imageUrl}
-                                    alt={`AlbumImage ${index + 4}`}
+                    </div>
+                    <div className={classes.columnsWithTwoImages}>
+                        {images.slice(3, 5).map((imgTag, index) => (
+                            <div key={index} style={{position: 'relative', width: '100%', height: '100%'}}>
+                                <div
+                                    key={index}
+                                    dangerouslySetInnerHTML={{__html: imgTag}}
                                     className={classes.facebookStyleImage}
                                     onClick={() => handleOpenFullscreenModal(index + 3)}
                                 />
-                                {index === imageUrls.slice(3, 5).length - 1 && (
+                                {index === images.slice(3, 5).length - 1 && (
                                     <Button
                                         className={classes.viewAllButton}
                                         onClick={() => handleOpenFullscreenModal(0)}
                                     >
-                                        kolejne {imageUrls.length}
+                                        kolejne {images.length}
                                     </Button>
                                 )}
                             </div>
                         ))}
-                    </Box>
+                    </div>
+
                 </>
             );
         } else {
@@ -528,61 +331,72 @@ const ProjectDetails = () => {
     };
 
     return (
-        <SectionWrapper paddingBottom="100px" paddingTop="20px">
+        <SectionWrapper paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
             <Box className={classes.contentWrapper}>
                 <Box className={classes.textWrapper}>
-                    <Typography variant="h1" className={classes.title}
-                                dangerouslySetInnerHTML={{__html: project?.title?.rendered}}/>
-                    <Typography variant="h1" className={classes.date}>
-                        {new Date(project?.date).toLocaleDateString('pl-PL', {
-                            month: 'long',
-                            day: 'numeric',
-                            year: 'numeric'
-                        })}
-                    </Typography>
+                    <Box style={{borderBottom: '1px solid', borderColor: `${themes[theme].borderColor}`}}>
+                        <Typography variant="h1" className={classes.title}
+                                    dangerouslySetInnerHTML={{__html: project?.title?.rendered}}/>
+                        <Typography variant="h1" className={classes.date}>
+                            {new Date(project?.date).toLocaleDateString('pl-PL', {
+                                month: 'long',
+                                day: 'numeric',
+                                year: 'numeric'
+                            })}
+                        </Typography>
+                        <ShareButton url={window.location.href}/>
+                    </Box>
 
                     <Box>
-                        {project?._embedded && project._embedded['wp:featuredmedia'] && (
-                            <div>
-                                <img
-                                    src={project._embedded['wp:featuredmedia'][0].source_url}
-                                    alt={project.title?.rendered}
-                                    className={classes.imageMobile}
-                                    loading="lazy"
-                                    onClick={handleOpenMainImageModal}
-                                />
-                            </div>
-                        )}
-                    </Box>
-                    <Box className={classes.textContainer}>
-                        <Typography variant="body1" dangerouslySetInnerHTML={{__html: descriptionWithoutImagesAndFiles}}
-                                    className={classes.description}/>
-                    </Box>
-                    <Box className={classes.downloadButtonWrapper}>
-                        {filteredFileUrls.map((filteredFileUrl, index) => {
-                            console.log('pdfUrl:', filteredFileUrl); // Добавьте эту строку для отладки
-                            return <DownloadButton key={index} pdfUrl={filteredFileUrl}/>;
-                        })}
+                        <Box className={classes.descriptionContainer}>
+                            {project?._embedded && project._embedded['wp:featuredmedia'] && (
+                                <div>
+                                    <img
+                                        src={project._embedded['wp:featuredmedia'][0].source_url}
+                                        alt={project.title?.rendered}
+                                        className={classes.image}
+                                        loading="lazy"
+                                        onClick={handleOpenMainImageModal}
+                                    />
+                                </div>
+                            )}
+                        </Box>
+                        <Box className={classes.textContainer}>
+                            <Typography variant="body1"
+                                        dangerouslySetInnerHTML={{__html: descriptionWithoutImagesAndFiles}}
+                                        className={classes.description}/>
+                        </Box>
+                        <Box className={classes.downloadButtonWrapper}>
+                            {filteredFileUrls.map((filteredFileUrl, index) => {
+                                console.log('pdfUrl:', filteredFileUrl); // Добавьте эту строку для отладки
+                                return <DownloadButton key={index} pdfUrl={filteredFileUrl}/>;
+                            })}
+                        </Box>
                     </Box>
                 </Box>
 
                 <Box className={classes.imageWrapper}>
-                    {project?._embedded && project._embedded['wp:featuredmedia'] && (
-                        <div className={classes.imageContainer}>
-                            <img
-                                src={project._embedded['wp:featuredmedia'][0].source_url}
-                                alt={project.title?.rendered}
-                                className={classes.image}
-                                loading="lazy"
-                                onClick={handleOpenMainImageModal}
+                    <Sidebar>
+                        <ProjectCard projectLimit={5} smallProjectView/>
+                    </Sidebar>
+                    {/*{project?._embedded && project._embedded['wp:featuredmedia'] && (*/}
+                    {/*    <div className={classes.imageContainer}>*/}
+                    {/*        <img*/}
+                    {/*            src={project._embedded['wp:featuredmedia'][0].source_url}*/}
+                    {/*            alt={project.title?.rendered}*/}
+                    {/*            className={classes.image}*/}
+                    {/*            loading="lazy"*/}
+                    {/*            onClick={handleOpenMainImageModal}*/}
 
-                            />
-                        </div>
-                    )}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </Box>
             </Box>
-
+            <Box>
+                <DonatBadgeComponent/>
+            </Box>
             <Box className={classes.root}>
                 <Box className={classes.columnsWrapper}>
                     {renderImages()}
@@ -593,14 +407,19 @@ const ProjectDetails = () => {
                 <FullscreenModal
                     open={fullscreenModalOpen}
                     onClose={handleCloseFullscreenModal}
+                    imgTag={images[selectedImageIndex]}
+                    index={selectedImageIndex}
                     imageSrc={
                         selectedImageIndex !== null
-                            ? imageUrls[selectedImageIndex]
+                            ? images[selectedImageIndex]
                             : project?._embedded?.['wp:featuredmedia']?.[0]?.source_url || ''
                     }
                     onNext={handleNextImage}
                     onPrev={handlePrevImage}
                 />
+            </Box>
+            <Box>
+                <ContactForm/>
             </Box>
         </SectionWrapper>
     );

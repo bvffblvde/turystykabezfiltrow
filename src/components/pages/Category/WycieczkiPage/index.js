@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {
     Grid,
-    makeStyles,
     Typography,
     Backdrop,
-    CircularProgress, Box, Icon,
+    CircularProgress, Box,
 } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import {useNavigate, useLocation, Link} from 'react-router-dom';
@@ -17,9 +16,6 @@ import ContactForm from "../../../UI/ContactForm";
 import DonatBadgeComponent from "../../../UI/DonatBadge";
 import axios from "axios";
 import useStyles from "../styles";
-import H1 from "../../../UI/H1";
-import ProjectCard from "../../../UI/ActualProjectsCard";
-import StyledButton from "../../../UI/StyledButton";
 
 const WycieczkiPageComponent = () => {
     const {theme} = useTheme();
@@ -65,6 +61,7 @@ const WycieczkiPageComponent = () => {
                         lastPostImage: imageUrl,
                         postDescription: post.excerpt.rendered,
                         postDate: post.date,
+                        projectSlug: post.slug
                     };
                 });
                 setCategoriesData(categoriesData);
@@ -98,38 +95,40 @@ const WycieczkiPageComponent = () => {
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {categoriesData.map((post, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>
-                        <Box className={classes.root}>
-                            {post.lastPostImage && (
-                                <div className={classes.imageContainer}>
-                                    <img
-                                        src={post.lastPostImage}
-                                        alt={post.postTitle}
-                                        className={classes.image}
-                                        loading="lazy"
-                                    />
-                                </div>
-                            )}
-                            <Box className={classes.textContainer}>
-                                <Box>
+                        <Link to={`/wycieczki/${post.projectSlug}`} className={classes.link}>
+                            <Box className={classes.root}>
+                                {post.lastPostImage && (
+                                    <div className={classes.imageContainer}>
+                                        <img
+                                            src={post.lastPostImage}
+                                            alt={post.postTitle}
+                                            className={classes.image}
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                )}
+                                <Box className={classes.textContainer}>
                                     <Box>
-                                        <H4 className={classes.h4}>{post.postTitle}</H4>
+                                        <Box>
+                                            <H4 className={classes.h4}>{post.postTitle}</H4>
+                                        </Box>
+                                        <Box className={classes.description}>
+                                            <Typography variant="body2" className={classes.postDescription}
+                                                        dangerouslySetInnerHTML={{__html: post.postDescription}}/>
+                                        </Box>
                                     </Box>
-                                    <Box className={classes.description}>
-                                        <Typography variant="body2" className={classes.postDescription}
-                                                    dangerouslySetInnerHTML={{__html: post.postDescription}}/>
+                                    <Box>
+                                        <Typography variant="body2" className={classes.date}>
+                                            {new Date(post?.postDate).toLocaleDateString('pl-PL', {
+                                                month: 'long',
+                                                day: 'numeric',
+                                                year: 'numeric'
+                                            })}
+                                        </Typography>
                                     </Box>
-                                </Box>
-                                <Box>
-                                    <Typography variant="body2" className={classes.date}>
-                                        {new Date(post?.postDate).toLocaleDateString('pl-PL', {
-                                            month: 'long',
-                                            day: 'numeric',
-                                            year: 'numeric'
-                                        })}
-                                    </Typography>
                                 </Box>
                             </Box>
-                        </Box>
+                        </Link>
                     </Grid>
                 ))}
             </Grid>

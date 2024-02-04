@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px',
         fontFamily: 'Inter-Regular',
         fontSize: '16px',
-        lineHeight: '20px',
         fontWeight: '400',
         textTransform: 'none',
         transition: 'all 0.3s ease-in-out',
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px',
         fontFamily: 'Inter-Regular',
         fontSize: '16px',
-        lineHeight: '20px',
         fontWeight: '400',
         textTransform: 'none',
 

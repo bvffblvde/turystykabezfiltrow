@@ -12,23 +12,17 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Bold',
         fontSize: '56px',
         fontWeight: 700,
-        lineHeight: '76px',
-        letterSpacing: '0em',
         color: ({textColor}) => textColor,
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
             fontSize: '20px',
             fontWeight: 700,
-            lineHeight: '23px',
-            letterSpacing: '0em',
         },
     },
     description: {
         fontFamily: 'Helvetica-Regular',
         fontSize: '20px',
         fontWeight: 400,
-        lineHeight: '27.6px',
-        letterSpacing: '0em',
         color: ({textColor}) => textColor,
         textAlign: 'left',
         [theme.breakpoints.down('sm')]: {

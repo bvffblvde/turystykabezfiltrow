@@ -98,12 +98,9 @@ const BydgoszczPage = () => {
                                 )}
                                 <Box className={classes.textContainer}>
                                     <Box>
-                                        <Typography
-                                            variant="h4"
-                                            className={classes.h4}
-                                        >
+                                        <H4 className={classes.h4}>
                                             {category.categoryName}
-                                        </Typography>
+                                        </H4>
                                     </Box>
                                     <Box className={classes.countSection}>
                                         <Icon

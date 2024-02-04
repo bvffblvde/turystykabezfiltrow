@@ -8,15 +8,22 @@ import BreadCrumbs from '../../UI/BreadCrumbs';
 import {fetchPostBySlug} from './apiRequests';
 import useStyles from './styles';
 import ShareButton from "../../UI/ShareButton";
+import ProjectCard from "../../UI/ActualProjectsCard";
+import Sidebar from "../../UI/SideBar";
 
 const PostDetails = () => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
+    // eslint-disable-next-line no-unused-vars
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
     const {postSlug} = useParams();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,7 +40,7 @@ const PostDetails = () => {
         };
 
         setSelectedImageIndex(0);
-        fetchData();
+        fetchData().then(r => r);
     }, [postSlug]);
 
 
@@ -47,7 +54,7 @@ const PostDetails = () => {
             </Backdrop>
             <Box className={classes.contentWrapper}>
                 <Box className={classes.textWrapper}>
-                    <Box style={{ borderBottom: '1px solid', borderColor: `${themes[theme].borderColor}` }}>
+                    <Box style={{borderBottom: '1px solid', borderColor: `${themes[theme].borderColor}`}}>
                         <Typography variant="h1" className={classes.title}
                                     dangerouslySetInnerHTML={{__html: post?.title?.rendered}}/>
                         <Typography variant="h1" className={classes.date}>
@@ -90,7 +97,9 @@ const PostDetails = () => {
                 {/*    )}*/}
                 {/*</Box>*/}
                 <Box className={classes.imageWrapper}>
-                    test
+                    <Sidebar>
+                        <ProjectCard projectLimit={4} smallProjectView/>
+                    </Sidebar>
                 </Box>
             </Box>
         </SectionWrapper>

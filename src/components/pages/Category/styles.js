@@ -161,11 +161,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         fontSize: '16px',
         fontWeight: '400',
-        lineHeight: '20px',
         opacity: '0.6',
         [theme.breakpoints.down('sm')]: {
             fontSize: '16px',
-            lineHeight: '18px',
         }
     },
     noResults: {

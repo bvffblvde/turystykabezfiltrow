@@ -53,11 +53,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '20px',
         textTransform: 'capitalize',
         fontWeight: '400',
-        lineHeight: '23px',
         textAlign: 'left',
         [theme.breakpoints.down('xs')]: {
             fontSize: '16px',
-            lineHeight: '19px',
         },
     },
 }));

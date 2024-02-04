@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) =>
             fontFamily: 'Inter-Regular',
             fontSize: '20px',
             fontWeight: 400,
-            lineHeight: '23px',
             color: ({postsTextColor}) => postsTextColor,
             transition: "all 0.3s ease-out",
             border: 'none',

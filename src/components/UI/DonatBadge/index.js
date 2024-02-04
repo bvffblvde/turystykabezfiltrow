@@ -7,6 +7,7 @@ import {Box} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Logo from "../../../assets/Logo/LOGO.svg";
 import StyledButton from "../StyledButton";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     badge: {
@@ -67,7 +68,12 @@ const DonatBadgeComponent = () => {
                     </Typography>
                 </Box>
                 <Box className={classes.buttonWrapper}>
-                    <StyledButton text="Wesprzyj Nas!" width="100%" to="https://patronite.pl/turystykabezfiltrow" variant="white"/>
+                    <Link to="https://patronite.pl/turystykabezfiltrow"
+                          style={{textDecoration: 'none', width: '100%', color: 'inherit'}} target='_blank'
+                    rel='noopener noreferrer'>
+                        <StyledButton text="Wesprzyj Nas!" width="100%"
+                                      variant="white"/>
+                    </Link>
                 </Box>
             </Box>
         </>

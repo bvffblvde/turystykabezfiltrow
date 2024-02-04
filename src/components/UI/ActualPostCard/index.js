@@ -79,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         fontSize: '16px',
         fontWeight: '400',
-        lineHeight: '24px',
         lineClamp: 4,
         boxOrient: 'vertical',
         display: '-webkit-box',

@@ -23,7 +23,7 @@ const ActualProjectsBlock = () => {
     return (
         <SectionWrapper id="main-actual-projects">
             <H1 text="Wycieczki"/>
-            <ProjectCard projectLimit={5} seasonCard={true}/>
+            <ProjectCard projectLimit={5}/>
             <Grid container spacing={3} className={classes.buttonContainer}>
                 <Grid item xs={12} sm={6} md={4}>
                     <StyledButton text="Wszystkie Wycieczki" href="/wycieczki" width="100%" to="/wycieczki"/>

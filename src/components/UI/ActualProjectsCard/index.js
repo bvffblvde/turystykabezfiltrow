@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Box, Grid, Typography} from "@material-ui/core";
+import {Box, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import {colors} from "../../../theme/default";
 import H4 from "../H4";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
@@ -33,13 +32,13 @@ const useStyles = makeStyles((theme) => ({
         },
         '& $h4': {
             [theme.breakpoints.down('sm')]: {
-                    fontSize: '20px',
-                    marginBottom: '0',
-                    lineClamp: 2,
-                    boxOrient: 'vertical',
-                    display: '-webkit-box',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
+                fontSize: '20px',
+                marginBottom: '0',
+                lineClamp: 2,
+                boxOrient: 'vertical',
+                display: '-webkit-box',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
             },
         },
         [theme.breakpoints.down('sm')]: {
@@ -55,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         height: '100%',  // Добавьте эту строку для установки высоты
         flexDirection: 'row',
-        alignItems: 'center',
+        //alignItems: 'center',
         cursor: 'pointer',
         backgroundColor: ({backgroundColor}) => backgroundColor,
         color: ({textColor}) => textColor,
@@ -131,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
         //padding: '10px',
         //border: '1px solid black',
         display: 'flex',
-        height: '100%',
+        //height: '100%',
         flexDirection: 'column',
         justifyContent: 'space-between',
 
@@ -218,14 +217,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProjectCard = ({ project, projectMediaData }) => {
-    const { theme } = useTheme();
+const ProjectCard = ({project, projectMediaData}) => {
+    const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const featuredMediaId = project.featured_media;
     const media = featuredMediaId ? projectMediaData[featuredMediaId] : null;
 
     return (
-        <Link to={`/projekty/${project.slug}`} className={classes.linkWrapper}>
+        <Link to={`/wycieczki/${project.slug}`} className={classes.linkWrapper}>
             <Box className={project.large ? classes.root : classes.rootSmall}>
                 {media && (
                     <Box className={classes.imageContainer}>
@@ -256,8 +255,8 @@ const ProjectCard = ({ project, projectMediaData }) => {
 };
 
 
-const Projects = ({ projectLimit, seasonCard }) => {
-    const { theme } = useTheme();
+const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
+    const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [projectData, setProjectData] = useState([]);
     const [projectMediaData, setProjectMediaData] = useState({});
@@ -326,27 +325,42 @@ const Projects = ({ projectLimit, seasonCard }) => {
     }, [projectLimit, seasonCard]);
 
 
-    const smallProjects = projectData.slice(1, 5).map(project => ({ ...project, large: false }));
-    const largeProject = projectData.slice(0, 1).map(project => ({ ...project, large: true }));
+    const smallProjects = projectData.slice(1, 5).map(project => ({...project, large: false}));
+    const largeProject = projectData.slice(0, 1).map(project => ({...project, large: true}));
 
     return (
-        <Box className={classes.boxWrapper}>
-            <Box className={classes.largeCardBoxWrapper}>
-                {largeProject.length > 0 && (
-                    <ProjectCard project={largeProject[0]} projectMediaData={projectMediaData} />
-                )}
-            </Box>
-            <Box className={classes.smallCardBoxWrapper}>
-                {smallProjects.map((project, index) => (
-                    <ProjectCard
-                        key={index}
-                        project={project}
-                        projectMediaData={projectMediaData}
-                        className={index === 0 ? classes.firstCard : ''}
-                    />
-                ))}
-            </Box>
-        </Box>
+        <>
+            {smallProjectView ? (
+                <Box className={classes.smallCardBoxWrapper}>
+                    {projectData.map((project, index) => (
+                        <ProjectCard
+                            key={index}
+                            project={project}
+                            projectMediaData={projectMediaData}
+                            className={index === 0 ? classes.firstCard : ''}
+                        />
+                    ))}
+                </Box>
+            ) : (
+                <Box className={classes.boxWrapper}>
+                    <Box className={classes.largeCardBoxWrapper}>
+                        {largeProject.length > 0 && (
+                            <ProjectCard project={largeProject[0]} projectMediaData={projectMediaData}/>
+                        )}
+                    </Box>
+                    <Box className={classes.smallCardBoxWrapper}>
+                        {smallProjects.map((project, index) => (
+                            <ProjectCard
+                                key={index}
+                                project={project}
+                                projectMediaData={projectMediaData}
+                                className={index === 0 ? classes.firstCard : ''}
+                            />
+                        ))}
+                    </Box>
+                </Box>
+            )}
+        </>
     );
 };
 

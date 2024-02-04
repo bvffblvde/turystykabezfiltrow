@@ -168,6 +168,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         gap: '80px',
         marginBottom: '80px',
+        [theme.breakpoints.down('sm')]: {
+            gap: '40px',
+            marginBottom: '40px',
+        }
     },
     title: {
         fontFamily: 'Inter-Regular',
@@ -185,6 +189,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         maxWidth: '80vw',
         margin: 'auto',
+        [theme.breakpoints.down('sm')]: {
+            maxWidth: '100%',
+        }
         //marginBottom: '20px',
     },
     videoIframe: {
@@ -193,6 +200,10 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '32px',
         borderRadius: '16px', // Пример радиуса скругления углов
         boxShadow: 'none', // Пример тени
+        [theme.breakpoints.down('sm')]: {
+            marginBottom: '16px',
+            height: '30vh',
+        }
     },
     titleSection: {
         fontFamily: 'Inter-Bold',

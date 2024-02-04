@@ -108,12 +108,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Regular',
         fontSize: '20px',
         fontWeight: '400',
-        lineHeight: '23px',
-        letterSpacing: '0em',
         opacity: '0.6',
         [theme.breakpoints.down('sm')]: {
             fontSize: '16px',
-            lineHeight: '18px',
         }
     },
     line: {

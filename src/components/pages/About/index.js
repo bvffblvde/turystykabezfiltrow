@@ -45,19 +45,15 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     title: {
-        fontFamily: 'Helvetica-Bold',
+        fontFamily: 'Inter-Bold',
         fontSize: '56px',
         fontWeight: 700,
-        lineHeight: '76px',
-        letterSpacing: '0em',
         textAlign: "center",
         color: ({textColor}) => textColor,
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
             fontSize: '20px',
             fontWeight: 700,
-            lineHeight: '23px',
-            letterSpacing: '0em',
             marginBottom: '16px',
         },
     },
@@ -65,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Regular',
         fontSize: '20px',
         fontWeight: 400,
-        lineHeight: '27px',
         textAlign: "center",
         color: ({textColor}) => textColor,
         marginBottom: '40px',
@@ -100,10 +95,9 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     titleBlock: {
-        fontFamily: 'Helvetica-Bold',
+        fontFamily: 'Inter-Bold',
         fontSize: '32px',
         fontWeight: 700,
-        lineHeight: '37px',
         marginBottom: '20px',
         color: ({aboutPageTextTitleColor}) => aboutPageTextTitleColor,
         [theme.breakpoints.down('sm')]: {
@@ -115,7 +109,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Bold',
         fontSize: '32px',
         fontWeight: 700,
-        lineHeight: '37px',
         marginBottom: '20px',
         color: ({aboutPageTextTitleColor}) => aboutPageTextTitleColor,
         [theme.breakpoints.down('sm')]: {
@@ -127,7 +120,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Regular',
         fontSize: '20px',
         fontWeight: 400,
-        lineHeight: '27px',
         color: ({textColor}) => textColor,
         [theme.breakpoints.down('sm')]: {
             fontSize: '16px',
@@ -142,7 +134,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Helvetica-Bold',
         fontSize: '20px',
         fontWeight: 700,
-        lineHeight: '27px',
         color: ({textColor}) => textColor,
         marginBottom: '10px',
         [theme.breakpoints.down('sm')]: {

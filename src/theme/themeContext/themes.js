@@ -10,7 +10,7 @@ const themes = {
         footerTextColor: 'white',
         footerTextColorHover: '#39B2B9',
         footerBackgroundColor: '#001F1A',
-        borderColor: 'black',
+        borderColor: '#d9d9d9',
         lineBackgroundColor: 'black',
         bannerTextColor: 'white',
         mainBannerBackgroundImage: `url(${MainBannerLight})`,

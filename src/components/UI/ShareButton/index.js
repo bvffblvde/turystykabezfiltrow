@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { Icon, IconButton, makeStyles, Tooltip, useMediaQuery } from '@material-ui/core';
 import { ReactComponent as ShareIcon } from "../../../assets/Icons/Share.svg";
-import { themes } from "../../../theme/themeContext/themes";
 
 const useStyles = makeStyles((theme) => ({
     icon: {
-
+        '& .MuiIconButton-root': {
+            padding: '0',
+            backgroundColor: 'transparent',
+            '&:hover': {
+                backgroundColor: 'transparent',
+            }
+        }
     },
 }));
 
@@ -38,10 +43,9 @@ const ShareButton = ({ url }) => {
 
     return (
         <Tooltip title={isMobile ? 'Udział' : copied ? 'Skopiowano!' : 'Skopiuj link'}>
-            <IconButton color="inherit" onClick={handleButtonClick}>
+            <IconButton color="inherit" onClick={handleButtonClick} className={classes.icon}>
                 <Icon
                     component={ShareIcon}
-                    className={classes.icon}
                     src={ShareIcon}
                 />
             </IconButton>

@@ -22,7 +22,7 @@ const MainPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            await new Promise((resolve) => setTimeout(resolve, 4000));
             setLoading(false);
         };
 

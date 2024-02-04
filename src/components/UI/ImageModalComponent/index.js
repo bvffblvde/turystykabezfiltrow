@@ -17,9 +17,13 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         '& .MuiDialog-paper': {
             backgroundColor: 'transparent',
+            margin: '0',
         },
         '& .MuiPaper-elevation24': {
             boxShadow: 'none',
+            width: '100vw !important',
+            maxWidth: '100vw !important',
+            [theme.breakpoints.down('sm')]: {},
         },
         '& .MuiBackdrop-root': {
             backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -27,31 +31,44 @@ const useStyles = makeStyles((theme) => ({
     },
     dialogContent: {
         display: 'flex',
-        flexDirection: 'column',  // Изменено на 'column' для вертикального выравнивания
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: theme.spacing(2),
+        padding: 0,
         backgroundColor: 'transparent',
+        height: '100%',
         overflow: 'hidden',
+        '& figure': {
+            margin: '0',
+            width: '100%',
+            height: '100%',
+            marginBlockStart: '0',
+            marginBlockEnd: '0',
+            marginInlineStart: '0',
+            marginInlineEnd: '0',
+        }
     },
     dialogImage: {
-        width: '100%',
-        height: 'auto',
-        maxWidth: '90%',
-        maxHeight: '80vh',
+        width: '100vw',
+        height: '100vh',
         objectFit: 'contain',
-
+        '& img': {
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+        }
     },
     arrowButtons: {
         display: 'flex',
         justifyContent: 'space-between',
         width: '100%',
-        position: 'absolute', // Позиция абсолютная
-        top: '50%', // Отступ сверху
+        position: 'absolute',
+        top: '50%',
         transform: 'translateY(-50%)',
         [theme.breakpoints.down('sm')]: {
-            position: 'fixed', // Позиция фиксированная
-            bottom: '20px', // Отступ сверху
+            position: 'fixed',
+            bottom: '20px',
+            top: 'unset',
             right: '0',
             transform: 'translateY(0%)',
             alignItems: 'center',
@@ -60,9 +77,10 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     closeButton: {
-        position: 'fixed', // Позиция фиксированная
-        top: theme.spacing(2), // Отступ сверху
-        right: theme.spacing(2), // Отступ справа
+        position: 'fixed',
+        top: '15px',
+        right: '10px',
+        padding: '0',
         color: ({galleryButtonBorderColor}) => galleryButtonBorderColor,
         '&:hover': {
             color: ({galleryHoverButtonBorderColor}) => galleryHoverButtonBorderColor,
@@ -105,9 +123,35 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const FullscreenModal = ({open, onClose, imageSrc, onNext, onPrev}) => {
+
+const FullscreenModal = ({open, onClose, imageSrc, imgTag, index, onNext, onPrev}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
+
+    // Добавим состояния для отслеживания координат касания
+    const [touchStartX, setTouchStartX] = React.useState(null);
+    const [touchEndX, setTouchEndX] = React.useState(null);
+
+    const handleTouchStart = (event) => {
+        setTouchStartX(event.touches[0].clientX);
+    };
+
+    const handleTouchMove = (event) => {
+        setTouchEndX(event.touches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        // Определяем направление свайпа
+        if (touchStartX - touchEndX > 50) {
+            onNext(); // Свайп влево
+        } else if (touchEndX - touchStartX > 50) {
+            onPrev(); // Свайп вправо
+        }
+
+        // Сбросим значения координат
+        setTouchStartX(null);
+        setTouchEndX(null);
+    };
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -144,10 +188,15 @@ const FullscreenModal = ({open, onClose, imageSrc, onNext, onPrev}) => {
             >
                 <CloseIcon/>
             </IconButton>
-            <DialogContent className={classes.dialogContent}>
-                <img
-                    src={imageSrc}
-                    alt="FullscreenImage"
+            <DialogContent
+                className={classes.dialogContent}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+            >
+                <div
+                    key={index}
+                    dangerouslySetInnerHTML={{__html: imgTag}}
                     className={classes.dialogImage}
                 />
             </DialogContent>
@@ -174,4 +223,5 @@ const FullscreenModal = ({open, onClose, imageSrc, onNext, onPrev}) => {
 };
 
 export default FullscreenModal;
+
 

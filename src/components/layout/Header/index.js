@@ -24,7 +24,7 @@ const navLinksData = [
             {url: '/bydgoszcz/cykl-bydgoszcz-narodzona-z-wody', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
             {url: '/bydgoszcz/cykl-cuda-bydgoskie', text: 'CUDA BYDGOSKIE'},
             {url: '/bydgoszcz/inne-bydgoskie', text: 'INNE BYDGOSKIE'},
-            //{url: '/o-fundacji/historia', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+            {url: '/aktualnosci/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
 
         ].sort((a, b) => a.text.localeCompare(b.text)),
     },
@@ -93,6 +93,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '10px',
         margin: '20px',
         width: 'calc(100% - 40px)',
+        border: '1px solid',
+        borderColor: ({inputBorderColor}) => inputBorderColor,
     },
     // hidden: {
     //     transform: "translate(0, -100%)",

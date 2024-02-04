@@ -10,7 +10,7 @@ import {themes} from "../../../theme/themeContext/themes";
 const useStyles = makeStyles((theme) => ({
     sidebar: {
         position: 'sticky',
-        top: '100px',
+        top: '140px',
         height: '100vh',
         backgroundColor: 'transparent',
     },
@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '20px',
         fontFamily: 'Helvetica-Regular',
         fontWeight: 500,
-        lineHeight: '27px',
         padding: '0',
         transition: 'all 0.3s ease-out',
         color: ({useLocationLinkColor}) => useLocationLinkColor,
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Sidebar = ({sections}) => {
+const Sidebar = ({children}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [headerHeight, setHeaderHeight] = useState(0);
@@ -60,30 +59,20 @@ const Sidebar = ({sections}) => {
         }
     }, []);
 
-    const scrollToSection = (sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            window.scrollTo({
-                top: section.offsetTop - headerHeight - 100, // 20 - пример вашего отступа
-                behavior: 'smooth',
-            });
-        }
-    };
+    // const scrollToSection = (sectionId) => {
+    //     const section = document.getElementById(sectionId);
+    //     if (section) {
+    //         window.scrollTo({
+    //             top: section.offsetTop - headerHeight - 100, // 20 - пример вашего отступа
+    //             behavior: 'smooth',
+    //         });
+    //     }
+    // };
 
     return (
         <Box className={classes.sidebar}>
             <Box className={classes.flexBox}>
-                {sections.map((section) => (
-                    <Button
-                        key={section.id}
-                        className={classes.linkButton}
-                        onClick={() => scrollToSection(section.id)}
-                    >
-                        <Typography variant="h6" className={classes.linkText}>
-                            {section.label}
-                        </Typography>
-                    </Button>
-                ))}
+                {children}
             </Box>
         </Box>
     );

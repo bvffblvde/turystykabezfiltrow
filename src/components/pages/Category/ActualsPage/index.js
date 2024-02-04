@@ -59,6 +59,9 @@ const ActualsPageComponent = () => {
                         lastPostImage: imageUrl,
                         postDescription: post.excerpt.rendered,
                         postDate: post.date,
+                        slug: post.slug,
+                        categories: post.categories,
+                        tags: post.tags,
                     };
                 });
                 setCategoriesData(categoriesData);
@@ -89,38 +92,49 @@ const ActualsPageComponent = () => {
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {categoriesData.map((post, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>
-                        <Box className={classes.root}>
-                            {post.lastPostImage && (
-                                <div className={classes.imageContainer}>
-                                    <img
-                                        src={post.lastPostImage}
-                                        alt={post.postTitle}
-                                        className={classes.image}
-                                        loading="lazy"
-                                    />
-                                </div>
-                            )}
-                            <Box className={classes.textContainer}>
-                                <Box>
+                        <Link
+                            to={
+                                post.categories?.some(category => category === 730842049) ||
+                                post.tags?.some(tag => tag === 730842067)
+                                    ? `/wycieczki/${post.slug}`
+                                    : `/aktualnosci/${post.slug}`
+                            }
+                            onClick={() => console.log("Link Clicked:", post)}
+                            className={classes.linkWrapper}
+                        >
+                            <Box className={classes.root}>
+                                {post.lastPostImage && (
+                                    <div className={classes.imageContainer}>
+                                        <img
+                                            src={post.lastPostImage}
+                                            alt={post.postTitle}
+                                            className={classes.image}
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                )}
+                                <Box className={classes.textContainer}>
                                     <Box>
-                                        <H4 className={classes.h4}>{post.postTitle}</H4>
+                                        <Box>
+                                            <H4 className={classes.h4}>{post.postTitle}</H4>
+                                        </Box>
+                                        <Box className={classes.description}>
+                                            <Typography variant="body2" className={classes.postDescription}
+                                                        dangerouslySetInnerHTML={{__html: post.postDescription}}/>
+                                        </Box>
                                     </Box>
-                                    <Box className={classes.description}>
-                                        <Typography variant="body2" className={classes.postDescription}
-                                                    dangerouslySetInnerHTML={{__html: post.postDescription}}/>
+                                    <Box>
+                                        <Typography variant="body2" className={classes.date}>
+                                            {new Date(post?.postDate).toLocaleDateString('pl-PL', {
+                                                month: 'long',
+                                                day: 'numeric',
+                                                year: 'numeric'
+                                            })}
+                                        </Typography>
                                     </Box>
-                                </Box>
-                                <Box>
-                                    <Typography variant="body2" className={classes.date}>
-                                        {new Date(post?.postDate).toLocaleDateString('pl-PL', {
-                                            month: 'long',
-                                            day: 'numeric',
-                                            year: 'numeric'
-                                        })}
-                                    </Typography>
                                 </Box>
                             </Box>
-                        </Box>
+                        </Link>
                     </Grid>
                 ))}
             </Grid>
