@@ -22,7 +22,7 @@ const ActualPostsBlock = () => {
             <PostsCard postLimit={6}/>
             <Grid container spacing={3} className={classes.buttonContainer}>
                 <Grid item xs={12} sm={6} md={4}>
-                    <StyledButton text="Wszystkie Artykuły" width="100%" to="/aktualnosci"/>
+                    <StyledButton text="Wszystkie Artykuły" width="100%" to="/artykuly"/>
                 </Grid>
             </Grid>
         </SectionWrapper>

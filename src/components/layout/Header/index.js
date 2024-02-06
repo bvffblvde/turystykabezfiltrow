@@ -24,7 +24,7 @@ const navLinksData = [
             {url: '/bydgoszcz/cykl-bydgoszcz-narodzona-z-wody', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
             {url: '/bydgoszcz/cykl-cuda-bydgoskie', text: 'CUDA BYDGOSKIE'},
             {url: '/bydgoszcz/inne-bydgoskie', text: 'INNE BYDGOSKIE'},
-            {url: '/aktualnosci/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+            {url: '/artykuly/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
 
         ].sort((a, b) => a.text.localeCompare(b.text)),
     },
@@ -58,17 +58,25 @@ const navLinksData = [
     //     text: 'Sklep',
     // },
     {
-        url: '/wez-udzial',
-        text: 'WEŹ UDZIAŁ',
+        url: '/wydarzenia',
+        text: 'Wydarzenia',
+        subLinks: [
+            {url: '/wydarzenia', text: 'Weź udział!'},
+            {url: '/wycieczki', text: 'Co zrealizowaliśmy?'},
+            {
+                url: 'https://www.instagram.com/carfortrip_/?fbclid=IwAR0AnzB3bveYLQbilGia_XFBPek4C9zSQop5rmu-Gd8MLlX5FpKx_fnkDTQ',
+                text: 'Wycieczki do Gruzji',
+                openInNewTab: true,
+            },
+        ],
     },
     {
         url: '/o-nas',
         text: 'O nas',
         subLinks: [
             {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'BEZ FILTRÓW - czyli?'},
-            {url: 'https://www.instagram.com/carfortrip_/?fbclid=IwAR0AnzB3bveYLQbilGia_XFBPek4C9zSQop5rmu-Gd8MLlX5FpKx_fnkDTQ', text: 'Wycieczki do Gruzji'},
             {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Projekty'},
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wydawnictwa'},
+            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Publikacje'},
 
         ],
     },
@@ -236,13 +244,13 @@ const useStyles = makeStyles((theme) => ({
     iconLink: {
         "& path": {
             transition: '300ms ease-in-out',
-            stroke: ({ iconColorFill }) => iconColorFill,
+            stroke: ({iconColorFill}) => iconColorFill,
         },
         '&:hover': {
             backgroundColor: 'transparent',
             "& path": {
                 transition: '300ms ease-in-out',
-                stroke: ({ iconColorFillHover }) => iconColorFillHover,
+                stroke: ({iconColorFillHover}) => iconColorFillHover,
             },
         },
     },

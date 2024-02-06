@@ -98,7 +98,7 @@ const PostDetails = () => {
                 {/*</Box>*/}
                 <Box className={classes.imageWrapper}>
                     <Sidebar>
-                        <ProjectCard projectLimit={4} smallProjectView/>
+                        <ProjectCard projectLimit={3} smallProjectView/>
                     </Sidebar>
                 </Box>
             </Box>

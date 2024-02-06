@@ -22,7 +22,7 @@ const ActualProjectsBlock = () => {
 
     return (
         <SectionWrapper id="main-actual-projects">
-            <H1 text="Wycieczki"/>
+            <H1 text="Co zrealizowaliśmy?"/>
             <ProjectCard projectLimit={5}/>
             <Grid container spacing={3} className={classes.buttonContainer}>
                 <Grid item xs={12} sm={6} md={4}>

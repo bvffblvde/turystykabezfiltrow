@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         transition: "all 0.3s ease-out",
         textTransform: 'uppercase',
+        textAlign: 'left',
         margin: '10px 0',
         '&:hover': {
             backgroundColor: 'transparent',

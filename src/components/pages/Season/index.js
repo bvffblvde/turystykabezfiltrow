@@ -19,72 +19,61 @@ import useStyles from "../Category/styles";
 import H1 from "../../UI/H1";
 import ProjectCard from "../../UI/ActualProjectsCard";
 import StyledButton from "../../UI/StyledButton";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const SeasonPageComponent = () => {
-    const {theme} = useTheme();
+    const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
+    const [page, setPage] = useState(1);
 
-    const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    // ...
+    const fetchData = async (pageNum) => {
+        setLoading(true);
+        try {
+            const tagsResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/tags?per_page=100');
+            const sezonTag = tagsResponse.data.find(tag => tag.name.toLowerCase() === 'sezon');
+
+            if (!sezonTag) {
+                console.error('Tag "sezon" not found.');
+                return;
+            }
+
+            const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=${postsPerPage}&page=${pageNum}&_embed`);
+
+            const newCategoriesData = response.data.map(post => {
+                const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+
+                return {
+                    postTitle: post.title.rendered,
+                    lastPostImage: imageUrl,
+                    postDescription: post.excerpt.rendered,
+                    postDate: post.date,
+                    postSlug: post.slug,
+                };
+            });
+
+            setCategoriesData(prevData => [...prevData, ...newCategoriesData]);
+        } catch (error) {
+            console.error('Error fetching categories data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                // Получаем ID тега "sezon"
-                const tagsResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/tags?per_page=100');
-                const sezonTag = tagsResponse.data.find(tag => tag.name.toLowerCase() === 'sezon');
-
-                if (!sezonTag) {
-                    console.error('Tag "sezon" not found.');
-                    return;
-                }
-
-                // Загружаем все посты с тегом "sezon"
-                const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=${postsPerPage}&page=${page}&_embed`);
-
-                const categoriesData = response.data.map(post => {
-                    const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-
-                    return {
-                        postTitle: post.title.rendered,
-                        lastPostImage: imageUrl,
-                        postDescription: post.excerpt.rendered,
-                        postDate: post.date,
-                        postSlug: post.slug,
-                    };
-                });
-                setCategoriesData(categoriesData);
-
-                const totalPagesHeader = response.headers['x-wp-totalpages'];
-                setTotalPages(parseInt(totalPagesHeader) || 1);
-            } catch (error) {
-                console.error('Error fetching categories data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData().then(() => console.log('Categories data fetched'));
+        fetchData(page).then(() => console.log('Categories data fetched'));
     }, [location.pathname, location.search, page]);
 
-
-    const handleChangePage = (event, newPage) => {
-        console.log('New Page:', newPage);
-        setPage(newPage);
-        navigate(`${location.pathname}?page=${newPage}`);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+    const handleLoadMore = () => {
+        setPage(prevPage => prevPage + 1);
     };
 
 
@@ -97,15 +86,16 @@ const SeasonPageComponent = () => {
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {categoriesData.map((post, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>
-                        <Link to={`/wez-udzial/${post.postSlug}`} className={classes.link}>
+                        <Link to={`/wydarzenia/${post.postSlug}`} className={classes.link}>
                             <Box className={classes.root}>
                                 {post.lastPostImage && (
                                     <div className={classes.imageContainer}>
-                                        <img
+                                        <LazyLoadImage
                                             src={post.lastPostImage}
                                             alt={post.postTitle}
                                             className={classes.image}
                                             loading="lazy"
+                                            effect="blur"
                                         />
                                     </div>
                                 )}
@@ -134,20 +124,15 @@ const SeasonPageComponent = () => {
                     </Grid>
                 ))}
             </Grid>
-            <Pagination
-                className={classes.pagination}
-                count={totalPages}
-                page={page}
-                onChange={handleChangePage}
-                boundaryCount={window.innerWidth < 600 ? 1 : 2}
-                shape="rounded"
-            />
+            <Box className={classes.buttonWrapper}>
+                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%"/>
+            </Box>
             <Box className={classes.addsPosts}>
-                <H1 text="Wycieczki"/>
+                <H1 text="Co zrealizowaliśmy?"/>
                 <ProjectCard projectLimit={5}/>
                 <Grid container spacing={3} className={classes.buttonContainer}>
                     <Grid item xs={12} sm={6} md={4}>
-                        <StyledButton text="Wszystkie Wycieczki" href="/aktualnosci" width="100%" to="/aktualnosci"/>
+                        <StyledButton text="Wszystkie Wycieczki" href="/wycieczki" width="100%" to="/wycieczki"/>
                     </Grid>
                 </Grid>
             </Box>

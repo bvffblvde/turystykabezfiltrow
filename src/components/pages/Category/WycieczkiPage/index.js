@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
     Grid,
     Typography,
@@ -16,73 +16,64 @@ import ContactForm from "../../../UI/ContactForm";
 import DonatBadgeComponent from "../../../UI/DonatBadge";
 import axios from "axios";
 import useStyles from "../styles";
+import StyledButton from "../../../UI/StyledButton";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const WycieczkiPageComponent = () => {
-    const {theme} = useTheme();
+    const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
 
-    const navigate = useNavigate();
-    const location = useLocation();
+    const pageRef = useRef(1);
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        fetchData();  // Загружаем данные для первой страницы при монтировании компонента
     }, []);
 
-    // ...
+    const handleLoadMore = () => {
+        pageRef.current += 1;
+        fetchData();
+    };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                // Получаем все категории (categories)
-                const categoriesResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100`);
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            // Получаем все категории (categories)
+            const categoriesResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100`);
 
-                // Ищем категорию 'wycieczki'
-                const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
+            // Ищем категорию 'wycieczki'
+            const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
 
-                if (!wycieczkiCategory) {
-                    console.error('Category not found');
-                    return;
-                }
-
-                // Получаем все посты с выбранной категорией 'wycieczki'
-                const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${postsPerPage}&page=${page}&_embed`);
-
-                const categoriesData = response.data.map(post => {
-                    const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-
-                    return {
-                        postTitle: post.title.rendered,
-                        lastPostImage: imageUrl,
-                        postDescription: post.excerpt.rendered,
-                        postDate: post.date,
-                        projectSlug: post.slug
-                    };
-                });
-                setCategoriesData(categoriesData);
-
-                const totalPagesHeader = response.headers['x-wp-totalpages'];
-                setTotalPages(parseInt(totalPagesHeader) || 1);
-            } catch (error) {
-                console.error('Error fetching categories data:', error);
-            } finally {
-                setLoading(false);
+            if (!wycieczkiCategory) {
+                console.error('Category not found');
+                return;
             }
-        };
 
-        fetchData().then(() => console.log('Categories data fetched'));
-    }, [location.pathname, location.search, page]);
+            // Получаем все посты с выбранной категорией 'wycieczki'
+            const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${postsPerPage}&page=${pageRef.current}&_embed`);
 
-    const handleChangePage = (event, newPage) => {
-        console.log('New Page:', newPage);
-        setPage(newPage);
-        navigate(`${location.pathname}?page=${newPage}`);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+            const newCategoriesData = response.data.map(post => {
+                const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+
+                return {
+                    postTitle: post.title.rendered,
+                    lastPostImage: imageUrl,
+                    postDescription: post.excerpt.rendered,
+                    postDate: post.date,
+                    projectSlug: post.slug
+                };
+            });
+
+            // Добавляем новые данные к существующим
+            setCategoriesData(prevData => [...prevData, ...newCategoriesData]);
+        } catch (error) {
+            console.error('Error fetching categories data:', error);
+        } finally {
+            setLoading(false);
+        }
     };
 
 
@@ -90,7 +81,7 @@ const WycieczkiPageComponent = () => {
         <SectionWrapper id="actual" paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
             <Typography variant="h1" className={classes.title}>
-                Wycieczki
+                Co zrealizowaliśmy?
             </Typography>
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {categoriesData.map((post, index) => (
@@ -99,11 +90,12 @@ const WycieczkiPageComponent = () => {
                             <Box className={classes.root}>
                                 {post.lastPostImage && (
                                     <div className={classes.imageContainer}>
-                                        <img
+                                        <LazyLoadImage
                                             src={post.lastPostImage}
                                             alt={post.postTitle}
                                             className={classes.image}
                                             loading="lazy"
+                                            effect = "blur"
                                         />
                                     </div>
                                 )}
@@ -132,14 +124,9 @@ const WycieczkiPageComponent = () => {
                     </Grid>
                 ))}
             </Grid>
-            <Pagination
-                className={classes.pagination}
-                count={totalPages}
-                page={page}
-                onChange={handleChangePage}
-                boundaryCount={window.innerWidth < 600 ? 1 : 2}
-                shape="rounded"
-            />
+            <Box className={classes.buttonWrapper}>
+                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%"/>
+            </Box>
             <DonatBadgeComponent/>
             <ContactForm/>
             <Backdrop className={classes.backdrop} open={loading}>

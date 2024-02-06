@@ -5,8 +5,7 @@ import {
     Backdrop,
     CircularProgress, Box,
 } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation, Link, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import H4 from "../../../../UI/H4";
 import SectionWrapper from "../../../../UI/SectionWrapper";
 import {useTheme} from "../../../../../theme/themeContext";
@@ -15,28 +14,26 @@ import ContactForm from "../../../../UI/ContactForm";
 import DonatBadgeComponent from "../../../../UI/DonatBadge";
 import useStyles from "../styles";
 import {themes} from "../../../../../theme/themeContext/themes";
+import StyledButton from "../../../../UI/StyledButton";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const BydgoszczPostsPage = () => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [posts, setPosts] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
-    const {categorySlug} = useParams(); // Извлекаем categorySlug из URL
+    const {categorySlug} = useParams();
     const [currentCategorySlug, setCurrentCategorySlug] = useState(null);
     const [currentCategoryName, setCurrentCategoryName] = useState('');
 
     const [loadingCategory, setLoadingCategory] = useState(false);
     const [loadingPosts, setLoadingPosts] = useState(false);
+    const [page, setPage] = useState(1);
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
+    const handleLoadMore = async () => {
+        setPage((prevPage) => prevPage + 1);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -84,9 +81,7 @@ const BydgoszczPostsPage = () => {
                 }
 
                 const data = await response.json();
-                setPosts(data);
-                const totalPagesHeader = response.headers.get('X-WP-TotalPages');
-                setTotalPages(Number(totalPagesHeader));
+                setPosts((prevPosts) => [...prevPosts, ...data]);
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -99,13 +94,6 @@ const BydgoszczPostsPage = () => {
         }
     }, [page, currentCategorySlug]);
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-        // Обновляем URL с новым номером страницы
-        navigate(`/bydgoszcz/${categorySlug}?page=${newPage}`);
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
-
     return (
         <SectionWrapper id="actual" paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
@@ -115,15 +103,16 @@ const BydgoszczPostsPage = () => {
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {posts.map((post, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>
-                        <Link to={`/bydgoszcz/${categorySlug}/${post.slug}`} className={classes.link}>
+                        <Link to={`/artykuly/${post.slug}`} className={classes.link}>
                             <Box className={classes.root}>
                                 {post._embedded && post._embedded['wp:featuredmedia'] && (
                                     <div className={classes.imageContainer}>
-                                        <img
+                                        <LazyLoadImage
                                             src={post._embedded['wp:featuredmedia'][0].source_url}
                                             alt={post.title.rendered}
                                             className={classes.image}
                                             loading="lazy"
+                                            effect="blur"
                                         />
                                     </div>
                                 )}
@@ -155,14 +144,9 @@ const BydgoszczPostsPage = () => {
                     </Grid>
                 ))}
             </Grid>
-            <Pagination
-                className={classes.pagination}
-                count={totalPages}
-                page={page}
-                onChange={handleChangePage}
-                boundaryCount={window.innerWidth < 600 ? 1 : 2}
-                shape="rounded"
-            />
+            <Box className={classes.buttonWrapper}>
+                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%"/>
+            </Box>
             <DonatBadgeComponent/>
             <ContactForm/>
             <Backdrop className={classes.backdrop} open={loadingCategory || loadingPosts}>

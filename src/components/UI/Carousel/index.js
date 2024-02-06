@@ -124,7 +124,7 @@ const Carousel = ({slides}) => {
             spaceBetween={0}
             slidesPerView={1}
             navigation={false}
-            autoplay={{delay: 4000}}
+            autoplay={{delay: 7000}}
             pagination={{clickable: false}}
             onSlideChange={handleSlideChange}
         >

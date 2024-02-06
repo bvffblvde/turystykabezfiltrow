@@ -16,30 +16,29 @@ const slides = [
         description: "Obszerne teksty dot. turystyki \n" +
             "i dziedzictwa kulturowego urozmaicone masą ciekawych zdjęć",
         buttonText: "Czytaj więcej",
-        link: "/aktualnosci"
+        link: "/artykuly"
 
     },
     {
-        image: WycieczkiBanner,
-        title: "Wycieczki tematyczne",
-        // description: "Obszerne teksty dot. turystyki \n" +
-        //     "i dziedzictwa kulturowego urozmaicone masą ciekawych zdjęć",
+        image: PublicBanner,
+        title: "Wydarzenia",
+        description: "Organizowane przez nas lub prowadzone w ramach współpracy, wycieczki turystyczno-krajoznawcze. Osiedla, miasta, regiony.",
         buttonText: "Zobacz więcej",
-        link: "/wycieczki"
+        link: "/wydarzenia"
     },
     {
-        image: FilmyBanner,
+        image: WycieczkiBanner,
         title: "Filmy",
         description: "Mniej lub bardziej poważne materiały filmowe dot. turystyki i kultury",
         buttonText: "Obejrzyj więcej",
         link: "/filmy"
     },
     {
-        image: PublicBanner,
+        image: FilmyBanner,
         title: "Publikacje",
-        // description: "Obszerne teksty dot. turystyki \n" +
-        //     "i dziedzictwa kulturowego urozmaicone masą ciekawych zdjęć",
+        description: "Przygotowane przez nas publikacje tematyczne, opracowania, książki, czasopisma. Udostępnione do pobrania.",
         buttonText: "Czytaj więcej",
+        link: "/o-nas"
 
     }
 ];

@@ -17,86 +17,69 @@ import axios from 'axios';
 import useStyles from '../../pages/Category/styles';
 import H4 from '../../UI/H4';
 import SearchField from "../../UI/SearchTextField";
+import StyledButton from "../../UI/StyledButton";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 
 const Wyszukiwarka = () => {
-    const {theme} = useTheme();
+    const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [postsData, setPostsData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const location = useLocation();
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [searchExecuted, setSearchExecuted] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    const fetchData = async (pageNum) => {
+        try {
+            setLoading(true);
+
+            const postsResponse = await axios.get(
+                `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?per_page=6&page=${pageNum}&_embed&search=${searchKeyword}`
+            );
+
+            const totalPosts = parseInt(postsResponse.headers['x-wp-total'], 10);
+
+            const newPostsData = postsResponse.data.map(post => ({
+                postTitle: post.title.rendered,
+                lastPostImage: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
+                postCount: totalPosts,
+                postDescription: post.excerpt.rendered,
+                postDate: post.date,
+                slug: post.slug,
+                categories: post.categories,
+                tags: post.tags,
+            }));
+
+            setPostsData(prevData => [...prevData, ...newPostsData]);
+        } catch (error) {
+            console.error('Error fetching posts data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const {search} = location;
-                const pageParam = new URLSearchParams(search).get('page') || 1;
+        if (searchExecuted) {
+            fetchData(currentPage).then(() => console.log('Posts data fetched'));
+        }
+    }, [searchKeyword, searchExecuted, currentPage]);
 
-                // Запрос всех постов только при наличии ключевого слова
-                if (searchKeyword.trim() && searchExecuted) {
-                    setLoading(true);
-
-                    const postsResponse = await axios.get(
-                        `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?per_page=6&page=${pageParam}&_embed&search=${searchKeyword}`
-                    );
-
-                    const totalPosts = parseInt(postsResponse.headers['x-wp-total'], 10);
-                    const totalPages = parseInt(
-                        postsResponse.headers['x-wp-totalpages'],
-                        10
-                    );
-
-                    setTotalPages(totalPages);
-
-                    const postsData = postsResponse.data.map(post => ({
-                        postTitle: post.title.rendered,
-                        lastPostImage:
-                            post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
-                        postCount: totalPosts,
-                        postDescription: post.excerpt.rendered,
-                        postDate: post.date,
-                        slug: post.slug,
-                        categories: post.categories,
-                        tags: post.tags,
-                    }));
-
-                    setPostsData(postsData);
-                } else {
-                    setPostsData([]); // Если ключевое слово не указано или поиск не выполнен, очистить данные
-                }
-            } catch (error) {
-                console.error('Error fetching posts data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData().then(() => console.log('Posts data fetched'));
-    }, [location, page, searchKeyword, searchExecuted]);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-        navigate(`${location.pathname}?page=${newPage}`);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+    const handleLoadMore = () => {
+        setCurrentPage(prevPage => prevPage + 1);
     };
 
     const handleSearch = () => {
         // При нажатии на кнопку поиска обновляем данные с учетом введенного ключевого слова
-        setPage(1);
-        navigate(`${location.pathname}?page=1`);
+        setPostsData([]);
+        setCurrentPage(1);
         setSearchKeyword(searchKeyword.trim());
         setSearchExecuted(true);
     };
-
-    const navigate = useNavigate();
 
     return (
         <SectionWrapper
@@ -132,7 +115,7 @@ const Wyszukiwarka = () => {
                                 post.categories?.some(category => category === 730842049) ||
                                 post.tags?.some(tag => tag === 730842067)
                                     ? `/wycieczki/${post.slug}`
-                                    : `/aktualnosci/${post.slug}`
+                                    : `/artykuly/${post.slug}`
                             }
                             onClick={() => console.log("Link Clicked:", post)}
                             className={classes.linkWrapper}
@@ -141,11 +124,12 @@ const Wyszukiwarka = () => {
                         <Box className={classes.root}>
                                 {post.lastPostImage && (
                                     <div className={classes.imageContainer}>
-                                        <img
+                                        <LazyLoadImage
                                             src={post.lastPostImage}
                                             alt={post.postTitle}
                                             className={classes.image}
                                             loading="lazy"
+                                            effect="blur"
                                         />
                                     </div>
                                 )}
@@ -178,14 +162,9 @@ const Wyszukiwarka = () => {
                 ))}
             </Grid>
             {postsData.length === 0 ? null : (
-                <Pagination
-                    className={classes.pagination}
-                    count={totalPages}
-                    page={page}
-                    onChange={handleChangePage}
-                    boundaryCount={window.innerWidth < 600 ? 1 : 2}
-                    shape="rounded"
-                />
+                <Box className={classes.buttonWrapper}>
+                    <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%"/>
+                </Box>
             )}
             <DonatBadgeComponent/>
             <ContactForm/>

@@ -5,8 +5,7 @@ import {
     Backdrop,
     CircularProgress, Box,
 } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation, Link, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import H4 from "../../../../UI/H4";
 import SectionWrapper from "../../../../UI/SectionWrapper";
 import {useTheme} from "../../../../../theme/themeContext";
@@ -16,77 +15,64 @@ import DonatBadgeComponent from "../../../../UI/DonatBadge";
 import useStyles from "../styles";
 import {themes} from "../../../../../theme/themeContext/themes";
 import axios from "axios";
+import StyledButton from "../../../../UI/StyledButton";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const RegionyPostsPage = () => {
-    const {theme} = useTheme();
+    const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [posts, setPosts] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
-    const {tagSlug} = useParams();
+    const { tagSlug } = useParams();
     const [currentTagSlug, setCurrentTagSlug] = useState(null);
     const [currentTagName, setCurrentTagName] = useState('');
+    const [page, setPage] = useState(1);
 
-    const navigate = useNavigate();
+    const fetchData = async (pageNum) => {
+        setLoading(true);
+        try {
+            const tagResponse = await axios.get(
+                `https://turystykabezfiltrow.com/wp-json/wp/v2/tags?slug=${tagSlug}`
+            );
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+            if (!tagResponse || !tagResponse.data || tagResponse.data.length === 0) {
+                throw new Error('No tag data found');
+            }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true); // Устанавливаем loading в true перед запросом данных
-            try {
-                // Fetch tag data
-                const tagResponse = await axios.get(
-                    `https://turystykabezfiltrow.com/wp-json/wp/v2/tags?slug=${tagSlug}`
+            const tagData = tagResponse.data[0];
+
+            if (tagData) {
+                setCurrentTagSlug(tagData.id);
+                setCurrentTagName(tagData.name);
+
+                const postsResponse = await axios.get(
+                    `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?_embed&per_page=${postsPerPage}&page=${pageNum}&tags=${tagData.id}`
                 );
 
-                if (!tagResponse || !tagResponse.data || tagResponse.data.length === 0) {
-                    throw new Error('No tag data found');
+                if (postsResponse.status !== 200) {
+                    throw new Error('Failed to fetch posts data');
                 }
 
-                const tagData = tagResponse.data[0];
-
-                if (tagData) {
-                    setCurrentTagSlug(tagData.id);
-                    setCurrentTagName(tagData.name);
-
-                    // Fetch posts data
-                    const postsResponse = await axios.get(
-                        `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?_embed&per_page=${postsPerPage}&page=${page}&tags=${tagData.id}`
-                    );
-
-                    if (postsResponse.status !== 200) {
-                        throw new Error('Failed to fetch posts data');
-                    }
-
-                    const data = postsResponse.data;
-                    setPosts(data);
-                    const totalPagesHeader = postsResponse.headers.get('X-WP-TotalPages');
-                    setTotalPages(Number(totalPagesHeader));
-                } else {
-                    console.error('Tag not found.');
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                console.log('Response data:', error.response?.data);
-            } finally {
-                setLoading(false); // Устанавливаем loading в false после завершения запроса данных
+                const data = postsResponse.data;
+                setPosts((prevPosts) => [...prevPosts, ...data]);
+            } else {
+                console.error('Tag not found.');
             }
-        };
-
-        if (tagSlug) {
-            fetchData();
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            console.log('Response data:', error.response?.data);
+        } finally {
+            setLoading(false);
         }
+    };
+
+    useEffect(() => {
+        fetchData(page);
     }, [tagSlug, page]);
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-        navigate(`/regiony/${tagSlug}?page=${newPage}`);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+    const handleLoadMore = () => {
+        setPage((prevPage) => prevPage + 1);
     };
 
     return (
@@ -102,11 +88,12 @@ const RegionyPostsPage = () => {
                             <Box className={classes.root}>
                                 {post._embedded && post._embedded['wp:featuredmedia'] && (
                                     <div className={classes.imageContainer}>
-                                        <img
+                                        <LazyLoadImage
                                             src={post._embedded['wp:featuredmedia'][0].source_url}
                                             alt={post.title.rendered}
                                             className={classes.image}
                                             loading="lazy"
+                                            effect="blur"
                                         />
                                     </div>
                                 )}
@@ -140,14 +127,9 @@ const RegionyPostsPage = () => {
                     </Grid>
                 ))}
             </Grid>
-            <Pagination
-                className={classes.pagination}
-                count={totalPages}
-                page={page}
-                onChange={handleChangePage}
-                boundaryCount={window.innerWidth < 600 ? 1 : 2}
-                shape="rounded"
-            />
+            <Box className={classes.buttonWrapper}>
+                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%"/>
+            </Box>
             <DonatBadgeComponent/>
             <ContactForm/>
             <Backdrop className={classes.backdrop} open={loading}>

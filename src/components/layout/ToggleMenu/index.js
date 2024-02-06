@@ -273,7 +273,7 @@ const navLinksData = [
             {url: '/bydgoszcz/cykl-bydgoszcz-narodzona-z-wody', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
             {url: '/bydgoszcz/cykl-cuda-bydgoskie', text: 'CUDA BYDGOSKIE'},
             {url: '/bydgoszcz/inne-bydgoskie', text: 'INNE BYDGOSKIE'},
-            {url: '/aktualnosci/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+            {url: '/artykuly/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
 
         ].sort((a, b) => a.text.localeCompare(b.text)),
     },
@@ -307,8 +307,8 @@ const navLinksData = [
     //     text: 'Sklep',
     // },
     {
-        url: '/wez-udzial',
-        text: 'WEŹ UDZIAŁ',
+        url: '/wydarzenia',
+        text: 'Wydarzenia',
     },
     {
         //url: '/o-nas',

@@ -175,7 +175,15 @@ const useStyles = makeStyles((theme) => ({
      link: {
         textDecoration: 'none',
         color: 'inherit',
-     }
+     },
+    buttonWrapper: {
+        width: '25%',
+        margin: '0 auto',
+        marginBottom: '80px',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        }
+    }
 }));
 
 export default useStyles;

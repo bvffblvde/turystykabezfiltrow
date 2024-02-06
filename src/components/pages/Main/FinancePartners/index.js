@@ -58,7 +58,7 @@ const InvestBlock = () => {
                 </Box>
                 <Box>
                     <Typography className={classes.descriptionText}>
-                        Dostosowanie strony internetowej sfinansowane ze środków grantu „Turystyka BEZ FILTRÓW i BEZ BARIER!” realizowanego w ramach projektu pt. Turystyka dostępna 1.0. współfinansowanego ze środków PFRON, w ramach pilotażowego programu „Dostępność ponad barierami
+                        Dostosowanie strony internetowej sfinansowane ze środków grantu „Turystyka BEZ FILTRÓW i BEZ BARIER!” realizowanego w ramach projektu pt. Turystyka dostępna 1.0. współfinansowanego ze środków PFRON, w ramach pilotażowego programu „Dostępność ponad barierami”.
                     </Typography>
                 </Box>
             </Box>

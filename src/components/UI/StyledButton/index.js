@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const StyledButton = ({ variant, text, width, to }) => {
+const StyledButton = ({ variant, text, width, to, clicked }) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const navigate = useNavigate();
@@ -80,7 +80,7 @@ const StyledButton = ({ variant, text, width, to }) => {
             className={getButtonStyle()}
             variant={variant}
             style={{ width: width }}
-            onClick={handleClick}
+            onClick={clicked ? clicked : handleClick}
         >
             {text}
         </Button>

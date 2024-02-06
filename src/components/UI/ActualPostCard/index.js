@@ -106,7 +106,7 @@ const PostCard = ({post, mediaData}) => {
     const media = featuredMediaId ? mediaData[featuredMediaId] : null;
 
     return (
-        <Link to={`/aktualnosci/${post.slug}`} className={classes.linkWrapper}>
+        <Link to={`/artykuly/${post.slug}`} className={classes.linkWrapper}>
             <Box className={classes.root}>
                 {media && (
                     <Box className={classes.imageContainer}>

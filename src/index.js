@@ -23,6 +23,7 @@ import Wyszukiwarka from "./components/pages/Search";
 import BydgoszczPostsPage from "./components/pages/Category/SubCategoryPages/BydgoszczPosts";
 import RegionyPostsPage from "./components/pages/Category/SubCategoryPages/RegionyPosts";
 import SeasonPageComponent from "./components/pages/Season";
+import {PaginationProvider} from "./components/UI/Pagination/PaginationContext";
 
 const App = () => {
 
@@ -30,8 +31,9 @@ const App = () => {
         <ThemeProvider>
             <FloatingButtonProvider>
                 <FontSizeProvider>
-                    <Router>
-                        <CssBaseline/>
+                    <PaginationProvider>
+                        <Router>
+                            <CssBaseline/>
                             <>
                                 <Header/>
                                 <Routes>
@@ -49,14 +51,14 @@ const App = () => {
                                     <Route path="/kraje/:tagSlug" element={<RegionyPostsPage/>}/>
                                     <Route path="/kraje/:tagSlug/:postSlug" element={<PostDetails/>}/>
 
-                                    <Route path="/aktualnosci" element={<ActualsPageComponent/>}/>
-                                    <Route path="/aktualnosci/:postSlug" element={<PostDetails/>}/>
+                                    <Route path="/artykuly" element={<ActualsPageComponent/>}/>
+                                    <Route path="/artykuly/:postSlug" element={<PostDetails/>}/>
 
                                     <Route path="/wycieczki" element={<WycieczkiPageComponent/>}/>
                                     <Route path="/wycieczki/:projectSlug" element={<ProjectDetails/>}/>
 
-                                    <Route path="/wez-udzial" element={<SeasonPageComponent/>}/>
-                                    <Route path="/wez-udzial/:postSlug" element={<PostDetails/>}/>
+                                    <Route path="/wydarzenia" element={<SeasonPageComponent/>}/>
+                                    <Route path="/wydarzenia/:postSlug" element={<PostDetails/>}/>
 
                                     <Route path="/filmy" element={<FilmyPage/>}/>
                                     <Route path="/wyszukiwarka" element={<Wyszukiwarka/>}/>
@@ -69,7 +71,8 @@ const App = () => {
                                 </Routes>
                                 <Footer/>
                             </>
-                    </Router>
+                        </Router>
+                    </PaginationProvider>
                 </FontSizeProvider>
             </FloatingButtonProvider>
         </ThemeProvider>
