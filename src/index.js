@@ -23,6 +23,7 @@ import Wyszukiwarka from "./components/pages/Search";
 import BydgoszczPostsPage from "./components/pages/Category/SubCategoryPages/BydgoszczPosts";
 import RegionyPostsPage from "./components/pages/Category/SubCategoryPages/RegionyPosts";
 import SeasonPageComponent from "./components/pages/Season";
+import About from "./components/pages/About";
 
 const App = () => {
 
@@ -64,7 +65,7 @@ const App = () => {
                                     {/*<Route path="/projekty" element={<ProjectsList/>}/>*/}
                                     {/*<Route path="/projekty/:projectSlug" element={<ProjectDetails/>}/>*/}
                                     <Route path="/declaracja-dostepnosci" element={<DocumentPage/>}/>
-                                    {/*<Route path="/o-fundacji" element={<About/>}/>*/}
+                                    <Route path="/o-nas" element={<About/>}/>
                                     {/*<Route path="*" element={<NotFoundPage/>}/>*/}
                                 </Routes>
                                 <Footer/>

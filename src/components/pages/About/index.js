@@ -8,13 +8,17 @@ import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 import Typography from "@material-ui/core/Typography";
 import BreadCrumbs from "../../UI/BreadCrumbs";
-import Banner from "../../../assets/Banners/about-page-banner-test.png";
+import PiotrPhoto from "../../../assets/Banners/piotr.png";
+import Banner from "../../../assets/Banners/main-about-page.png";
+import InnaPhoto from "../../../assets/Banners/inna.png";
 import DownloadButton from "../../UI/DownloadButton";
+import DonatBadge from "../../UI/DonatBadge";
 
 const sections = [
-    {id: 'co-robimy', label: 'Сo robimy'},
-    {id: 'nasz-zespół', label: 'Nasz zespół'},
-    {id: 'statut', label: 'Statut'},
+    {id: 'bez-filtrow', label: 'BEZ FILTRÓW - czyli?'},
+    {id: 'wesprzyj-nas', label: 'Wesprzyj nas!'},
+    {id: 'projekty', label: 'Projekty'},
+    {id: 'publikacje', label: 'Publikacje'},
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         gap: '5%',
     },
     sideBarSection: {
-        paddingTop: '100px',
+        //paddingTop: '100px',
         [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
@@ -33,12 +37,11 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         flex: '1',
         gap: '80px',
-        marginBottom: '100px',
+        padding: '0 5% 0 calc(5% + 40px)',
         borderLeft: '1px solid',
-        paddingLeft: '20px',
         borderColor: ({borderColorForAboutPage}) => borderColorForAboutPage,
         [theme.breakpoints.down('sm')]: {
-            paddingLeft: '0',
+            padding: '0',
             border: 'none',
             marginBottom: '60px',
             gap: '40px'
@@ -46,19 +49,19 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontFamily: 'Inter-Bold',
-        fontSize: '56px',
+        fontSize: '60px',
         fontWeight: 700,
         textAlign: "center",
         color: ({textColor}) => textColor,
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: '32px',
             fontWeight: 700,
             marginBottom: '16px',
         },
     },
     subTitle: {
-        fontFamily: 'Helvetica-Regular',
+        fontFamily: 'Inter-Regular',
         fontSize: '20px',
         fontWeight: 400,
         textAlign: "center",
@@ -82,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '100%',
         objectFit: 'cover',
+        marginBottom: '20px',
     },
     bannerContainer: {
         width: 'calc(100% + 40px)',
@@ -96,8 +100,8 @@ const useStyles = makeStyles((theme) => ({
     },
     titleBlock: {
         fontFamily: 'Inter-Bold',
-        fontSize: '32px',
-        fontWeight: 700,
+        fontSize: '36px',
+        fontWeight: 500,
         marginBottom: '20px',
         color: ({aboutPageTextTitleColor}) => aboutPageTextTitleColor,
         [theme.breakpoints.down('sm')]: {
@@ -106,33 +110,33 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     titleBlockFirst: {
-        fontFamily: 'Helvetica-Bold',
-        fontSize: '32px',
-        fontWeight: 700,
+        fontFamily: 'Inter-Regular',
+        fontSize: '36px',
+        fontWeight: 400,
         marginBottom: '20px',
         color: ({aboutPageTextTitleColor}) => aboutPageTextTitleColor,
         [theme.breakpoints.down('sm')]: {
             fontSize: '20px',
-            marginBottom: '0',
         }
     },
     descriptionText: {
-        fontFamily: 'Helvetica-Regular',
-        fontSize: '20px',
+        fontFamily: 'Inter-Regular',
+        fontSize: '16px',
         fontWeight: 400,
         color: ({textColor}) => textColor,
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
-        }
+        '& p': {
+            margin: '0 0 10px 0',
+        },
     },
     individualPhoto: {
         width: '100%',
-        height: '400px',
+        aspectRatio: '1/1',
+        borderRadius: '10px',
         objectFit: 'cover',
     },
     boldText: {
-        fontFamily: 'Helvetica-Bold',
-        fontSize: '20px',
+        fontFamily: 'Inter-Regular',
+        fontSize: '16px',
         fontWeight: 700,
         color: ({textColor}) => textColor,
         marginBottom: '10px',
@@ -160,19 +164,36 @@ const useStyles = makeStyles((theme) => ({
         gap: '40px',
     },
     rightBlock: {
-        paddingTop: '100px',
+        //paddingTop: '100px',
         [theme.breakpoints.down('sm')]: {
-            paddingTop: '20px',
+            //paddingTop: '20px',
+        }
+    },
+    descriptionStartSection: {
+        fontFamily: 'Inter-Regular',
+        fontSize: '16px',
+        fontWeight: 400,
+        color: ({textColor}) => textColor,
+        '& p': {
+            margin: '0 0 10px 0',
         }
     }
 }));
 
-const coRobimyText = `Wśród najważniejszych kierunków działań, które realizuje (i planuje rozwijać) Fundacja, wymienić należy następujące kwestie:\n <ul><li>budowanie międzynarodowej i międzykulturowej współpracy na płaszczyźnie szeroko rozumianej turystyki,\n </li><li>wprowadzanie na nowe rynki lokalnych i regionalnych produktów turystycznych,\n </li><li>integracja środowiska turystycznego i okołoturystycznego różnych miast, regionów i krajów,\n </li><li>aktywizacja lokalnych społeczności, w szczególności dzieci i młodzieży, z wykorzystaniem różnorodnych form turystyki i kultury,\n </li><li>wzmacnianie wizerunku turystycznego Bydgoszczy oraz województwa kujawsko-pomorskiego w Polsce i poza jej granicami,\n </li><li>organizacja ogólnodostępnych i branżowych wydarzeń turystyczno-kulturalnych,\n </li><li>podkreślanie wkładu innych kultur w budowanie tożsamości województwa kujawsko-pomorskiego,\n </li><li>integracja rdzennych mieszkańców Bydgoszczy i województwa kujawsko-pomorskiego z przedstawicielami mniejszości narodowych.\n </li></ul>`;
-const piotrDescription = `Pozyskiwania środków zewnętrznych (obecnie prowadzi firmę Pisanie&Projekty, doświadczenie zbierał m.in. w: Wyższej Szkole Gospodarki w Bydgoszczy oraz Centrum Szkoleniowym „Masterlang” i Fundacji „Sowa” w Krakowie), członek Zarządu Bydgoskiej Lokalnej Organizacji Turystycznej „ByLOT”, członek Rady Stowarzyszenia Bydgoska Lokalna Grupa Działania „Dwie Rzeki”, członek Komitetu Rewitalizacji Miasta Bydgoszczy, członek Rady Naukowej Polskiego Instytutu Turystyki, właściciel i twórca bloga turystycznego „Weckwerth – turystyka BEZ FILTRÓW”, pomysłodawca i autor artykułów, powstających w ramach cykli: „Bydgoskie osiedla BEZ FILTRÓW” oraz „Bydgoszcz przez dziurkę od klucza”, instruktor turystyki kwalifikowanej o specjalizacji turystyka kajakowa, pilot wycieczek. Absolwent Uniwersytetu Kazimierza Wielkiego w Bydgoszczy i Uniwersytetu Mikołaja Kopernika w Toruniu.`;
-const serhiiDescription = `Specjalista do spraw marketingu (Wyższa Szkoła Gospodarki w Bydgoszczy), Honorowy Prezydent Association of International Students - AIS (Zrzeszenie Studentów z Zagranicy). Absolwent Wyższej Szkoły Gospodarki w Bydgoszczy, o specjalnościach: Hotelarstwo i Gastronomia, Zarządzanie i Marketing, oraz absolwent studiów podyplomowych Zarządzanie Zasobami Ludzkimi. W 2018 roku Asystent Konsula Honorowego Ukrainy w Bydgoszczy. Członek Światowego Kongresu Ukraińskich Młodzieżowych Organizacji, a także kilkukrotny uczestnik stażu, odbywającego się w Parlamencie Ukrainy.`;
-const innaDescription = `Inna Yaremchuk 
-Specjalistka ds. turystyki i rekreacji oraz ds.
-Zarządzania, absolwentka Wyższej Szkole Gospodarki w Bydgoszczy, koordynatorka wielu wydarzeń „ByLOT”, m.in.: PromoFestival 2016, Obywatelskie Obchody Święta Niepodległości 2016, 2017 i 2018. Laureatka drugiego miejsca w konkursie pn. Nagroda Prezydenta Miasta Bydgoszczy, na najlepsze prace magisterskiego w roku akademickim 2018/2019, za pracę pt. „Kształtowanie wizerunku turystycznego miasta oraz jego postrzeganie przez studentów zagranicznych na przykładzie Bydgoszczy”. Na stałe współpracuje z Piotrem Weckwerthem w kontekście wykonywania dokumentacji zdjęciowej oraz prowadzenia mediów społecznościowych na blogu „Turystyka BEZ FILTRÓW”.`;
+const coRobimyText = `<p>„Turystyka BEZ FILTRÓW”  to marka, która startowała jako hobbystyczny blog turystyczny, z czasem rozrastając się do znaczącej w skali Bydgoszczy i regionu, inicjatywy. Dziś obejmuje ona stronę internetową (www.turystykabezfiltrow.com), na której regularnie pojawiają się artykuły o tematyce turystyczno-kulturowej (m.in. cykle: „Bydgoskie osiedla BEZ FILTRÓW”, „Bydgoszcz przez dziurkę od klucza”), kanały na portalu YouTube („Turystyka BEZ FILTRÓW” oraz „RBF – Rozmowy BEZ FILTRÓW”), a także cykliczne spacery tematyczne po Bydgoszczy, głównie zaś po bydgoskich osiedlach (w ramach serii „Bydgoskie osiedla BEZ TAJEMNIC”).</p>
+<p>Przeczytawszy powyższy tekst, nietrudno się domyślić, że „Turystyka BEZ FILTRÓW” celuje w propagowanie turystyki osiedlowej. Inicjatywa „Osiedla BEZ FILTRÓW”, była dotychczas wdrażana (przy wsparciu środków finansowych lokalnych samorządów), w: Bydgoszczy, Toruniu, Włocławku, Grudziądzu i Inowrocławiu.</p>
+<p><strong>Dlaczego BEZ FILTRÓW?</strong></p>
+BEZ FILTRÓW czyli bez „upiększaczy”, podkręcania rzeczywistości, tak powszechnego w dobie wszechobecnych mediów społecznościowych. Nasze materiały ukazują piękno (lub brzydotę) danego miejsca oraz jego zasoby, w taki sposób, aby najpełniej oddać rzeczywistość. Jakkolwiek zaskakująca lub nawet niewygodna, ona jest. 
+`;
+const piotrDescription = `<p>Pomysłodawca inicjatywy, autor tekstów i scenariuszy filmów, które pojawiają się na blogu oraz kanale YouTube. Przewodnik turystyczny, specjalizujący się w historii i współczesności bydgoskich osiedli (w 2023 roku poprowadził ponad 60 wycieczek).</p>
+<p>Prezes Fundacji Krzewienia Kultury i Turystyki „Nad Rzeką”, specjalista ds. pozyskiwania środków zewnętrznych (od 2021 roku prowadzi firmę Pisanie&Projekty), członek Konwentu Kolegium Nauk Społecznych Wyższej Szkoły Gospodarki w Inowrocławiu.  Ponadto instruktor turystyki kwalifikowanej o specjalizacji turystyka kajakowa.</p>
+<p>W 2023 r. za działania podejmowane w ramach inicjatywy „Turystyka BEZ FILTRÓW”, otrzymał nagrodę Marszałka Województwa Kujawsko-Pomorskiego w kategorii „Promocja turystyczna”. </p>
+<p>Absolwent Uniwersytetu Kazimierza Wielkiego w Bydgoszczy i Uniwersytetu Mikołaja Kopernika w Toruniu.</p>
+Bydgoszczanin z dziada pradziada (4 pokolenie), miłośnik miasta i regionu, a także Kresów Wschodnich. 
+`;
+const innaDescription = `<p>Pasjonatka fotografii, odpowiadająca za dokumentację zdjęciową wszystkich wydarzeń organizowanych przez „Turystykę BEZ FILTRÓW”, a także artykułów, publikowanych na blogu. Operatorka kamery oraz montażystka – autorka filmów, pojawiających się na kanale YouTube „Turystyka BEZ FILTRÓW”.</p>
+<p>Laureatka w konkursie pn. Nagroda Prezydenta Miasta Bydgoszczy, na najlepsze prace magisterskiego w roku akademickim 2018/2019, za pracę pt. „Kształtowanie wizerunku turystycznego miasta oraz jego postrzeganie przez studentów zagranicznych na przykładzie Bydgoszczy”.</p>
+Ukrainka pochodząca ze wschodniego skraju Podola, mieszkająca w Bydgoszczy od 2014 roku.х`;
 
 const About = () => {
     const {theme} = useTheme();
@@ -183,59 +204,45 @@ const About = () => {
     }, []);
 
     return (
-        <SectionWrapper paddingTop="50px">
+        <SectionWrapper paddingTop="120px">
             <BreadCrumbs/>
             <Box className={classes.subTextBlock}>
                 <Typography variant="h1" className={classes.title}>
-                    O fundacji
+                    O nas
                 </Typography>
-                <Typography variant="body1" className={classes.subTitle}>
-                    Fundacja Krzewienia Kultury i Turystyki „Nad Rzeką” to organizacja pozarządowa, zarejestrowana
-                    31.07.2020 r. Fundację tworzy trzyosobowy, międzynarodowy zespół fundatorów, jednocześnie
-                    wchodzących w skład jej Zarządu. Są to: Piotr Weckwerth (prezes) oraz Serhii Zinchenko i Anton
-                    Karabach (wiceprezesi). Na stałe z Fundacją współpracuje Inna Yaremchuk.
-                </Typography>
-                <Box className={classes.bannerContainer}>
-                    <img src={Banner} alt="banner-about-company" className={classes.banner}/>
-                </Box>
             </Box>
             <Box className={classes.boxWrapper}>
                 <Box className={classes.sideBarSection}>
                     <Sidebar sections={sections}/>
                 </Box>
                 <Box className={classes.content}>
-                    <Box id="co-robimy" className={classes.rightBlock}>
-                        <Grid className={classes.gridWrapper}>
-                            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                                <Typography variant="h1" className={classes.titleBlockFirst}>
-                                    Co robimy
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-                                <Typography
-                                    variant="body1"
-                                    className={classes.descriptionText}
-                                    dangerouslySetInnerHTML={{__html: coRobimyText}}
-                                />
-                            </Grid>
-                        </Grid>
+                    <Box id="bez-filtrow" className={classes.rightBlock}>
+                        <Typography variant="h1" className={classes.titleBlockFirst}>
+                            BEZ FILTRÓW - czyli?
+                        </Typography>
+                        <Box>
+                            <img
+                                src={Banner}
+                                alt="main-banner-about-page"
+                                className={classes.banner}
+                            />
+                        </Box>
+                        <Box>
+                            <Typography className={classes.descriptionStartSection}
+                                        dangerouslySetInnerHTML={{__html: coRobimyText}}/>
+                        </Box>
                     </Box>
-                    <Box id="nasz-zespół">
+                    <Box>
                         <Typography variant="h1" className={classes.titleBlock}>
-                            Nasz zespół
+                            Nasz zespół:
                         </Typography>
                         <Box className={classes.zespolContainer}>
                             <Grid className={classes.gridWrapper}>
-                                <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                                    <img src={Banner} alt="banner-about-company" className={classes.individualPhoto}/>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={8} lg={8} xl={8} className={classes.descriptionForZespol}>
+                                <Grid item xs={12} sm={12} md={8} lg={8} xl={8}
+                                      className={classes.descriptionForZespol}>
                                     <Box>
                                         <Typography className={classes.boldText}>
                                             Piotr Weckwerth
-                                        </Typography>
-                                        <Typography className={classes.boldText}>
-                                            Prezes Fundacji Krzewienia Kultury i Turystyki „Nad Rzeką”, specjalista ds.
                                         </Typography>
                                     </Box>
                                     <Typography
@@ -244,58 +251,21 @@ const About = () => {
                                         dangerouslySetInnerHTML={{__html: piotrDescription}}
                                     />
                                 </Grid>
-                            </Grid>
-                            <Grid className={classes.gridWrapper}>
                                 <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                                    <img src={Banner} alt="banner-about-company" className={classes.individualPhoto}/>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={8} lg={8} xl={8} className={classes.descriptionForZespol}>
-                                    <Box>
-                                        <Typography className={classes.boldText}>
-                                            Serhii Zinchenko
-                                        </Typography>
-                                        <Typography className={classes.boldText}>
-                                            Wiceprezes Fundacji Krzewienia Kultury i Turystyki „Nad Rzeką”.
-                                        </Typography>
-                                    </Box>
-                                    <Typography
-                                        variant="body1"
-                                        className={classes.descriptionText}
-                                        dangerouslySetInnerHTML={{__html: serhiiDescription}}
-                                    />
+                                    <img src={PiotrPhoto} alt="banner-about-company"
+                                         className={classes.individualPhoto}/>
                                 </Grid>
                             </Grid>
                             <Grid className={classes.gridWrapper}>
                                 <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                                    <img src={Banner} alt="banner-about-company" className={classes.individualPhoto}/>
+                                    <img src={InnaPhoto} alt="banner-about-company"
+                                         className={classes.individualPhoto}/>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={8} lg={8} xl={8} className={classes.descriptionForZespol}>
+                                <Grid item xs={12} sm={12} md={8} lg={8} xl={8}
+                                      className={classes.descriptionForZespol}>
                                     <Box>
                                         <Typography className={classes.boldText}>
-                                            Anton Karabach
-                                        </Typography>
-                                        <Typography className={classes.descriptionText}>
-                                            Wiceprezes Fundacji Krzewienia Kultury i Turystyki „Nad Rzeką”, specjalista do spraw zatrudnienia cudzoziemców, absolwent Wyższej Szkoły Gospodarki w Bydgoszczy.
-                                        </Typography>
-                                    </Box>
-                                    {/*<Typography*/}
-                                    {/*    variant="body1"*/}
-                                    {/*    className={classes.descriptionText}*/}
-                                    {/*    dangerouslySetInnerHTML={{__html: innaDescription}}*/}
-                                    {/*/>*/}
-                                </Grid>
-                            </Grid>
-                            <Grid className={classes.gridWrapper}>
-                                <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                                    <img src={Banner} alt="banner-about-company" className={classes.individualPhoto}/>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={8} lg={8} xl={8} className={classes.descriptionForZespol}>
-                                    <Box>
-                                        <Typography className={classes.boldText}>
-                                            Inna Yaremchuk
-                                        </Typography>
-                                        <Typography className={classes.boldText}>
-                                            Specjalistka ds. turystyki i rekreacji oraz ds.
+                                            Inna Yaremchuk:
                                         </Typography>
                                     </Box>
                                     <Typography
@@ -307,7 +277,10 @@ const About = () => {
                             </Grid>
                         </Box>
                     </Box>
-                    <Box id="statut">
+                    <div id="wesprzyj-nas">
+                        <DonatBadge/>
+                    </div>
+                    <Box id="projekty">
                         <Grid className={classes.gridWrapper}>
                             <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                                 <Typography variant="h1" className={classes.titleBlock}>

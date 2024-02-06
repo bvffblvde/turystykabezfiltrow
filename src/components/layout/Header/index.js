@@ -74,9 +74,9 @@ const navLinksData = [
         url: '/o-nas',
         text: 'O nas',
         subLinks: [
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'BEZ FILTRÓW - czyli?'},
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Projekty'},
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Publikacje'},
+            {url: '/o-nas', sectionId: 'bez-filtrow', text: 'BEZ FILTRÓW - czyli?'},
+            {url: '/o-nas', sectionId: 'projekty', text: 'Projekty'},
+            {url: '/o-nas', sectionId: 'publikacje', text: 'Publikacje'},
 
         ],
     },
@@ -267,12 +267,22 @@ function Header() {
     const {theme, toggleTheme} = useTheme();
     const classes = useStyles(themes[theme]);
 
+    const scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            window.scrollTo({
+                top: section.offsetTop - 120,
+                behavior: 'smooth',
+            });
+        }
+    };
+
     return (
         <AppBar position={'fixed'} className={classes.appBar}>
             <Toolbar className={classes.toolbar}>
                 <Box>
                     <a href={'/'}>
-                        <img src={Logo} alt="logo" className={classes.logo}/>
+                        <img src={Logo} alt="logo" className={classes.logo} />
                     </a>
                 </Box>
                 <Box className={classes.title}>
@@ -284,21 +294,46 @@ function Header() {
                                 onMouseEnter={(e) => e.currentTarget.classList.add('hovered')}
                                 onMouseLeave={(e) => e.currentTarget.classList.remove('hovered')}
                             >
-                                <Link to={navLink.url} className={classes.link} {...(navLink.openInNewTab && {
-                                    target: '_blank',
-                                    rel: 'noopener noreferrer',
-                                })}>
-                                    {navLink.text}
-                                </Link>
-                                {navLink.subLinks && navLink.subLinks.length > 0 && (
-                                    <Box className={classes.subMenu}>
-                                        <div className={classes.line}/>
-                                        {navLink.subLinks.map((subLink, subIndex) => (
-                                            <Link key={subIndex} to={subLink.url} className={classes.link}>
-                                                {subLink.text}
-                                            </Link>
-                                        ))}
-                                    </Box>
+                                {navLink.subLinks && navLink.subLinks.length > 0 ? (
+                                    <React.Fragment>
+                                        <Link
+                                            to={navLink.url}
+                                            className={classes.link}
+                                            {...(navLink.openInNewTab && {
+                                                target: '_blank',
+                                                rel: 'noopener noreferrer',
+                                            })}
+                                        >
+                                            {navLink.text}
+                                        </Link>
+                                        <Box className={classes.subMenu}>
+                                            <div className={classes.line} />
+                                            {navLink.subLinks.map((subLink, subIndex) => (
+                                                <Link
+                                                    key={subIndex}
+                                                    to={subLink.url}
+                                                    onClick={() =>
+                                                        subLink.sectionId && scrollToSection(subLink.sectionId)
+                                                    }
+                                                    className={classes.link}
+                                                >
+                                                    {subLink.text}
+                                                </Link>
+                                            ))}
+                                        </Box>
+                                    </React.Fragment>
+                                ) : (
+                                    <Link
+                                        to={navLink.url}
+                                        className={classes.link}
+                                        onClick={() => navLink.sectionId && scrollToSection(navLink.sectionId)}
+                                        {...(navLink.openInNewTab && {
+                                            target: '_blank',
+                                            rel: 'noopener noreferrer',
+                                        })}
+                                    >
+                                        {navLink.text}
+                                    </Link>
                                 )}
                             </Box>
                         ))}
@@ -315,15 +350,13 @@ function Header() {
                         </Link>
                     </Box>
                     <Box>
-                        <SettingsDrawer/>
+                        <SettingsDrawer />
                     </Box>
                 </Box>
-                <FloatingButton/>
+                <FloatingButton />
                 <Box className={classes.mobileButtonSection}>
-                    {/*<SettingsDrawer/>*/}
-                    <ToggleMenu/>
+                    <ToggleMenu />
                 </Box>
-
             </Toolbar>
         </AppBar>
     );
