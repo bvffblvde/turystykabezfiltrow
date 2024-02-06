@@ -42,7 +42,10 @@ export const FontSizeProvider = ({ children }) => {
         if (savedFontSize) {
             updateFontSize(0);
         }
-    }, []);
+    },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []
+    );
 
     // Добавляем слушатель события для обновления размера шрифта при изменении размеров окна
     useEffect(() => {

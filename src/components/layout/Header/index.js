@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {makeStyles} from '@material-ui/core/styles';
 import Logo from "../../../assets/Logo/LOGO.svg";
-import {Box, Icon, IconButton} from "@material-ui/core";
+import {Box, Icon} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";

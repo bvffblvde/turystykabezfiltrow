@@ -5,8 +5,7 @@ import {
     Backdrop,
     CircularProgress, Box,
 } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation, Link} from 'react-router-dom';
+import {useLocation, Link} from 'react-router-dom';
 import H4 from "../../UI/H4";
 import SectionWrapper from "../../UI/SectionWrapper";
 import {useTheme} from "../../../theme/themeContext";
@@ -19,7 +18,6 @@ import useStyles from "../Category/styles";
 import H1 from "../../UI/H1";
 import ProjectCard from "../../UI/ActualProjectsCard";
 import StyledButton from "../../UI/StyledButton";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const SeasonPageComponent = () => {
     const { theme } = useTheme();
@@ -90,12 +88,11 @@ const SeasonPageComponent = () => {
                             <Box className={classes.root}>
                                 {post.lastPostImage && (
                                     <div className={classes.imageContainer}>
-                                        <LazyLoadImage
+                                        <img
                                             src={post.lastPostImage}
                                             alt={post.postTitle}
                                             className={classes.image}
                                             loading="lazy"
-                                            effect="blur"
                                         />
                                     </div>
                                 )}

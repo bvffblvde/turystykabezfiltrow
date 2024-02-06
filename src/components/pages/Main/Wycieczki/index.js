@@ -7,7 +7,6 @@ import { Grid } from "@material-ui/core";
 import ProjectCard from "../../../UI/ActualProjectsCard";
 import {themes} from "../../../../theme/themeContext/themes";
 import {useTheme} from "../../../../theme/themeContext";
-import UnderLine from "../../../UI/LineUnderTitle";
 
 const useStyles = makeStyles((theme) => ({
     buttonContainer: {

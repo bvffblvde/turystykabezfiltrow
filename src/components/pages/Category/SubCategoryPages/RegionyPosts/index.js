@@ -16,7 +16,6 @@ import useStyles from "../styles";
 import {themes} from "../../../../../theme/themeContext/themes";
 import axios from "axios";
 import StyledButton from "../../../../UI/StyledButton";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const RegionyPostsPage = () => {
     const { theme } = useTheme();
@@ -25,6 +24,7 @@ const RegionyPostsPage = () => {
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
     const { tagSlug } = useParams();
+    // eslint-disable-next-line no-unused-vars
     const [currentTagSlug, setCurrentTagSlug] = useState(null);
     const [currentTagName, setCurrentTagName] = useState('');
     const [page, setPage] = useState(1);
@@ -69,7 +69,10 @@ const RegionyPostsPage = () => {
 
     useEffect(() => {
         fetchData(page);
-    }, [tagSlug, page]);
+    },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [tagSlug, page]
+    );
 
     const handleLoadMore = () => {
         setPage((prevPage) => prevPage + 1);
@@ -88,12 +91,11 @@ const RegionyPostsPage = () => {
                             <Box className={classes.root}>
                                 {post._embedded && post._embedded['wp:featuredmedia'] && (
                                     <div className={classes.imageContainer}>
-                                        <LazyLoadImage
+                                        <img
                                             src={post._embedded['wp:featuredmedia'][0].source_url}
                                             alt={post.title.rendered}
                                             className={classes.image}
                                             loading="lazy"
-                                            effect="blur"
                                         />
                                     </div>
                                 )}

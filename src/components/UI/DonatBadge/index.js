@@ -1,5 +1,4 @@
 import React from 'react';
-import SectionWrapper from "../../UI/SectionWrapper";
 import {makeStyles} from "@material-ui/core/styles";
 import {themes} from "../../../theme/themeContext/themes";
 import {useTheme} from "../../../theme/themeContext";

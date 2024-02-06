@@ -3,11 +3,11 @@ import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
-import {Box, Icon} from "@material-ui/core";
+import {Box} from "@material-ui/core";
 import {Link} from "react-router-dom";
-import {ReactComponent as FaceBookLogo} from "../../../assets/Icons/facebook-logo.svg";
-import {ReactComponent as InstagramLogo} from "../../../assets/Icons/inst-logo.svg";
-import {ReactComponent as LinkedinLogo} from "../../../assets/Icons/linkedin-logo.svg";
+// import {ReactComponent as FaceBookLogo} from "../../../assets/Icons/facebook-logo.svg";
+// import {ReactComponent as InstagramLogo} from "../../../assets/Icons/inst-logo.svg";
+// import {ReactComponent as LinkedinLogo} from "../../../assets/Icons/linkedin-logo.svg";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
         gap: '20px',
     },
 }));
-
+// eslint-disable-next-line no-unused-vars
 const LinkText = ({text, to}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);

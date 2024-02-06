@@ -5,8 +5,7 @@ import {
     Backdrop,
     CircularProgress, Box,
 } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import H4 from "../../../UI/H4";
 import SectionWrapper from "../../../UI/SectionWrapper";
 import {useTheme} from "../../../../theme/themeContext";
@@ -17,10 +16,9 @@ import DonatBadgeComponent from "../../../UI/DonatBadge";
 import axios from "axios";
 import useStyles from "../styles";
 import StyledButton from "../../../UI/StyledButton";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const WycieczkiPageComponent = () => {
-    const { theme } = useTheme();
+    const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -88,17 +86,14 @@ const WycieczkiPageComponent = () => {
                     <Grid item key={index} xs={12} sm={6} md={4}>
                         <Link to={`/wycieczki/${post.projectSlug}`} className={classes.link}>
                             <Box className={classes.root}>
-                                {post.lastPostImage && (
-                                    <div className={classes.imageContainer}>
-                                        <LazyLoadImage
-                                            src={post.lastPostImage}
-                                            alt={post.postTitle}
-                                            className={classes.image}
-                                            loading="lazy"
-                                            effect = "blur"
-                                        />
-                                    </div>
-                                )}
+                                <div className={classes.imageContainer}>
+                                    <img
+                                        src={post.lastPostImage}
+                                        alt={post.postTitle}
+                                        className={classes.image}
+                                        loading="lazy"
+                                    />
+                                </div>
                                 <Box className={classes.textContainer}>
                                     <Box>
                                         <Box>

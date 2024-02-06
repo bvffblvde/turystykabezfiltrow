@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {colors} from '../../../theme/default';
-import Typography from "@material-ui/core/Typography";
 import {Box} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 
@@ -50,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = ({children}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
+    // eslint-disable-next-line no-unused-vars
     const [headerHeight, setHeaderHeight] = useState(0);
 
     useEffect(() => {

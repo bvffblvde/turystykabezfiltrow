@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {
     Grid,
-    makeStyles,
     Typography,
     Backdrop,
-    CircularProgress, Box, Icon, Button,
+    CircularProgress, Box,
 } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import H4 from "../../../UI/H4";
 import SectionWrapper from "../../../UI/SectionWrapper";
 import {useTheme} from "../../../../theme/themeContext";
@@ -18,7 +16,6 @@ import DonatBadgeComponent from "../../../UI/DonatBadge";
 import axios from "axios";
 import useStyles from "../styles";
 import StyledButton from "../../../UI/StyledButton";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {Skeleton} from "@material-ui/lab";
 
 
@@ -28,8 +25,6 @@ const ActualsPageComponent = () => {
     const [categoriesData, setCategoriesData] = useState([]);
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
-
-    const location = useLocation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -93,12 +88,11 @@ const ActualsPageComponent = () => {
                         >
                             <Box className={classes.root}>
                                     <div className={classes.imageContainer}>
-                                        <LazyLoadImage
+                                        <img
                                             src={post.lastPostImage}
                                             alt={post.postTitle}
                                             className={classes.image}
                                             loading="lazy"
-                                            effect = "blur"
                                         />
                                     </div>
                                 <Box className={classes.textContainer}>

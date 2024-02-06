@@ -23,7 +23,6 @@ import Wyszukiwarka from "./components/pages/Search";
 import BydgoszczPostsPage from "./components/pages/Category/SubCategoryPages/BydgoszczPosts";
 import RegionyPostsPage from "./components/pages/Category/SubCategoryPages/RegionyPosts";
 import SeasonPageComponent from "./components/pages/Season";
-import {PaginationProvider} from "./components/UI/Pagination/PaginationContext";
 
 const App = () => {
 
@@ -31,7 +30,6 @@ const App = () => {
         <ThemeProvider>
             <FloatingButtonProvider>
                 <FontSizeProvider>
-                    <PaginationProvider>
                         <Router>
                             <CssBaseline/>
                             <>
@@ -72,7 +70,6 @@ const App = () => {
                                 <Footer/>
                             </>
                         </Router>
-                    </PaginationProvider>
                 </FontSizeProvider>
             </FloatingButtonProvider>
         </ThemeProvider>

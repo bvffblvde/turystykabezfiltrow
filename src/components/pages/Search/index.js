@@ -5,8 +5,7 @@ import {
     Box,
     CircularProgress,
 } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import SectionWrapper from '../../UI/SectionWrapper';
 import {useTheme} from '../../../theme/themeContext';
 import {themes} from '../../../theme/themeContext/themes';
@@ -18,11 +17,10 @@ import useStyles from '../../pages/Category/styles';
 import H4 from '../../UI/H4';
 import SearchField from "../../UI/SearchTextField";
 import StyledButton from "../../UI/StyledButton";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 
 
 const Wyszukiwarka = () => {
-    const { theme } = useTheme();
+    const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [postsData, setPostsData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -64,10 +62,13 @@ const Wyszukiwarka = () => {
     };
 
     useEffect(() => {
-        if (searchExecuted) {
-            fetchData(currentPage).then(() => console.log('Posts data fetched'));
-        }
-    }, [searchKeyword, searchExecuted, currentPage]);
+            if (searchExecuted) {
+                fetchData(currentPage).then(() => console.log('Posts data fetched'));
+            }
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [searchKeyword, searchExecuted, currentPage]
+    );
 
     const handleLoadMore = () => {
         setCurrentPage(prevPage => prevPage + 1);
@@ -121,15 +122,14 @@ const Wyszukiwarka = () => {
                             className={classes.linkWrapper}
                         >
 
-                        <Box className={classes.root}>
+                            <Box className={classes.root}>
                                 {post.lastPostImage && (
                                     <div className={classes.imageContainer}>
-                                        <LazyLoadImage
+                                        <img
                                             src={post.lastPostImage}
                                             alt={post.postTitle}
                                             className={classes.image}
                                             loading="lazy"
-                                            effect="blur"
                                         />
                                     </div>
                                 )}

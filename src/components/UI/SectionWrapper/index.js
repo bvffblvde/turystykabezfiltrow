@@ -4,7 +4,6 @@ import {Box} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {useTheme} from '../../../theme/themeContext';
 import {themes} from "../../../theme/themeContext/themes";
-import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {

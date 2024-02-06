@@ -339,6 +339,7 @@ const navLinksData = [
 
 function NavigationLink({ link, closeMenuAfterClick }) {
     const classes = useStyles();
+    // eslint-disable-next-line no-unused-vars
     const [open, setOpen] = React.useState(false);
 
 

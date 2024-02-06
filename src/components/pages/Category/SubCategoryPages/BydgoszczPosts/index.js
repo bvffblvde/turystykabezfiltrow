@@ -15,13 +15,11 @@ import DonatBadgeComponent from "../../../../UI/DonatBadge";
 import useStyles from "../styles";
 import {themes} from "../../../../../theme/themeContext/themes";
 import StyledButton from "../../../../UI/StyledButton";
-import {LazyLoadImage} from "react-lazy-load-image-component";
 
 const BydgoszczPostsPage = () => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
     const {categorySlug} = useParams();
     const [currentCategorySlug, setCurrentCategorySlug] = useState(null);
@@ -107,12 +105,11 @@ const BydgoszczPostsPage = () => {
                             <Box className={classes.root}>
                                 {post._embedded && post._embedded['wp:featuredmedia'] && (
                                     <div className={classes.imageContainer}>
-                                        <LazyLoadImage
+                                        <img
                                             src={post._embedded['wp:featuredmedia'][0].source_url}
                                             alt={post.title.rendered}
                                             className={classes.image}
                                             loading="lazy"
-                                            effect="blur"
                                         />
                                     </div>
                                 )}

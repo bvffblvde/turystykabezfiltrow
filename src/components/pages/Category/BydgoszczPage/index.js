@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {
     Grid,
-    makeStyles,
     Typography,
     Backdrop,
     CircularProgress, Box, Icon,
 } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import {useNavigate, useLocation, Link, useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import H4 from "../../../UI/H4";
 import SectionWrapper from "../../../UI/SectionWrapper";
 import {useTheme} from "../../../../theme/themeContext";
@@ -21,7 +19,7 @@ import useStyles from "../styles";
 
 
 const BydgoszczPage = () => {
-    const { categorySlug } = useParams();
+    //const { categorySlug } = useParams();
     const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
