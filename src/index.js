@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import {CssBaseline} from "@material-ui/core";
 
 import MainPage from "./components/pages/Main";
@@ -24,6 +24,21 @@ import BydgoszczPostsPage from "./components/pages/Category/SubCategoryPages/Byd
 import RegionyPostsPage from "./components/pages/Category/SubCategoryPages/RegionyPosts";
 import SeasonPageComponent from "./components/pages/Season";
 import About from "./components/pages/About";
+
+const RedirectOldUrl = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Проверка, что текущий путь — старый URL /szlaki/
+        if (window.location.pathname === '/szlaki/') {
+            // Перенаправление на новый URL /artykuly/bartodzieje-szlak
+            navigate('/artykuly/bartodzieje-szlak', { replace: true });
+        }
+    }, [navigate]);
+
+    // Если не нужно рендерить компонент при редиректе, можно вернуть null
+    return null;
+};
 
 const App = () => {
 
@@ -61,9 +76,8 @@ const App = () => {
 
                                     <Route path="/filmy" element={<FilmyPage/>}/>
                                     <Route path="/wyszukiwarka" element={<Wyszukiwarka/>}/>
-                                    {/*<Route path="/aktualnosci/:postSlug" element={<PostDetails/>}/>*/}
-                                    {/*<Route path="/projekty" element={<ProjectsList/>}/>*/}
-                                    {/*<Route path="/projekty/:projectSlug" element={<ProjectDetails/>}/>*/}
+                                    <Route path="/szlaki/*" element={<RedirectOldUrl />} />
+
                                     <Route path="/declaracja-dostepnosci" element={<DocumentPage/>}/>
                                     <Route path="/o-nas" element={<About/>}/>
                                     {/*<Route path="*" element={<NotFoundPage/>}/>*/}

@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     },
     formSection: {
         width: '40%',
+        '& input.MuiInputBase-input': {
+          color: ({contactFormInputTextColor}) => contactFormInputTextColor,
+        },
         '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
             borderColor: ({defaultBorderColor}) => defaultBorderColor,
         },

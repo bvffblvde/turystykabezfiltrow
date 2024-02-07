@@ -39,14 +39,6 @@ div.MuiOutlinedInput-root {
 /*    -webkit-text-fill-color: #fcfbff !important;*/
 /*}*/
 
-input.MuiInputBase-input {
-    color: #fcfbff;
-}
-
-textarea.MuiInputBase-input {
-    color: #fcfbff;
-}
-
 span.MuiCheckbox-root {
     padding: 0 9px 9px 9px;
 }
