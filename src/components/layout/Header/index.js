@@ -316,6 +316,10 @@ function Header() {
                                                         subLink.sectionId && scrollToSection(subLink.sectionId)
                                                     }
                                                     className={classes.link}
+                                                    {...(navLink.openInNewTab && {
+                                                        target: '_blank',
+                                                        rel: 'noopener noreferrer',
+                                                    })}
                                                 >
                                                     {subLink.text}
                                                 </Link>

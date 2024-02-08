@@ -262,6 +262,27 @@ import {ReactComponent as ToggleMenuIcon} from "../../../assets/Icons/ToggleMenu
 import useStyles from "./styles";
 import {Link} from "react-router-dom";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import StyledButton from "../../UI/StyledButton";
+import LinedButton from "../../UI/LinedButton";
+import {ReactComponent as FaceBookLogo} from "../../../assets/SocialMediaLogo/fb.svg";
+import {ReactComponent as InstagramLogo} from "../../../assets/SocialMediaLogo/inst.svg";
+import {ReactComponent as LinkedinLogo} from "../../../assets/SocialMediaLogo/in.svg";
+import {ReactComponent as TikTokLogo} from "../../../assets/SocialMediaLogo/tt.svg";
+import {ReactComponent as FirstButtonIcon} from "../../../assets/Icons/contact-icon.svg";
+import {ReactComponent as SecondButtonIcon} from "../../../assets/Icons/support-icon.svg";
+
+
+const socialLinks = [
+    {
+        to: 'https://www.linkedin.com/company/fundacja-krzewienia-kultury-i-turystyki-nad-rzek%C4%85/',
+        icon: LinkedinLogo
+    },
+    {to: 'https://exmpl.com', icon: TikTokLogo},
+
+    {to: 'https://www.facebook.com/FundacjaNadRzeka/', icon: FaceBookLogo},
+
+    {to: 'https://www.instagram.com/fundacja.nadrzeka?igshid=YmMyMTA2M2Y%3D', icon: InstagramLogo},
+];
 
 const navLinksData = [
     {
@@ -307,20 +328,25 @@ const navLinksData = [
     //     text: 'Sklep',
     // },
     {
-        url: '/wydarzenia',
+        //url: '/wydarzenia',
         text: 'Wydarzenia',
+        subLinks: [
+            {url: '/wydarzenia', text: 'Weź udział!'},
+            {url: '/wycieczki', text: 'Co zrealizowaliśmy?'},
+            {
+                url: 'https://www.instagram.com/carfortrip_/?fbclid=IwAR0AnzB3bveYLQbilGia_XFBPek4C9zSQop5rmu-Gd8MLlX5FpKx_fnkDTQ',
+                text: 'Wycieczki do Gruzji',
+                openInNewTab: true,
+            },
+        ],
     },
     {
         //url: '/o-nas',
         text: 'O nas',
         subLinks: [
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-1', text: 'BEZ FILTRÓW - czyli?'},
-            {
-                url: 'https://www.instagram.com/carfortrip_/?fbclid=IwAR0AnzB3bveYLQbilGia_XFBPek4C9zSQop5rmu-Gd8MLlX5FpKx_fnkDTQ',
-                text: 'Wycieczki do Gruzji'
-            },
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Projekty'},
-            {url: 'https://turystykabezfiltrow.com/wycieczki/wycieczka-2', text: 'Wydawnictwa'},
+            {url: '/o-nas', sectionId: 'bez-filtrow', text: 'BEZ FILTRÓW - czyli?'},
+            {url: '/o-nas', sectionId: 'projekty', text: 'Projekty'},
+            {url: '/o-nas', sectionId: 'publikacje', text: 'Publikacje'},
 
         ],
     },
@@ -338,7 +364,8 @@ const navLinksData = [
 ];
 
 function NavigationLink({ link, closeMenuAfterClick }) {
-    const classes = useStyles();
+    const { theme } = useTheme();
+    const classes = useStyles(themes[theme]);
     // eslint-disable-next-line no-unused-vars
     const [open, setOpen] = React.useState(false);
 
@@ -433,6 +460,20 @@ function ToggleMenu() {
                         </Box>
                     ))}
                 </Box>
+            </Box>
+            <Box className={classes.firstButtonSection}>
+                <StyledButton text="Wesprzyj nas" to="/wesprzyj-nas" width="100%"/>
+            </Box>
+            <Box className={classes.firstButtonSection}>
+                <LinedButton text="SKONTAKTOWAĆ SIĘ Z DOWÓDCĄ" to="https://forms.gle/CG4xzZzapzC43mf76" width="100%" icon={FirstButtonIcon} borderBottom="none"/>
+                <LinedButton text="ZAPROPONOWAĆ POMYSŁ" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%" icon={SecondButtonIcon}/>
+            </Box>
+            <Box className={classes.socialLink}>
+                {socialLinks.map((link, index) => (
+                    <Link to={link.to} key={index} className={classes.socialLink}>
+                        <Icon component={link.icon} className={classes.socialIcon}/>
+                    </Link>
+                ))}
             </Box>
         </div>
     );

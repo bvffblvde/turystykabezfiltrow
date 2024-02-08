@@ -38,7 +38,7 @@ const MainPage = () => {
             </SectionWrapper>
             <ActualProjectsBlock/>
             <InvestBlock/>
-            <ContactForm/>
+            <ContactForm paddingBottom="100px"/>
             <Backdrop className={classes.backdrop} open={loading}>
                 <CircularProgress color="inherit"/>
             </Backdrop>

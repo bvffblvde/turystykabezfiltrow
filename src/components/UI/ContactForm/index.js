@@ -155,7 +155,7 @@ const validationSchema = Yup.object().shape({
     checkbox: Yup.boolean().oneOf([true], 'To pole jest wymagane').required('To pole jest wymagane'),
 });
 
-const ContactForm = () => {
+const ContactForm = ({paddingBottom}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     // eslint-disable-next-line no-unused-vars
@@ -177,7 +177,7 @@ const ContactForm = () => {
     };
 
     return (
-        <SectionWrapper id="main-contact">
+        <SectionWrapper id="main-contact" paddingBottom={paddingBottom}>
             <H1 text="Kontakt"/>
             <Typography variant="h2" className={classes.subTitleSection}>
                 Zapytaj o konkretny materiał, wycieczkę lub możliwość współpracy

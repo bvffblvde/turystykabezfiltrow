@@ -61,8 +61,8 @@ function Footer() {
                     <StyledButton text="Wesprzyj nas" to="/wesprzyj-nas" width="100%"/>
                 </Box>
                 <Box className={classes.firstButtonSection}>
-                    <LinedButton text="SKONTAKTOWAĆ SIĘ Z DOWÓDCĄ" to="/kontakt" width="100%" icon={FirstButtonIcon}/>
-                    <LinedButton text="ZAPROPONOWAĆ POMYSŁ" to="/kontakt" width="100%" icon={SecondButtonIcon}/>
+                    <LinedButton text="SKONTAKTOWAĆ SIĘ Z DOWÓDCĄ" to="https://forms.gle/CG4xzZzapzC43mf76" width="100%" icon={FirstButtonIcon} borderBottom="none"/>
+                    <LinedButton text="ZAPROPONOWAĆ POMYSŁ" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%" icon={SecondButtonIcon}/>
                 </Box>
                 <Box className={classes.buttonWrapper}>
                     {socialLinks.map((link, index) => (

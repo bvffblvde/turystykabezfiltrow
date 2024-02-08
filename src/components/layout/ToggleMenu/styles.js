@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '100%',
         padding: '20px',
+        paddingBottom: '40px',
         display: 'flex',
         flexDirection: 'column',
     },
@@ -41,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
 
     },
     navigationText: {
-        color: ({postsTextColor}) => postsTextColor,
+        color: ({textColor}) => textColor,
         fontSize: '16px',
-        fontWeight: '500',
+        fontWeight: '700',
         fontFamily: 'Inter-Regular',
         transition: "all 0.3s ease-out",
         textTransform: 'uppercase',
@@ -155,6 +156,16 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     accordionBox: {
+        "& path": {
+            transition: '300ms ease-in-out',
+            fill: ({iconColorFill}) => iconColorFill,
+        },
+        '&:hover': {
+            "& path": {
+                transition: '300ms ease-in-out',
+                fill: ({iconColorFillHover}) => iconColorFillHover,
+            },
+        },
         '& .MuiAccordionSummary-root': {
             padding: '0',
             //borderBottom: '1px solid',
@@ -164,6 +175,25 @@ const useStyles = makeStyles((theme) => ({
             margin: '0',
         }
     },
+    firstButtonSection: {
+        marginBottom: '40px',
+    },
+    socialLink: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingBottom: '20px',
+        "& path": {
+            transition: '300ms ease-in-out',
+            fill: ({iconColorFill}) => iconColorFill,
+        },
+        '&:hover': {
+            "& path": {
+                transition: '300ms ease-in-out',
+                fill: ({iconColorFillHover}) => iconColorFillHover,
+            },
+        },
+    }
 }));
 
 export default useStyles;
