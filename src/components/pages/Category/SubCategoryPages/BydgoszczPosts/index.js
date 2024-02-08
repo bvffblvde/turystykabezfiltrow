@@ -34,6 +34,10 @@ const BydgoszczPostsPage = () => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         const fetchData = async () => {
             setLoadingCategory(true);
             try {

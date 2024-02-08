@@ -270,18 +270,19 @@ import {ReactComponent as LinkedinLogo} from "../../../assets/SocialMediaLogo/in
 import {ReactComponent as TikTokLogo} from "../../../assets/SocialMediaLogo/tt.svg";
 import {ReactComponent as FirstButtonIcon} from "../../../assets/Icons/contact-icon.svg";
 import {ReactComponent as SecondButtonIcon} from "../../../assets/Icons/support-icon.svg";
+import AdbisBadge from "../../UI/AdbisCreatedPlug";
 
 
 const socialLinks = [
     {
-        to: 'https://www.linkedin.com/company/fundacja-krzewienia-kultury-i-turystyki-nad-rzek%C4%85/',
+        to: 'https://www.linkedin.com/company/weckwerth-turystyka-bez-filtr%C3%B3w/',
         icon: LinkedinLogo
     },
-    {to: 'https://exmpl.com', icon: TikTokLogo},
+    {to: 'https://www.tiktok.com/@turystyka.bez.filtrow', icon: TikTokLogo},
 
-    {to: 'https://www.facebook.com/FundacjaNadRzeka/', icon: FaceBookLogo},
+    {to: 'https://www.facebook.com/turystykabezfiltrow', icon: FaceBookLogo},
 
-    {to: 'https://www.instagram.com/fundacja.nadrzeka?igshid=YmMyMTA2M2Y%3D', icon: InstagramLogo},
+    {to: 'https://www.instagram.com/turystykabezfiltrow/', icon: InstagramLogo},
 ];
 
 const navLinksData = [
@@ -475,6 +476,7 @@ function ToggleMenu() {
                     </Link>
                 ))}
             </Box>
+            <AdbisBadge />
         </div>
     );
 

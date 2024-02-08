@@ -83,19 +83,6 @@ const PostDetails = () => {
                                     className={classes.description}/>
                     </Box>
                 </Box>
-                {/*<Box className={classes.imageWrapper}>*/}
-                {/*    {post?._embedded && post._embedded['wp:featuredmedia'] && (*/}
-                {/*        <div className={classes.imageContainer}>*/}
-                {/*            <img*/}
-                {/*                src={post._embedded['wp:featuredmedia'][0].source_url}*/}
-                {/*                alt={post.title?.rendered}*/}
-                {/*                className={classes.image}*/}
-                {/*                loading="lazy"*/}
-                {/*                //onClick={handleOpenMainImageModal}*/}
-                {/*            />*/}
-                {/*        </div>*/}
-                {/*    )}*/}
-                {/*</Box>*/}
                 <Box className={classes.imageWrapper}>
                     <Sidebar>
                         <ProjectCard projectLimit={3} smallProjectView/>

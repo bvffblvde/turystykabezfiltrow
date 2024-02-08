@@ -248,7 +248,7 @@ const ContactForm = ({paddingBottom}) => {
                 </Formik>
             </Box>
             <Box className={classes.buttonWrapper}>
-                <Link to={'https://www.linkedin.com/company/fundacja-krzewienia-kultury-i-turystyki-nad-rzek%C4%85/'}
+                <Link to={'https://www.linkedin.com/company/weckwerth-turystyka-bez-filtr%C3%B3w/'}
                       className={classes.link}>
                     <Icon
                         component={LinkedinLogo}
@@ -256,7 +256,7 @@ const ContactForm = ({paddingBottom}) => {
                         src={LinkedinLogo}
                     />
                 </Link>
-                <Link to={'https://www.linkedin.com/company/fundacja-krzewienia-kultury-i-turystyki-nad-rzek%C4%85/'}
+                <Link to={'https://www.tiktok.com/@turystyka.bez.filtrow'}
                       className={classes.link}>
                     <Icon
                         component={TikTokLogo}
@@ -264,14 +264,14 @@ const ContactForm = ({paddingBottom}) => {
                         src={TikTokLogo}
                     />
                 </Link>
-                <Link to={'https://www.facebook.com/FundacjaNadRzeka/'} className={classes.link}>
+                <Link to={'https://www.facebook.com/turystykabezfiltrow'} className={classes.link}>
                     <Icon
                         component={FaceBookLogo}
                         className={classes.icon}
                         src={FaceBookLogo}
                     />
                 </Link>
-                <Link to={'https://www.instagram.com/fundacja.nad_rzeka?igshid=YmMyMTA2M2Y%3D'}
+                <Link to={'https://www.instagram.com/turystykabezfiltrow/'}
                       className={classes.link}>
                     <Icon
                         component={InstagramLogo}

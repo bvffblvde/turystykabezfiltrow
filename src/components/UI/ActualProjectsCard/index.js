@@ -39,11 +39,14 @@ const useStyles = makeStyles((theme) => ({
                 display: '-webkit-box',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
+                [theme.breakpoints.down('sm')]: {
+                    fontSize: '16px',
+                }
             },
         },
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'row',
-            gap: '20px',
+            gap: '10px',
             alignItems: 'center',
         },
         [theme.breakpoints.down('xs')]: {
@@ -83,9 +86,13 @@ const useStyles = makeStyles((theme) => ({
             display: '-webkit-box',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '16px',
+            }
         },
         [theme.breakpoints.down('sm')]: {
             marginBottom: '0',
+            gap: '10px',
         }
     },
     textContainer: {
@@ -102,13 +109,18 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flex: '0 0 auto',
         overflow: 'hidden',
+        [theme.breakpoints.down('sm')]: {
+            height: '100%',
+        }
     },
     date: {
         fontFamily: 'Inter-Regular',
         fontSize: '16px',
         fontWeight: '400',
         opacity: '0.6',
-        [theme.breakpoints.down('sm')]: {}
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '12px',
+        }
     },
     textContainerLarge: {
         flex: 1,
@@ -147,6 +159,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '8px',
         transition: "all 0.5s ease-out",
         [theme.breakpoints.down('sm')]: {
+            width: '150px',
             // width: '100px',
             // height: '132px',
         },
@@ -167,7 +180,7 @@ const useStyles = makeStyles((theme) => ({
         transition: "all 0.5s ease-out",
 
         [theme.breakpoints.down('sm')]: {
-            width: '200px',
+            width: '150px',
             aspectRatio: '16/9',
             objectFit: 'cover',
             objectPosition: 'center',
