@@ -13,6 +13,7 @@ import ContactForm from "../../UI/ContactForm";
 import ProjectCard from "../../UI/ActualProjectsCard";
 import Sidebar from "../../UI/SideBar";
 import ShareButton from "../../UI/ShareButton";
+import RichLink from "../../UI/RichLinks";
 
 
 const ProjectDetails = () => {
@@ -332,6 +333,7 @@ const ProjectDetails = () => {
 
     return (
         <SectionWrapper paddingBottom="100px" paddingTop="120px">
+            <RichLink name={project?.title?.rendered} title={project?.title?.rendered} description={descriptionWithoutImagesAndFiles} image={project?._embedded?.['wp:featuredmedia']?.[0]?.source_url}/>
             <BreadCrumbs/>
             <Box className={classes.contentWrapper}>
                 <Box className={classes.textWrapper}>
@@ -378,7 +380,7 @@ const ProjectDetails = () => {
 
                 <Box className={classes.imageWrapper}>
                     <Sidebar>
-                        <ProjectCard projectLimit={5} smallProjectView/>
+                        <ProjectCard projectLimit={3} smallProjectView/>
                     </Sidebar>
                     {/*{project?._embedded && project._embedded['wp:featuredmedia'] && (*/}
                     {/*    <div className={classes.imageContainer}>*/}

@@ -10,6 +10,7 @@ import useStyles from './styles';
 import ShareButton from "../../UI/ShareButton";
 import ProjectCard from "../../UI/ActualProjectsCard";
 import Sidebar from "../../UI/SideBar";
+import RichLink from "../../UI/RichLinks";
 
 const PostDetails = () => {
     const {theme} = useTheme();
@@ -48,6 +49,7 @@ const PostDetails = () => {
 
     return (
         <SectionWrapper paddingBottom="100px" paddingTop="120px">
+            <RichLink name={post?.title?.rendered} title={post?.title?.rendered} description={descriptionWithImages} image={post?._embedded?.['wp:featuredmedia']?.[0]?.source_url}/>
             <BreadCrumbs/>
             <Backdrop className={classes.backdrop} open={loading}>
                 <CircularProgress color="inherit"/>

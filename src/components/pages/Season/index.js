@@ -126,7 +126,7 @@ const SeasonPageComponent = () => {
             </Box>
             <Box className={classes.addsPosts}>
                 <H1 text="Co zrealizowaliśmy?"/>
-                <ProjectCard projectLimit={5}/>
+                <ProjectCard projectLimit={3}/>
                 <Grid container spacing={3} className={classes.buttonContainer}>
                     <Grid item xs={12} sm={6} md={4}>
                         <StyledButton text="Wszystkie Wycieczki" href="/wycieczki" width="100%" to="/wycieczki"/>

@@ -25,6 +25,9 @@ import RegionyPostsPage from "./components/pages/Category/SubCategoryPages/Regio
 import SeasonPageComponent from "./components/pages/Season";
 import About from "./components/pages/About";
 
+import { HelmetProvider } from 'react-helmet-async';
+
+
 const RedirectOldUrl = () => {
     const navigate = useNavigate();
 
@@ -44,6 +47,7 @@ const App = () => {
 
     return (
         <ThemeProvider>
+            <HelmetProvider>
             <FloatingButtonProvider>
                 <FontSizeProvider>
                         <Router>
@@ -87,6 +91,7 @@ const App = () => {
                         </Router>
                 </FontSizeProvider>
             </FloatingButtonProvider>
+            </HelmetProvider>
         </ThemeProvider>
     );
 };

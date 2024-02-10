@@ -13,6 +13,7 @@ import InnaPhoto from "../../../assets/Banners/inna.png";
 // import DownloadButton from "../../UI/DownloadButton";
 import DonatBadge from "../../UI/DonatBadge";
 import useStyles from "./styles";
+import RichLink from "../../UI/RichLinks";
 
 const sections = [
     {id: 'bez-filtrow', label: 'BEZ FILTRÓW - czyli?'},
@@ -46,6 +47,7 @@ const About = () => {
 
     return (
         <SectionWrapper paddingTop="120px">
+            <RichLink title="O nas" description={coRobimyText} image={Banner}/>
             <BreadCrumbs/>
             <Box className={classes.subTextBlock}>
                 <Typography variant="h1" className={classes.title}>
