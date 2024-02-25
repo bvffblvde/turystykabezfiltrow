@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import {CssBaseline} from "@material-ui/core";
 
@@ -25,7 +25,9 @@ import RegionyPostsPage from "./components/pages/Category/SubCategoryPages/Regio
 import SeasonPageComponent from "./components/pages/Season";
 import About from "./components/pages/About";
 
-import { HelmetProvider } from 'react-helmet-async';
+import {HelmetProvider} from 'react-helmet-async';
+
+const helmetContext = {};
 
 
 const RedirectOldUrl = () => {
@@ -35,7 +37,7 @@ const RedirectOldUrl = () => {
         // Проверка, что текущий путь — старый URL /szlaki/
         if (window.location.pathname === '/szlaki/') {
             // Перенаправление на новый URL /artykuly/bartodzieje-szlak
-            navigate('/artykuly/bartodzieje-szlak', { replace: true });
+            navigate('/artykuly/bartodzieje-szlak', {replace: true});
         }
     }, [navigate]);
 
@@ -43,63 +45,71 @@ const RedirectOldUrl = () => {
     return null;
 };
 
+
 const App = () => {
 
     return (
         <ThemeProvider>
-            <HelmetProvider>
             <FloatingButtonProvider>
                 <FontSizeProvider>
-                        <Router>
-                            <CssBaseline/>
-                            <>
-                                <Header/>
-                                <Routes>
-                                    <Route path="/" element={<MainPage/>}/>
+                    <Router>
+                        <CssBaseline/>
+                        <>
+                            <Header/>
+                            <Routes>
+                                <Route path="/" element={<MainPage/>}/>
 
-                                    <Route path="/bydgoszcz" element={<BydgoszczPage/>}/>
-                                    <Route path="/bydgoszcz/:categorySlug" element={<BydgoszczPostsPage/>}/>
-                                    <Route path="/bydgoszcz/:categorySlug/:postSlug" element={<PostDetails/>}/>
+                                <Route path="/bydgoszcz" element={<BydgoszczPage/>}/>
+                                <Route path="/bydgoszcz/:categorySlug" element={<BydgoszczPostsPage/>}/>
+                                <Route path="/bydgoszcz/:categorySlug/:postSlug" element={<PostDetails/>}/>
 
-                                    <Route path="/regiony" element={<RegionyPage/>}/>
-                                    <Route path="/regiony/:tagSlug" element={<RegionyPostsPage/>}/>
-                                    <Route path="/regiony/:tagSlug/:postSlug" element={<PostDetails/>}/>
+                                <Route path="/regiony" element={<RegionyPage/>}/>
+                                <Route path="/regiony/:tagSlug" element={<RegionyPostsPage/>}/>
+                                <Route path="/regiony/:tagSlug/:postSlug" element={<PostDetails/>}/>
 
-                                    <Route path="/kraje" element={<KrajePage/>}/>
-                                    <Route path="/kraje/:tagSlug" element={<RegionyPostsPage/>}/>
-                                    <Route path="/kraje/:tagSlug/:postSlug" element={<PostDetails/>}/>
+                                <Route path="/kraje" element={<KrajePage/>}/>
+                                <Route path="/kraje/:tagSlug" element={<RegionyPostsPage/>}/>
+                                <Route path="/kraje/:tagSlug/:postSlug" element={<PostDetails/>}/>
 
-                                    <Route path="/artykuly" element={<ActualsPageComponent/>}/>
-                                    <Route path="/artykuly/:postSlug" element={<PostDetails/>}/>
+                                <Route path="/artykuly" element={<ActualsPageComponent/>}/>
+                                <Route path="/artykuly/:postSlug" element={<PostDetails/>}/>
 
-                                    <Route path="/wycieczki" element={<WycieczkiPageComponent/>}/>
-                                    <Route path="/wycieczki/:projectSlug" element={<ProjectDetails/>}/>
+                                <Route path="/wycieczki" element={<WycieczkiPageComponent/>}/>
+                                <Route path="/wycieczki/:projectSlug" element={<ProjectDetails/>}/>
 
-                                    <Route path="/wydarzenia" element={<SeasonPageComponent/>}/>
-                                    <Route path="/wydarzenia/:postSlug" element={<PostDetails/>}/>
+                                <Route path="/wydarzenia" element={<SeasonPageComponent/>}/>
+                                <Route path="/wydarzenia/:postSlug" element={<PostDetails/>}/>
 
-                                    <Route path="/filmy" element={<FilmyPage/>}/>
-                                    <Route path="/wyszukiwarka" element={<Wyszukiwarka/>}/>
-                                    <Route path="/szlaki/*" element={<RedirectOldUrl />} />
+                                <Route path="/filmy" element={<FilmyPage/>}/>
+                                <Route path="/wyszukiwarka" element={<Wyszukiwarka/>}/>
+                                <Route path="/szlaki/*" element={<RedirectOldUrl/>}/>
 
-                                    <Route path="/declaracja-dostepnosci" element={<DocumentPage/>}/>
-                                    <Route path="/o-nas" element={<About/>}/>
-                                    {/*<Route path="*" element={<NotFoundPage/>}/>*/}
-                                </Routes>
-                                <Footer/>
-                            </>
-                        </Router>
+                                <Route path="/declaracja-dostepnosci" element={<DocumentPage/>}/>
+                                <Route path="/o-nas" element={<About/>}/>
+                                {/*<Route path="*" element={<NotFoundPage/>}/>*/}
+                            </Routes>
+                            <Footer/>
+                        </>
+                    </Router>
                 </FontSizeProvider>
             </FloatingButtonProvider>
-            </HelmetProvider>
         </ThemeProvider>
+
     );
 };
 
+function IndexSSR() {
+    return (<App />);
+}
 
-ReactDOM.render(
-    <React.StrictMode>
-        <App/>
-    </React.StrictMode>,
-    document.getElementById('root')
+export default IndexSSR;
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+    <HelmetProvider context={helmetContext}>
+        <React.StrictMode>
+            <App renderMode={"SPA"}/>
+        </React.StrictMode>
+    </HelmetProvider>
 );

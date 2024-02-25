@@ -466,8 +466,8 @@ function ToggleMenu() {
                 <StyledButton text="Wesprzyj nas" to="/wesprzyj-nas" width="100%"/>
             </Box>
             <Box className={classes.firstButtonSection}>
-                <LinedButton text="SKONTAKTOWAĆ SIĘ Z DOWÓDCĄ" to="https://forms.gle/CG4xzZzapzC43mf76" width="100%" icon={FirstButtonIcon} borderBottom="none"/>
-                <LinedButton text="ZAPROPONOWAĆ POMYSŁ" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%" icon={SecondButtonIcon}/>
+                <LinedButton text="Dołącz do zespołu!" to="https://forms.gle/CG4xzZzapzC43mf76" width="100%" icon={FirstButtonIcon} borderBottom="none"/>
+                <LinedButton text="Zaproponuj pomysł!" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%" icon={SecondButtonIcon}/>
             </Box>
             <Box className={classes.socialLink}>
                 {socialLinks.map((link, index) => (

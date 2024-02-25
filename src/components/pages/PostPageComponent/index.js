@@ -11,6 +11,8 @@ import ShareButton from "../../UI/ShareButton";
 import ProjectCard from "../../UI/ActualProjectsCard";
 import Sidebar from "../../UI/SideBar";
 import RichLink from "../../UI/RichLinks";
+import {LinkPreview} from "@dhaiwat10/react-link-preview";
+import {Helmet} from "react-helmet-async";
 
 const PostDetails = () => {
     const {theme} = useTheme();
@@ -49,7 +51,7 @@ const PostDetails = () => {
 
     return (
         <SectionWrapper paddingBottom="100px" paddingTop="120px">
-            <RichLink name={post?.title?.rendered} title={post?.title?.rendered} description={descriptionWithImages} image={post?._embedded?.['wp:featuredmedia']?.[0]?.source_url}/>
+            <RichLink name={post?.title?.rendered} title={post?.title?.rendered} description={post?.content?.rendered} image={post?._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url}/>
             <BreadCrumbs/>
             <Backdrop className={classes.backdrop} open={loading}>
                 <CircularProgress color="inherit"/>
