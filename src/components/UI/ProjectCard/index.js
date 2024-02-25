@@ -42,12 +42,12 @@ const ProjectsCard = ({postLimit}) => {
         const fetchData = async () => {
             try {
 
-                const response = await axios.get(`https://turystykabezfiltrow.com//wp-json/wp/v2/posts?per_page=${postLimit}`);
+                const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?per_page=${postLimit}`);
                 setPostData(response.data);
 
                 const mediaIds = response.data.map((post) => post.featured_media);
                 const mediaPromises = mediaIds.map((mediaId) =>
-                    axios.get(`https://turystykabezfiltrow.com//wp-json/wp/v2/media/${mediaId}`)
+                    axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/media/${mediaId}`)
                 );
 
                 const mediaResults = await Promise.all(mediaPromises);
