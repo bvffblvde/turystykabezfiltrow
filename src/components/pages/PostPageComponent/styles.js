@@ -34,7 +34,18 @@ const useStyles = makeStyles((theme) => ({
         },
         '& p.has-background': {
             color: ({textColor}) => textColor,
-            backgroundColor: 'transparent !important',
+            borderRadius: '6px',
+            padding: '20px',
+            backgroundColor: '#90AFFF !important',
+            '& a': {
+                color: ({useLocationLinkColor}) => useLocationLinkColor,
+                '&:hover': {
+                    color: ({darkHoverButtonTextColor}) => darkHoverButtonTextColor,
+                }
+            },
+            [theme.breakpoints.down('sm')]: {
+                padding: '10px',
+            },
         },
         '& div': {
             backgroundColor: 'transparent !important',
@@ -63,12 +74,12 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
         '& img': {
-            width: '100%',
-            height: '100%',
+            width: '100% !important',
+            height: '100% !important',
             objectFit: 'cover',
             borderRadius: '16px',
         },
-        '& storng': {
+        '& strong': {
             color: `({textColor}) => textColor !important`,
         },
         '& figure': {

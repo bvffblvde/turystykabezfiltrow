@@ -70,7 +70,7 @@ const DonatBadgeComponent = () => {
                     <Link to="https://patronite.pl/turystykabezfiltrow"
                           style={{textDecoration: 'none', width: '100%', color: 'inherit'}} target='_blank'
                     rel='noopener noreferrer'>
-                        <StyledButton text="Wesprzyj Nas!" width="100%"
+                        <StyledButton text="Wesprzyj nas!" width="100%"
                                       variant="white"/>
                     </Link>
                 </Box>

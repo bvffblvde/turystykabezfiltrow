@@ -3,7 +3,7 @@
 const fetchPostBySlug = async (postSlug) => {
     try {
         const response = await fetch(
-            `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?slug=${postSlug}&_embed=true`
+            `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${postSlug}&_embed=true`
         );
 
         if (!response.ok) {
