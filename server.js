@@ -46,6 +46,7 @@ app.get('/bydgoszcz/:categorySlug/:postSlug', async function (req, res) {
     const response = await fetch(
         `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
+    const d = await response.json();
     console.log(await response.json())
     sendHTMLFileWithMetadata(d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
@@ -62,6 +63,7 @@ app.get('/regiony/:tagSlug/:postSlug',async function (req, res) {
     const response = await fetch(
         `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
+    const d = await response.json();
     console.log(await response.json())
     sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
@@ -79,7 +81,6 @@ app.get('/kraje/:tagSlug/:postSlug', async function (req, res) {
     );
     const d = await response.json();
     console.log(d[0].yoast_head_json)
-
     sendHTMLFileWithMetadata('Kraje Posts', 'Description for Kraje Posts', d[0].jetpack_featured_media_url, res);
 });
 
@@ -139,7 +140,7 @@ app.get('/wydarzenia/:postSlug', async function (req, res) {
     const d = await response.json();
     console.log(d[0].yoast_head_json)
 
-    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
+    sendHTMLFileWithMetadata(d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
 app.get('/filmy', function (req, res) {
@@ -158,7 +159,7 @@ app.get('/szlaki/*', async function (req, res) {
     const d = await response.json();
     console.log(d[0].yoast_head_json)
 
-    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
+    sendHTMLFileWithMetadata(d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
 app.get('/declaracja-dostepnosci', function (req, res) {
