@@ -17,7 +17,6 @@ function sendHTMLFileWithMetadata( title, description, imagePath, res) {
         data = data.replace(/\$OG_TITLE/g, title);
         data = data.replace(/\$OG_DESCRIPTION/g, description);
         data = data.replace(/\$OG_IMAGE/g, imagePath);
-        data = data.replace(/\$OG_URL/g, `https://${req.host}${req.url}`);
         data = data.replace(/\$OG_SITE_NAME/g, 'TURYSTYKA BEZ FILTRÓW');
         res.send(data);
     });
