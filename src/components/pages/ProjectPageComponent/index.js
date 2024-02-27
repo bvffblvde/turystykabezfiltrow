@@ -37,7 +37,7 @@ const ProjectDetails = () => {
             try {
                 // Получаем все категории
                 const categoriesResponse = await fetch(
-                    'https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100'
+                    'https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100'
                 );
                 const categories = await categoriesResponse.json();
 
@@ -52,7 +52,7 @@ const ProjectDetails = () => {
 
                 // Получаем посты из категории 'wycieczki'
                 const response = await fetch(
-                    `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${projectSlug}&_embed=true`
+                    `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${projectSlug}&_embed=true`
                 );
 
                 if (!response.ok) {
@@ -333,7 +333,7 @@ const ProjectDetails = () => {
 
     return (
         <SectionWrapper paddingBottom="100px" paddingTop="120px">
-            <RichLink name={project?.title?.rendered} title={project?.title?.rendered} description={descriptionWithoutImagesAndFiles} image={project?._embedded?.['wp:featuredmedia']?.[0]?.source_url}/>
+            {/*<RichLink name={project?.title?.rendered} title={project?.title?.rendered} description={descriptionWithoutImagesAndFiles} image={project?._embedded?.['wp:featuredmedia']?.[0]?.source_url}/>*/}
             <BreadCrumbs/>
             <Box className={classes.contentWrapper}>
                 <Box className={classes.textWrapper}>

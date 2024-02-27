@@ -36,7 +36,7 @@ const SeasonPageComponent = () => {
     const fetchData = async (pageNum) => {
         setLoading(true);
         try {
-            const tagsResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/tags?per_page=100');
+            const tagsResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/tags?per_page=100');
             const sezonTag = tagsResponse.data.find(tag => tag.name.toLowerCase() === 'sezon');
 
             if (!sezonTag) {
@@ -44,7 +44,7 @@ const SeasonPageComponent = () => {
                 return;
             }
 
-            const response = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=${postsPerPage}&page=${pageNum}&_embed`);
+            const response = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=${postsPerPage}&page=${pageNum}&_embed`);
 
             const newCategoriesData = response.data.map(post => {
                 const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';

@@ -35,7 +35,7 @@ const ActualsPageComponent = () => {
         setLoading(true);
         try {
             const postsResponse = await axios.get(
-                `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?per_page=${postsPerPage}&page=${pageNumber}&_embed`
+                `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?per_page=${postsPerPage}&page=${pageNumber}&_embed`
             );
 
             const newCategoriesData = postsResponse.data.map((post) => {

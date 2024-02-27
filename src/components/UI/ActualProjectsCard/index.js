@@ -278,7 +278,7 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
         const fetchData = async () => {
             try {
                 // Получаем все категории (categories)
-                const categoriesResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100');
+                const categoriesResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100');
                 const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
 
                 if (!wycieczkiCategory) {
@@ -287,11 +287,11 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                 }
 
                 // Получаем последние посты с выбранной категорией 'wycieczki'
-                const latestWycieczkiResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${projectLimit}`);
+                const latestWycieczkiResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${projectLimit}`);
 
                 // Если есть seasonCard, добавляем последний пост с тегом "sezon"
                 if (seasonCard) {
-                    const tagsResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/tags?per_page=100');
+                    const tagsResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/tags?per_page=100');
                     const sezonTag = tagsResponse.data.find(tag => tag.name.toLowerCase() === 'sezon');
 
                     if (!sezonTag) {
@@ -299,13 +299,13 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                         return;
                     }
 
-                    const latestSezonResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=1&_embed`);
+                    const latestSezonResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=1&_embed`);
                     const combinedData = [...latestSezonResponse.data, ...latestWycieczkiResponse.data];
                     setProjectData(combinedData);
 
                     const mediaIds = combinedData.map((project) => project.featured_media);
                     const mediaPromises = mediaIds.map((mediaId) =>
-                        axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/media/${mediaId}`)
+                        axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/media/${mediaId}`)
                     );
                     const mediaResults = await Promise.all(mediaPromises);
 
@@ -319,7 +319,7 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
 
                     const mediaIds = latestWycieczkiResponse.data.map((project) => project.featured_media);
                     const mediaPromises = mediaIds.map((mediaId) =>
-                        axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/media/${mediaId}`)
+                        axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/media/${mediaId}`)
                     );
                     const mediaResults = await Promise.all(mediaPromises);
 

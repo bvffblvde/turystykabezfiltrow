@@ -263,6 +263,52 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'column',
         }
     },
+    commentBoxWrapper: {
+        backgroundColor: ({backgroundColor}) => backgroundColor,
+        borderRadius: '10px',
+        padding: '20px 10px',
+        gap: '20px',
+        border: '1px solid transparent',
+        borderColor: ({inputBorderColor}) => inputBorderColor,
+        '& p': {
+            margin: '0',
+        }
+    },
+    addCommentBoxWrapper: {
+        backgroundColor: ({backgroundColor}) => backgroundColor,
+        borderRadius: '10px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '10px 10px',
+        marginBottom: '32px',
+        border: '1px solid transparent',
+        borderColor: ({inputBorderColor}) => inputBorderColor,
+    },
+    commentsWrapper: {
+        paddingRight: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+    },
+    userCommentDate: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    authorName: {
+        fontFamily: 'Inter-Regular',
+        fontSize: '16px',
+        fontWeight: 700,
+        color: ({textColor}) => textColor,
+    },
+    commentText: {
+        fontFamily: 'Inter-Regular',
+        fontSize: '16px',
+        fontWeight: 400,
+        color: ({textColor}) => textColor,
+    }
 
 }));
 

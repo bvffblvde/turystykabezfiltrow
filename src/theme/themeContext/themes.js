@@ -64,6 +64,8 @@ const themes = {
         floatingButtonBackgroundColor: '#0047FF',
         floatingButtonBorderColor: 'transparent',
 
+        addCommentColor: '#0047FF',
+
 
         defaultBorderColor: '#D9D9D9',
         hoverBorderColor: '#90AFFF',
@@ -87,6 +89,8 @@ const themes = {
         sectionWrapperBackgroundColor: '#151515',
         floatingButtonBackgroundColor: '#252525',
         floatingButtonBorderColor: '#FFEA2E',
+
+        addCommentColor: '#FFEA2E',
 
         backgroundColor: '#151515',
         textColor: '#FFEA2E',
