@@ -17,6 +17,8 @@ function sendHTMLFileWithMetadata( title, description, imagePath, res) {
         data = data.replace(/\$OG_TITLE/g, title);
         data = data.replace(/\$OG_DESCRIPTION/g, description);
         data = data.replace(/\$OG_IMAGE/g, imagePath);
+        data = data.replace(/\$OG_URL/g, `https://${req.host}${req.url}`);
+        data = data.replace(/\$OG_SITE_NAME/g, 'TURYSTYKA BEZ FILTRÓW');
         res.send(data);
     });
 }
@@ -41,11 +43,12 @@ app.get('/bydgoszcz/:categorySlug', function (req, res) {
 
     sendHTMLFileWithMetadata( 'Bydgoszcz Posts', 'Description for Bydgoszcz Posts', `https://${req.host}/static/media/bydgoszcz-posts-image.png`, res);
 });
-app.get('/bydgoszcz/:categorySlug/:postSlug', function (req, res) {
-
-    console.log(req.url)
-
-    sendHTMLFileWithMetadata( 'Bydgoszcz Posts', 'Description for Bydgoszcz Posts', `https://${req.host}/static/media/bydgoszcz-posts-image.png`, res);
+app.get('/bydgoszcz/:categorySlug/:postSlug', async function (req, res) {
+    const response = await fetch(
+        `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+    );
+    console.log(await response.json())
+    sendHTMLFileWithMetadata(d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
 app.get('/regiony', function (req, res) {
@@ -61,7 +64,7 @@ app.get('/regiony/:tagSlug/:postSlug',async function (req, res) {
         `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     console.log(await response.json())
-    sendHTMLFileWithMetadata( 'Regionysssssss Posts', 'Description wfor Regiony Posts', '/static/media/regiony-posts-image.png', res);
+    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
 app.get('/kraje', function (req, res) {
@@ -71,8 +74,14 @@ app.get('/kraje', function (req, res) {
 app.get('/kraje/:tagSlug', function (req, res) {
     sendHTMLFileWithMetadata( 'Kraje Posts', 'Description for Kraje Posts', '/static/media/kraje-posts-image.png', res);
 });
-app.get('/kraje/:tagSlug/:postSlug', function (req, res) {
-    sendHTMLFileWithMetadata( 'Kraje Posts', 'Description for Kraje Posts', '/static/media/kraje-posts-image.png', res);
+app.get('/kraje/:tagSlug/:postSlug', async function (req, res) {
+    const response = await fetch(
+        `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+    );
+    const d = await response.json();
+    console.log(d[0].yoast_head_json)
+
+    sendHTMLFileWithMetadata('Kraje Posts', 'Description for Kraje Posts', d[0].jetpack_featured_media_url, res);
 });
 
 app.get('/artykuly', function (req, res) {
@@ -93,16 +102,45 @@ app.get('/wycieczki', function (req, res) {
     sendHTMLFileWithMetadata( 'Wycieczki', 'Description for Wycieczki', '/static/media/wycieczki-image.png', res);
 });
 
-app.get('/wycieczki/:projectSlug', function (req, res) {
-    sendHTMLFileWithMetadata( 'Wycieczki Details', 'Description for Wycieczki Details', '/static/media/wycieczki-details-image.png', res);
+app.get('/wycieczki/:projectSlug', async function (req, res) {
+    const categoriesResponse = await fetch(
+        'https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100'
+    );
+    const categories = await categoriesResponse.json();
+
+    // Ищем категорию 'wycieczki' независимо от регистра
+    const wycieczkiCategory = categories.find(
+        (category) => category.name.toLowerCase() === 'wycieczki'
+    );
+
+    if (!wycieczkiCategory) {
+        throw new Error('Wycieczki category not found');
+    }
+
+    // Получаем посты из категории 'wycieczki'
+    const response = await fetch(
+        `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${req.params.projectSlug}&_embed=true`
+    );
+
+    const d = await response.json();
+    console.log(d[0].yoast_head_json)
+
+    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
 app.get('/wydarzenia', function (req, res) {
     sendHTMLFileWithMetadata( 'Wydarzenia', 'Description for Wydarzenia', '/static/media/wydarzenia-image.png', res);
 });
 
-app.get('/wydarzenia/:postSlug', function (req, res) {
-    sendHTMLFileWithMetadata( 'Wydarzenia Details', 'Description for Wydarzenia Details', '/static/media/wydarzenia-details-image.png', res);
+app.get('/wydarzenia/:postSlug', async function (req, res) {
+
+    const response = await fetch(
+        `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+    );
+    const d = await response.json();
+    console.log(d[0].yoast_head_json)
+
+    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
 app.get('/filmy', function (req, res) {
@@ -113,8 +151,15 @@ app.get('/wyszukiwarka', function (req, res) {
     sendHTMLFileWithMetadata( 'Wyszukiwarka', 'Description for Wyszukiwarka', '/static/media/wyszukiwarka-image.png', res);
 });
 
-app.get('/szlaki/*', function (req, res) {
-    sendHTMLFileWithMetadata( 'Szlaki', 'Description for Szlaki', '/static/media/szlaki-image.png', res);
+app.get('/szlaki/*', async function (req, res) {
+
+    const response = await fetch(
+        `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+    );
+    const d = await response.json();
+    console.log(d[0].yoast_head_json)
+
+    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
 app.get('/declaracja-dostepnosci', function (req, res) {
