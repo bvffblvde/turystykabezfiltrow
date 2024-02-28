@@ -29,9 +29,8 @@ import About from "./components/pages/About";
 import {HelmetProvider} from 'react-helmet-async';
 
 const helmetContext = {};
-const TRACKING_ID = "G-K3T049PZW8"; // OUR_TRACKING_ID
 
-ReactGA.initialize(TRACKING_ID);
+ReactGA.initialize('G-K3T049PZW8');
 
 
 const RedirectOldUrl = () => {
