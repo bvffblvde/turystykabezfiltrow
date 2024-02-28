@@ -29,7 +29,7 @@ const slides = [
     {
         image: WycieczkiBanner,
         title: "Filmy",
-        description: '<p>Mniej lub bardziej poważne materiały filmowe</p> dot. turystyki i kultury',
+        description: 'Mniej lub bardziej poważne materiały filmowe dot. turystyki i kultury',
         buttonText: "Obejrzyj więcej",
         link: "/filmy"
     },
