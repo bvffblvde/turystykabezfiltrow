@@ -16,9 +16,12 @@ import DonatBadgeComponent from "../../../UI/DonatBadge";
 import axios from "axios";
 import {ReactComponent as PostsCount} from "../../../../assets/Icons/posts-count-icon.svg";
 import useStyles from "../styles";
+import ReactGA from "react-ga";
 
-
+ReactGA.initialize('G-K3T049PZW8');
 const BydgoszczPage = () => {
+    ReactGA.pageview(window.location.pathname);
+    console.log(window.location.pathname)
     //const { categorySlug } = useParams();
     const { theme } = useTheme();
     const classes = useStyles(themes[theme]);

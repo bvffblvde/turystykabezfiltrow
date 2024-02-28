@@ -50,11 +50,7 @@ const RedirectOldUrl = () => {
 
 
 const App = () => {
-    const location = useLocation();
 
-    useEffect(() => {
-        ReactGA.pageview(location.pathname + location.search);
-    }, [location]);
 
 
     return (
