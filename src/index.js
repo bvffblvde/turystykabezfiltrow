@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import {CssBaseline} from "@material-ui/core";
+import ReactGA from 'react-ga';
 
 import MainPage from "./components/pages/Main";
 import Header from "./components/layout/Header";
@@ -24,14 +25,12 @@ import BydgoszczPostsPage from "./components/pages/Category/SubCategoryPages/Byd
 import RegionyPostsPage from "./components/pages/Category/SubCategoryPages/RegionyPosts";
 import SeasonPageComponent from "./components/pages/Season";
 import About from "./components/pages/About";
-// import ReactGA from 'react-ga';
 
 import {HelmetProvider} from 'react-helmet-async';
 
 const helmetContext = {};
-// const TRACKING_ID = "G-K3T049PZW8"; // OUR_TRACKING_ID
 
-// ReactGA.initialize(TRACKING_ID);
+ReactGA.initialize('G-K3T049PZW8');
 
 
 const RedirectOldUrl = () => {
@@ -51,7 +50,10 @@ const RedirectOldUrl = () => {
 
 
 const App = () => {
-
+    const location = useLocation();
+    useEffect(() => {
+        ReactGA.pageview(location.pathname + location.search);
+    }, [location]);
 
     return (
         <ThemeProvider>
