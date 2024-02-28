@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import {CssBaseline} from "@material-ui/core";
 import ReactGA from 'react-ga';
 
@@ -50,9 +50,12 @@ const RedirectOldUrl = () => {
 
 
 const App = () => {
+    const location = useLocation();
+
     useEffect(() => {
-        ReactGA.pageview(window.location.pathname + window.location.search);
-    }, []);
+        ReactGA.pageview(location.pathname + location.search);
+    }, [location]);
+
 
     return (
         <ThemeProvider>
