@@ -100,6 +100,10 @@ const useStyles = makeStyles((theme) => ({
         color: ({inputBorderColor}) => inputBorderColor,
         textAlign: 'left',
         marginBottom: '20px',
+        '& p': {
+            margin: 0,
+            padding: 0,
+        },
         [theme.breakpoints.down('sm')]: {
             width: '80%',
             fontSize: '20px',
@@ -138,7 +142,7 @@ const Carousel = ({slides}) => {
                         <Typography className={classes.title}>{slide.title}</Typography>
                         {slide.description ? (
                             <>
-                                <Typography className={classes.description}>{slide.description}</Typography>
+                                <Typography className={classes.description} dangerouslySetInnerHTML={{__html: slide.description}}/>
                             </>
                         ) : null}
                         <div className={classes.buttonContainer}>

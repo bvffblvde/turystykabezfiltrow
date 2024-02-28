@@ -34,8 +34,25 @@ const useStyles = makeStyles((theme) => ({
             wordBreak: 'auto-phrase',
         },
         '& p.has-background': {
-            backgroundColor: 'transparent !important',
+            color: ({textColor}) => textColor,
+            borderRadius: '6px',
+            padding: '20px',
+            marginRight: '10px',
+            backgroundColor: '#90AFFF !important',
+            '& a': {
+                color: ({useLocationLinkColor}) => useLocationLinkColor,
+                '&:hover': {
+                    color: ({darkHoverButtonTextColor}) => darkHoverButtonTextColor,
+                }
+            },
+            [theme.breakpoints.down('sm')]: {
+                padding: '10px',
+                margin: '0',
+            },
         },
+        // '& p.has-background': {
+        //     backgroundColor: 'transparent !important',
+        // },
         '& a': {
             transition: "all 0.5s ease-out",
             color: ({useLocationLinkColor}) => useLocationLinkColor,

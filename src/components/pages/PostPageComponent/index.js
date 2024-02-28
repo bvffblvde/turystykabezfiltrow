@@ -97,32 +97,32 @@ const PostDetails = () => {
                     </Box>
 
                     {/* Отображение комментариев */}
-                    {comments.length > 0 && (
-                        <Box className={classes.commentsWrapper}>
-                            <Box className={classes.addCommentBoxWrapper}>
-                                <Typography variant="h2" className={classes.commentText}>
-                                    Zostaw swoją opinię na temat tego artykułu
-                                </Typography>
-                                <StyledButton text="Napisz recenzję" width="30%"/>
-                            </Box>
-                            {comments.map(comment => (
-                                <div key={comment.id} className={classes.commentBoxWrapper}>
-                                    <Box className={classes.userCommentDate}>
-                                        <Typography variant="body1" dangerouslySetInnerHTML={{__html: comment.author_name}} className={classes.authorName}/>
-                                        <Typography variant="h4" className={classes.date}>
-                                            {new Date(comment.date).toLocaleDateString('pl-PL', {
-                                                month: 'long',
-                                                day: 'numeric',
-                                                year: 'numeric'
-                                            })}
-                                        </Typography>
-                                    </Box>
-                                    <Typography variant="body1" dangerouslySetInnerHTML={{__html: comment.content.rendered}} className={classes.commentText}/>
-                                    <CommentButton text="Odpowiedź"/>
-                                </div>
-                            ))}
-                        </Box>
-                    )}
+                    {/*{comments.length > 0 && (*/}
+                    {/*    <Box className={classes.commentsWrapper}>*/}
+                    {/*        <Box className={classes.addCommentBoxWrapper}>*/}
+                    {/*            <Typography variant="h2" className={classes.commentText}>*/}
+                    {/*                Zostaw swoją opinię na temat tego artykułu*/}
+                    {/*            </Typography>*/}
+                    {/*            <StyledButton text="Napisz recenzję" width="30%"/>*/}
+                    {/*        </Box>*/}
+                    {/*        {comments.map(comment => (*/}
+                    {/*            <div key={comment.id} className={classes.commentBoxWrapper}>*/}
+                    {/*                <Box className={classes.userCommentDate}>*/}
+                    {/*                    <Typography variant="body1" dangerouslySetInnerHTML={{__html: comment.author_name}} className={classes.authorName}/>*/}
+                    {/*                    <Typography variant="h4" className={classes.date}>*/}
+                    {/*                        {new Date(comment.date).toLocaleDateString('pl-PL', {*/}
+                    {/*                            month: 'long',*/}
+                    {/*                            day: 'numeric',*/}
+                    {/*                            year: 'numeric'*/}
+                    {/*                        })}*/}
+                    {/*                    </Typography>*/}
+                    {/*                </Box>*/}
+                    {/*                <Typography variant="body1" dangerouslySetInnerHTML={{__html: comment.content.rendered}} className={classes.commentText}/>*/}
+                    {/*                <CommentButton text="Odpowiedź"/>*/}
+                    {/*            </div>*/}
+                    {/*        ))}*/}
+                    {/*    </Box>*/}
+                    {/*)}*/}
                 </Box>
                 <Box className={classes.imageWrapper}>
                     <Sidebar>
