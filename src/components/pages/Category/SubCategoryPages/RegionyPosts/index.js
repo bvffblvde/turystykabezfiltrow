@@ -82,11 +82,18 @@ const RegionyPostsPage = () => {
         setPage((prevPage) => prevPage + 1);
     };
 
+    // Function to format tag name with spaces
+    const formatTagName = (currentTagName) => {
+        // Assuming tagName is in CamelCase format
+        // You can use a regular expression to insert spaces before capital letters
+        return currentTagName.replace(/([A-Z])/g, ' $1').trim();
+    };
+
     return (
         <SectionWrapper id="actual" paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
             <Typography variant="h1" className={classes.title}>
-                {currentTagName}
+                {formatTagName(currentTagName)}
             </Typography>
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {posts.map((post, index) => (

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Button, makeStyles, createStyles} from '@material-ui/core';
-import {useTheme} from "../../../theme/themeContext";
-import {themes} from "../../../theme/themeContext/themes";
-import {useFontSize} from "./FontSizeContext";
+import { Button, makeStyles, createStyles } from '@material-ui/core';
+import { useTheme } from "../../../theme/themeContext";
+import { themes } from "../../../theme/themeContext/themes";
+import { useFontSize } from "./FontSizeContext";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>
             fontSize: '20px',
             fontWeight: 400,
             transition: "all 0.3s ease-out",
-            color: ({postsTextColor}) => postsTextColor,
+            color: ({ postsTextColor }) => postsTextColor,
             padding: '0',
             margin: '0',
             minWidth: '0',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) =>
             '&:hover': {
                 transition: "all 0.3s ease-out",
                 backgroundColor: 'transparent',
-                color: ({postsHoverTextColor}) => postsHoverTextColor,
+                color: ({ postsHoverTextColor }) => postsHoverTextColor,
             },
             '& .MuiButton-root:hover': {
                 backgroundColor: 'transparent',
@@ -46,11 +46,18 @@ const useStyles = makeStyles((theme) =>
 const FontSizeButtons = () => {
     const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
-    const { aPlusClicked, updateFontSize, resetFontSize } = useFontSize();
+    const {aPlusClicked, updateFontSize, resetFontSize } = useFontSize();
 
-    const handleIncreaseFontSize = () => {
-        updateFontSize(aPlusClicked ? 2 : 4);
+    const handleButtonClick = (change) => {
+        if (aPlusClicked) {
+            // Если кнопка "A+" или "A++" уже была выбрана, сразу сбросить до значения "A"
+            resetFontSize();
+        } else {
+            // Иначе увеличить размер шрифта на указанное значение
+            updateFontSize(change);
+        }
     };
+
 
     const handleDefaultFontSize = () => {
         resetFontSize();
@@ -61,10 +68,10 @@ const FontSizeButtons = () => {
             <Button onClick={handleDefaultFontSize} className={classes.button}>
                 A
             </Button>
-            <Button onClick={handleIncreaseFontSize} className={classes.button}>
+            <Button onClick={() => handleButtonClick(2)} className={classes.button}>
                 A+
             </Button>
-            <Button onClick={handleIncreaseFontSize} className={classes.button}>
+            <Button onClick={() => handleButtonClick(4)} className={classes.button}>
                 A++
             </Button>
         </div>
@@ -72,4 +79,6 @@ const FontSizeButtons = () => {
 };
 
 export default FontSizeButtons;
+
+
 

@@ -14,6 +14,7 @@ import InnaPhoto from "../../../assets/Banners/inna.png";
 import DonatBadge from "../../UI/DonatBadge";
 import useStyles from "./styles";
 import RichLink from "../../UI/RichLinks";
+import useAnalyticsEventTracker from '../../Analytics';
 
 const sections = [
     {id: 'bez-filtrow', label: 'BEZ FILTRÓW - czyli?'},
@@ -44,6 +45,8 @@ const About = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const gaEventTracker = useAnalyticsEventTracker('About');
 
     return (
         <SectionWrapper paddingTop="120px">

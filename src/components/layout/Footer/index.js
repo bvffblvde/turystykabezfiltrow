@@ -130,7 +130,7 @@ function Footer() {
                         <LinedButton text="Dołącz do zespołu!" to="https://forms.gle/CG4xzZzapzC43mf76"
                                      width="100%"
                                      icon={FirstButtonIcon} borderBottom="none"/>
-                        <LinedButton text="ZAPROPONOWAĆ POMYSŁ" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%"
+                        <LinedButton text="Zaproponuj pomysł!" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%"
                                      icon={SecondButtonIcon}/>
                     </Box>
                     <Box className={classes.buttonWrapper}>
@@ -218,7 +218,7 @@ function Footer() {
                         <LinedButton text="Dołącz do zespołu!" to="https://forms.gle/CG4xzZzapzC43mf76"
                                      width="100%"
                                      icon={FirstButtonIcon} borderBottom="none"/>
-                        <LinedButton text="ZAPROPONOWAĆ POMYSŁ" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%"
+                        <LinedButton text="Zaproponuj pomysł!" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%"
                                      icon={SecondButtonIcon}/>
                     </Box>
                     <Box className={classes.socialLink}>

@@ -60,7 +60,7 @@ const RegionyPage = () => {
                         if (post) {
                             const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
                             return {
-                                postTitle: regionyTag,
+                                postTitle: tag.name,
                                 lastPostImage: imageUrl,
                                 postCount: tag.count,
                                 tagSlug: tag.slug,
@@ -87,6 +87,13 @@ const RegionyPage = () => {
         [tagSlug]
     );
 
+    const formatTagName = (postTitle) => {
+        // Assuming tagName is in CamelCase format
+        // You can use a regular expression to insert spaces before capital letters
+        return postTitle.replace(/([A-Z])/g, ' $1').trim();
+    };
+
+
     return (
         <SectionWrapper id="kraje" paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
@@ -110,7 +117,7 @@ const RegionyPage = () => {
                                 )}
                                 <Box className={classes.textContainer}>
                                     <Box>
-                                        <H4 className={classes.h4}>{post.postTitle}</H4>
+                                        <H4 className={classes.h4}>{formatTagName(post.postTitle)}</H4>
                                     </Box>
                                     <Box className={classes.countSection}>
                                         <Icon
