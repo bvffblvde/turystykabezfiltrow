@@ -57,10 +57,24 @@ CampaignLoader.prototype.debugMessage = function(message) {
 /**
  * Utility function to extract a URL parameter value.
  */
+
+// Получить значение параметра cname из URL
+var cnameParam = getUrlParam('cname');
+console.log('cnameParam:', cnameParam);
+
+// Получить значение параметра csrc из URL
+var csrcParam = getUrlParam('csrc');
+console.log('csrcParam:', csrcParam);
+
+// Получить значение параметра cmed из URL
+var cmedParam = getUrlParam('cmed');
+console.log('cmedParam:', cmedParam);
+
 function getUrlParam(param) {
-    var match = document.location.search.match('(?:\\?|&)' + param + '=([^&#]*)');
+    var match = window.location.search.match('(?:\\?|&)' + param + '=([^&#]*)');
     return (match && match.length === 2) ? decodeURIComponent(match[1]) : '';
 }
+
 
 // Register the plugin.
 providePlugin('campaignLoader', CampaignLoader);
