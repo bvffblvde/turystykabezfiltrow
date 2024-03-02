@@ -171,6 +171,9 @@ const FullscreenModal = ({open, onClose, imageSrc, imgTag, index, onNext, onPrev
         };
     }, [open, onPrev, onNext]);
 
+    console.log("imageSrc:", imageSrc);
+
+
     return (
         <Dialog
             open={open}
@@ -194,11 +197,13 @@ const FullscreenModal = ({open, onClose, imageSrc, imgTag, index, onNext, onPrev
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
             >
-                <div
-                    key={index}
-                    dangerouslySetInnerHTML={{__html: imgTag}}
-                    className={classes.dialogImage}
-                />
+                {imageSrc && (
+                    <img
+                        src={imageSrc}
+                        alt={`Image ${index + 1}`}
+                        className={classes.dialogImage}
+                    />
+                )}
             </DialogContent>
             <div className={classes.arrowButtons}>
                 <Button className={classes.arrowButton} onClick={onPrev}>

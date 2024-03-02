@@ -73,24 +73,6 @@ const ProjectDetails = () => {
         fetchData();
     }, [projectSlug]);
 
-    const extractImageUrls = (content) => {
-        const imageUrls = [];
-        const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
-
-        const regex = /<img[^>]+src="([^">]+)"[^>]*>/g;
-        let match;
-        while ((match = regex.exec(content)) !== null) {
-            const imageUrl = match[1];
-
-            if (!imageUrl.match(emojiRegex)) {
-                imageUrls.push(imageUrl);
-            }
-        }
-        return imageUrls;
-    };
-
-    const imageUrls = extractImageUrls(project?.content?.rendered || '');
-
     const extractImages = (content) => {
         const images = [];
         const regex = /<img[^>]+src="([^">]+)"[^>]*>/g;
@@ -103,6 +85,34 @@ const ProjectDetails = () => {
     };
 
     const images = extractImages(project?.content?.rendered || '');
+
+    const extractImageUrl = (imgTag) => {
+        const srcsetRegex = /srcset="([^"]*)"/;
+        const srcsetMatch = imgTag.match(srcsetRegex);
+
+        if (srcsetMatch) {
+            const srcsetArray = srcsetMatch[1].split(',').map((item) => item.trim().split(' '));
+
+            // Находим изображение с максимальным размером
+            const largestImage = srcsetArray.reduce((largest, [url, size]) => {
+                const currentSize = parseInt(size, 10) || 0; // Обработка случая, когда размер не указан
+                const largestSize = parseInt(largest[1], 10) || 0; // Обработка случая, когда размер не указан
+                return currentSize > largestSize ? [url, currentSize] : largest;
+            }, ['', 0]);
+
+            // Возвращаем URL изображения
+            return largestImage[0];
+        } else {
+            // Если srcset отсутствует, используем src
+            const srcRegex = /src="([^"]*)"/;
+            const srcMatch = imgTag.match(srcRegex);
+            return srcMatch ? srcMatch[1] : '';
+        }
+    };
+
+    //const imageUrls
+    const largestImage = images.find((imgTag) => !!extractImageUrl(imgTag));
+
 
     const handleOpenFullscreenModal = (index) => {
         setSelectedImageIndex(index);
@@ -165,7 +175,7 @@ const ProjectDetails = () => {
 
     const handleNextImage = () => {
         setSelectedImageIndex((prev) => {
-            if (prev === imageUrls.length - 1) {
+            if (prev === images.length - 1) {
                 return 0;
             }
 
@@ -176,7 +186,7 @@ const ProjectDetails = () => {
     const handlePrevImage = () => {
         setSelectedImageIndex((prev) => {
             if (prev === 0) {
-                return imageUrls.length - 1;
+                return images.length - 1;
             }
 
             return prev - 1;
@@ -184,15 +194,17 @@ const ProjectDetails = () => {
     }
 
     const renderImages = () => {
-        const numImages = imageUrls.length;
+        const numImages = images.length;
         //approve
         if (numImages === 1) {
             return (
                 <div style={{position: 'relative', height: '100%', width: '100%'}}>
-                    {images.slice(0, 1).map((imgTag, index) => (
-                        <div
+                    {images.slice(0, 1).map((largestImage, index) => (
+                        <img
                             key={index}
-                            dangerouslySetInnerHTML={{__html: imgTag}}
+                            src={extractImageUrl(largestImage)}
+
+                            //dangerouslySetInnerHTML={{__html: largestImage}}
                             className={classes.facebookStyleImageLarge + ' ' + classes.largeActiveViewForMobile}
                             onClick={() => handleOpenFullscreenModal(0)}
                         />
@@ -203,11 +215,12 @@ const ProjectDetails = () => {
         } else if (numImages === 2) {
             return (
                 <>
-                    {images.slice(0, 2).map((imgTag, index) => (
+                    {images.slice(0, 2).map((largestImage, index) => (
                         <div key={index} style={{position: 'relative', height: '100%', width: '100%'}}>
-                            <div
+                            <img
                                 key={index}
-                                dangerouslySetInnerHTML={{__html: imgTag}}
+                                src={extractImageUrl(largestImage)}
+                                //dangerouslySetInnerHTML={{__html: largestImage}}
                                 className={classes.facebookStyleImage}
                                 onClick={() => handleOpenFullscreenModal(index)}
                             />
@@ -221,11 +234,12 @@ const ProjectDetails = () => {
             return (
                 <>
                     <div className={classes.columnsWithTwoImagesAlternative + ' ' + classes.fullWidth}>
-                        {images.slice(0, 2).map((imgTag, index) => (
+                        {images.slice(0, 2).map((largestImage, index) => (
                             <div key={index} style={{position: 'relative', height: '100%'}}>
-                                <div
+                                <img
                                     key={index}
-                                    dangerouslySetInnerHTML={{__html: imgTag}}
+                                    src={extractImageUrl(largestImage)}
+                                    //dangerouslySetInnerHTML={{__html: largestImage}}
                                     className={classes.facebookStyleImage + ' ' + classes.twoImagesBoxView}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
@@ -233,10 +247,11 @@ const ProjectDetails = () => {
                         ))}
                     </div>
                     <div className={classes.columnsWithOneImage}>
-                        {images.slice(2, 3).map((imgTag, index) => (
-                            <div
+                        {images.slice(2, 3).map((largestImage, index) => (
+                            <img
+                                src={extractImageUrl(largestImage)}
                                 key={index}
-                                dangerouslySetInnerHTML={{__html: imgTag}}
+                                //dangerouslySetInnerHTML={{__html: largestImage}}
                                 className={classes.facebookStyleImageLarge}
                                 onClick={() => handleOpenFullscreenModal(index + 2)}
                             />
@@ -250,11 +265,12 @@ const ProjectDetails = () => {
             return (
                 <>
                     <div className={classes.columnsWithTwoImagesAlternative}>
-                        {images.slice(0, 2).map((imgTag, index) => (
+                        {images.slice(0, 2).map((largestImage, index) => (
                             <div key={index} style={{position: 'relative', height: '100%', width: '100%'}}>
-                                <div
+                                <img
                                     key={index}
-                                    dangerouslySetInnerHTML={{__html: imgTag}}
+                                    src={extractImageUrl(largestImage)}
+                                    //dangerouslySetInnerHTML={{__html: largestImage}}
                                     className={classes.facebookStyleImage + ' ' + classes.facebookStyleImageAlternative}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
@@ -262,11 +278,13 @@ const ProjectDetails = () => {
                         ))}
                     </div>
                     <div className={classes.columnsWithTwoImagesAlternative}>
-                        {images.slice(2, 4).map((imgTag, index) => (
+                        {images.slice(2, 4).map((largestImage, index) => (
                             <div key={index} style={{position: 'relative', height: '100%', width: '100%'}}>
-                                <div
+                                <img
+                                    src={extractImageUrl(largestImage)}
+
                                     key={index}
-                                    dangerouslySetInnerHTML={{__html: imgTag}}
+                                    //dangerouslySetInnerHTML={{__html: largestImage}}
                                     className={classes.facebookStyleImage + ' ' + classes.facebookStyleImageAlternative}
                                     onClick={() => handleOpenFullscreenModal(index + 2)}
                                 />
@@ -281,11 +299,13 @@ const ProjectDetails = () => {
             return (
                 <>
                     <div className={classes.columnsWithTwoImages}>
-                        {images.slice(0, 2).map((imgTag, index) => (
+                        {images.slice(0, 2).map((largestImage, index) => (
                             <div key={index} style={{position: 'relative', width: '100%', height: '100%'}}>
-                                <div
+                                <img
+                                    src={extractImageUrl(largestImage)}
+
                                     key={index}
-                                    dangerouslySetInnerHTML={{__html: imgTag}}
+                                    //dangerouslySetInnerHTML={{__html: largestImage}}
                                     className={classes.facebookStyleImage}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
@@ -293,21 +313,24 @@ const ProjectDetails = () => {
                         ))}
                     </div>
                     <div className={classes.columnsWithOneImage}>
-                        {images.slice(2, 3).map((imgTag, index) => (
-                            <div
+                        {images.slice(2, 3).map((largestImage, index) => (
+                            <img
+                                src={extractImageUrl(largestImage)}
                                 key={index}
-                                dangerouslySetInnerHTML={{__html: imgTag}}
+                                //dangerouslySetInnerHTML={{__html: largestImage}}
                                 className={classes.facebookStyleImageLarge}
                                 onClick={() => handleOpenFullscreenModal(index + 2)}
                             />
                         ))}
                     </div>
                     <div className={classes.columnsWithTwoImages}>
-                        {images.slice(3, 5).map((imgTag, index) => (
+                        {images.slice(3, 5).map((largestImage, index) => (
                             <div key={index} style={{position: 'relative', width: '100%', height: '100%'}}>
-                                <div
+                                <img
+                                    src={extractImageUrl(largestImage)}
+
                                     key={index}
-                                    dangerouslySetInnerHTML={{__html: imgTag}}
+                                    //dangerouslySetInnerHTML={{__html: largestImage}}
                                     className={classes.facebookStyleImage}
                                     onClick={() => handleOpenFullscreenModal(index + 3)}
                                 />
@@ -359,7 +382,7 @@ const ProjectDetails = () => {
                                         alt={project.title?.rendered}
                                         className={classes.image}
                                         loading="lazy"
-                                        onClick={handleOpenMainImageModal}
+                                        //onClick={handleOpenMainImageModal}
                                     />
                                 </div>
                             )}
@@ -411,11 +434,7 @@ const ProjectDetails = () => {
                     onClose={handleCloseFullscreenModal}
                     imgTag={images[selectedImageIndex]}
                     index={selectedImageIndex}
-                    imageSrc={
-                        selectedImageIndex !== null
-                            ? images[selectedImageIndex]
-                            : project?._embedded?.['wp:featuredmedia']?.[0]?.source_url || ''
-                    }
+                    imageSrc={selectedImageIndex !== null && images[selectedImageIndex] ? extractImageUrl(images[selectedImageIndex]) : ''}
                     onNext={handleNextImage}
                     onPrev={handlePrevImage}
                 />
