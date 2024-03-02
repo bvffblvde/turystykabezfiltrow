@@ -40,7 +40,7 @@ const WycieczkiPageComponent = () => {
         setLoading(true);
         try {
             // Получаем все категории (categories)
-            const categoriesResponse = await axios.get(`https://weckwerthblog.wordpress.com/wp-json/wp/v2/categories?per_page=100`);
+            const categoriesResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100`);
 
             // Ищем категорию 'wycieczki'
             const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
@@ -51,7 +51,7 @@ const WycieczkiPageComponent = () => {
             }
 
             // Получаем все посты с выбранной категорией 'wycieczki'
-            const response = await axios.get(`https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${postsPerPage}&page=${pageRef.current}&_embed`);
+            const response = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${postsPerPage}&page=${pageRef.current}&_embed`);
 
             const newCategoriesData = response.data.map(post => {
                 const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';

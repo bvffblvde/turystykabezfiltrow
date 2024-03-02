@@ -44,7 +44,7 @@ app.get('/bydgoszcz/:categorySlug', function (req, res) {
 });
 app.get('/bydgoszcz/:categorySlug/:postSlug', async function (req, res) {
     const response = await fetch(
-        `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
     console.log(await response.json())
@@ -77,7 +77,7 @@ app.get('/kraje/:tagSlug', function (req, res) {
 });
 app.get('/kraje/:tagSlug/:postSlug', async function (req, res) {
     const response = await fetch(
-        `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
     console.log(d[0].yoast_head_json)
@@ -90,7 +90,7 @@ app.get('/artykuly', function (req, res) {
 
 app.get('/artykuly/:postSlug', async function (req, res) {
     const response = await fetch(
-        `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
 );
     const d = await   response.json();
     console.log(d[0].yoast_head_json)
@@ -104,7 +104,7 @@ app.get('/wycieczki', function (req, res) {
 
 app.get('/wycieczki/:projectSlug', async function (req, res) {
     const categoriesResponse = await fetch(
-        'https://weckwerthblog.wordpress.com/wp-json/wp/v2/categories?per_page=100'
+        'https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100'
     );
     const categories = await categoriesResponse.json();
 
@@ -119,7 +119,7 @@ app.get('/wycieczki/:projectSlug', async function (req, res) {
 
     // Получаем посты из категории 'wycieczki'
     const response = await fetch(
-        `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${req.params.projectSlug}&_embed=true`
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${req.params.projectSlug}&_embed=true`
     );
 
     const d = await response.json();
@@ -135,7 +135,7 @@ app.get('/wydarzenia', function (req, res) {
 app.get('/wydarzenia/:postSlug', async function (req, res) {
 
     const response = await fetch(
-        `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
     console.log(d[0].yoast_head_json)
@@ -154,7 +154,7 @@ app.get('/wyszukiwarka', function (req, res) {
 app.get('/szlaki/*', async function (req, res) {
 
     const response = await fetch(
-        `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
     console.log(d[0].yoast_head_json)

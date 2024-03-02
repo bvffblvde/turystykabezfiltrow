@@ -37,7 +37,7 @@ const Wyszukiwarka = () => {
             setLoading(true);
 
             const postsResponse = await axios.get(
-                `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?per_page=6&page=${pageNum}&_embed&search=${searchKeyword}`
+                `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?per_page=6&page=${pageNum}&_embed&search=${searchKeyword}`
             );
 
             const totalPosts = parseInt(postsResponse.headers['x-wp-total'], 10);
