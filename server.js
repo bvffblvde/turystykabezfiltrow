@@ -144,7 +144,7 @@ app.get('/wydarzenia/:postSlug', async function (req, res) {
 });
 
 app.get('/filmy', function (req, res) {
-    sendHTMLFileWithMetadata('Filmy', ' Filmy', '/static/media/filmy-image.png', res);
+    sendHTMLFileWithMetadata('Filmy', 'Filmy', '/static/media/filmy.png', res);
 });
 
 app.get('/wyszukiwarka', function (req, res) {
