@@ -41,7 +41,7 @@ const PostDetails = () => {
                 setPost(dataPost);
 
                 // Запрос комментариев при получении данных поста
-                const response = await fetch(`https://turystykabezfiltrow.com/wp-json/wp/v2/comments?post=${dataPost?.id}`);
+                const response = await fetch(`https://weckwerthblog.wordpress.com/wp-json/wp/v2/comments?post=${dataPost?.id}`);
                 const commentsData = await response.json();
                 setComments(commentsData);
             } catch (error) {

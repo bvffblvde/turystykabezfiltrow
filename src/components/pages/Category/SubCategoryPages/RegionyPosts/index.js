@@ -37,7 +37,7 @@ const RegionyPostsPage = () => {
         setLoading(true);
         try {
             const tagResponse = await axios.get(
-                `https://turystykabezfiltrow.com/wp-json/wp/v2/tags?slug=${tagSlug}`
+                `https://weckwerthblog.wordpress.com/wp-json/wp/v2/tags?slug=${tagSlug}`
             );
 
             if (!tagResponse || !tagResponse.data || tagResponse.data.length === 0) {
@@ -51,7 +51,7 @@ const RegionyPostsPage = () => {
                 setCurrentTagName(tagData.name);
 
                 const postsResponse = await axios.get(
-                    `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?_embed&per_page=${postsPerPage}&page=${pageNum}&tags=${tagData.id}`
+                    `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?_embed&per_page=${postsPerPage}&page=${pageNum}&tags=${tagData.id}`
                 );
 
                 if (postsResponse.status !== 200) {

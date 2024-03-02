@@ -37,7 +37,7 @@ const ProjectDetails = () => {
             try {
                 // Получаем все категории
                 const categoriesResponse = await fetch(
-                    'https://turystykabezfiltrow.com/wp-json/wp/v2/categories?per_page=100'
+                    'https://weckwerthblog.wordpress.com/wp-json/wp/v2/categories?per_page=100'
                 );
                 const categories = await categoriesResponse.json();
 
@@ -52,7 +52,7 @@ const ProjectDetails = () => {
 
                 // Получаем посты из категории 'wycieczki'
                 const response = await fetch(
-                    `https://turystykabezfiltrow.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${projectSlug}&_embed=true`
+                    `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${projectSlug}&_embed=true`
                 );
 
                 if (!response.ok) {

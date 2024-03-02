@@ -35,7 +35,7 @@ const KrajePage = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const tagsResponse = await axios.get('https://turystykabezfiltrow.com/wp-json/wp/v2/tags?per_page=100');
+                const tagsResponse = await axios.get('https://weckwerthblog.wordpress.com/wp-json/wp/v2/tags?per_page=100');
 
                 if (tagsResponse.data.length === 0) {
                     console.error('No tags found.');
@@ -53,7 +53,7 @@ const KrajePage = () => {
 
                 const tagRequests = filteredTags.map(async regionyTag => {
                     const tag = tagsResponse.data.find(tag => tag.name.toLowerCase() === regionyTag.toLowerCase());
-                    const postsResponse = await axios.get(`https://turystykabezfiltrow.com/wp-json/wp/v2/posts?tags=${tag.id}&per_page=1&_embed`);
+                    const postsResponse = await axios.get(`https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?tags=${tag.id}&per_page=1&_embed`);
                     const post = postsResponse.data[0];
 
                     if (post) {
