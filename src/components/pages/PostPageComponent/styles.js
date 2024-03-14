@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
             color: ({textColor}) => textColor,
             borderRadius: '6px',
             padding: '20px',
-            backgroundColor: '#90AFFF !important',
+            //backgroundColor: '#90AFFF !important',
             '& a': {
                 color: ({useLocationLinkColor}) => useLocationLinkColor,
                 '&:hover': {

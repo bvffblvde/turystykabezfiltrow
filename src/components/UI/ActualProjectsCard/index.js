@@ -279,6 +279,7 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
             try {
                 // Получаем все категории (categories)
                 const categoriesResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100');
+                console.log('Categories Response:', categoriesResponse.data);
                 const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
 
                 if (!wycieczkiCategory) {

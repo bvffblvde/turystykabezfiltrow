@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {makeStyles} from '@material-ui/core/styles';
@@ -104,9 +104,9 @@ const useStyles = makeStyles((theme) => ({
         border: '1px solid',
         borderColor: ({inputBorderColor}) => inputBorderColor,
     },
-    // hidden: {
-    //     transform: "translate(0, -100%)",
-    // },
+    hidden: {
+        transform: "translate(0, -120%)",
+    },
     menuButton: {
         marginRight: 10,
     },
@@ -266,6 +266,11 @@ function Header() {
     // eslint-disable-next-line no-unused-vars
     const {theme, toggleTheme} = useTheme();
     const classes = useStyles(themes[theme]);
+    const [visible, setVisible] = useState(true);
+    // eslint-disable-next-line no-unused-vars
+    const [scrolled, setScrolled] = useState(false);
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+
 
     const scrollToSection = (sectionId) => {
         const section = document.getElementById(sectionId);
@@ -277,8 +282,26 @@ function Header() {
         }
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollPos = window.pageYOffset;
+
+            setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+            setPrevScrollPos(currentScrollPos);
+            setScrolled(currentScrollPos > 0);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [prevScrollPos, visible]);
+
+
+
     return (
-        <AppBar position={'fixed'} className={classes.appBar}>
+        <AppBar position={'fixed'} className={`${classes.appBar} ${!visible && classes.hidden}`}>
             <Toolbar className={classes.toolbar}>
                 <Box>
                     <a href={'/'}>

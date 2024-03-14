@@ -198,6 +198,7 @@ const FullscreenModal = ({open, onClose, imageSrc, imgTag, index, onNext, onPrev
                 onTouchEnd={handleTouchEnd}
             >
                 {imageSrc && (
+                    // eslint-disable-next-line jsx-a11y/img-redundant-alt
                     <img
                         src={imageSrc}
                         alt={`Image ${index + 1}`}

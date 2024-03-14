@@ -13,7 +13,6 @@ import ContactForm from "../../UI/ContactForm";
 import ProjectCard from "../../UI/ActualProjectsCard";
 import Sidebar from "../../UI/SideBar";
 import ShareButton from "../../UI/ShareButton";
-import RichLink from "../../UI/RichLinks";
 
 
 const ProjectDetails = () => {
@@ -110,15 +109,15 @@ const ProjectDetails = () => {
         }
     };
 
-    //const imageUrls
+    // eslint-disable-next-line no-unused-vars
     const largestImage = images.find((imgTag) => !!extractImageUrl(imgTag));
-
 
     const handleOpenFullscreenModal = (index) => {
         setSelectedImageIndex(index);
         setFullscreenModalOpen(true);
     };
 
+    // eslint-disable-next-line no-unused-vars
     const handleOpenMainImageModal = () => {
         const mainImageUrl = project?._embedded?.['wp:featuredmedia']?.[0]?.source_url;
         console.log('Main Image URL:', mainImageUrl); // Отладочное сообщение
@@ -203,8 +202,7 @@ const ProjectDetails = () => {
                         <img
                             key={index}
                             src={extractImageUrl(largestImage)}
-
-                            //dangerouslySetInnerHTML={{__html: largestImage}}
+                            alt={project.title?.rendered}
                             className={classes.facebookStyleImageLarge + ' ' + classes.largeActiveViewForMobile}
                             onClick={() => handleOpenFullscreenModal(0)}
                         />
@@ -220,7 +218,7 @@ const ProjectDetails = () => {
                             <img
                                 key={index}
                                 src={extractImageUrl(largestImage)}
-                                //dangerouslySetInnerHTML={{__html: largestImage}}
+                                alt={project.title?.rendered}
                                 className={classes.facebookStyleImage}
                                 onClick={() => handleOpenFullscreenModal(index)}
                             />
@@ -238,8 +236,8 @@ const ProjectDetails = () => {
                             <div key={index} style={{position: 'relative', height: '100%'}}>
                                 <img
                                     key={index}
+                                    alt={project.title?.rendered}
                                     src={extractImageUrl(largestImage)}
-                                    //dangerouslySetInnerHTML={{__html: largestImage}}
                                     className={classes.facebookStyleImage + ' ' + classes.twoImagesBoxView}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
@@ -251,7 +249,7 @@ const ProjectDetails = () => {
                             <img
                                 src={extractImageUrl(largestImage)}
                                 key={index}
-                                //dangerouslySetInnerHTML={{__html: largestImage}}
+                                alt={project.title?.rendered}
                                 className={classes.facebookStyleImageLarge}
                                 onClick={() => handleOpenFullscreenModal(index + 2)}
                             />
@@ -270,7 +268,7 @@ const ProjectDetails = () => {
                                 <img
                                     key={index}
                                     src={extractImageUrl(largestImage)}
-                                    //dangerouslySetInnerHTML={{__html: largestImage}}
+                                    alt={project.title?.rendered}
                                     className={classes.facebookStyleImage + ' ' + classes.facebookStyleImageAlternative}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
@@ -281,10 +279,9 @@ const ProjectDetails = () => {
                         {images.slice(2, 4).map((largestImage, index) => (
                             <div key={index} style={{position: 'relative', height: '100%', width: '100%'}}>
                                 <img
-                                    src={extractImageUrl(largestImage)}
-
                                     key={index}
-                                    //dangerouslySetInnerHTML={{__html: largestImage}}
+                                    src={extractImageUrl(largestImage)}
+                                    alt={project.title?.rendered}
                                     className={classes.facebookStyleImage + ' ' + classes.facebookStyleImageAlternative}
                                     onClick={() => handleOpenFullscreenModal(index + 2)}
                                 />
@@ -303,9 +300,8 @@ const ProjectDetails = () => {
                             <div key={index} style={{position: 'relative', width: '100%', height: '100%'}}>
                                 <img
                                     src={extractImageUrl(largestImage)}
-
+                                    alt={project.title?.rendered}
                                     key={index}
-                                    //dangerouslySetInnerHTML={{__html: largestImage}}
                                     className={classes.facebookStyleImage}
                                     onClick={() => handleOpenFullscreenModal(index)}
                                 />
@@ -317,7 +313,7 @@ const ProjectDetails = () => {
                             <img
                                 src={extractImageUrl(largestImage)}
                                 key={index}
-                                //dangerouslySetInnerHTML={{__html: largestImage}}
+                                alt={project.title?.rendered}
                                 className={classes.facebookStyleImageLarge}
                                 onClick={() => handleOpenFullscreenModal(index + 2)}
                             />
@@ -328,9 +324,8 @@ const ProjectDetails = () => {
                             <div key={index} style={{position: 'relative', width: '100%', height: '100%'}}>
                                 <img
                                     src={extractImageUrl(largestImage)}
-
+                                    alt={project.title?.rendered}
                                     key={index}
-                                    //dangerouslySetInnerHTML={{__html: largestImage}}
                                     className={classes.facebookStyleImage}
                                     onClick={() => handleOpenFullscreenModal(index + 3)}
                                 />

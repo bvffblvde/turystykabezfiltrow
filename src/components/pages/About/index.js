@@ -10,11 +10,8 @@ import BreadCrumbs from "../../UI/BreadCrumbs";
 import PiotrPhoto from "../../../assets/Banners/piotr.png";
 import Banner from "../../../assets/Banners/main-about-page.png";
 import InnaPhoto from "../../../assets/Banners/inna.png";
-// import DownloadButton from "../../UI/DownloadButton";
 import DonatBadge from "../../UI/DonatBadge";
 import useStyles from "./styles";
-import RichLink from "../../UI/RichLinks";
-import useAnalyticsEventTracker from '../../Analytics';
 
 const sections = [
     {id: 'bez-filtrow', label: 'BEZ FILTRÓW - czyli?'},
@@ -46,11 +43,9 @@ const About = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    const gaEventTracker = useAnalyticsEventTracker('About');
 
     return (
         <SectionWrapper paddingTop="120px">
-            <RichLink title="O nas" description={coRobimyText} image={Banner}/>
             <BreadCrumbs/>
             <Box className={classes.subTextBlock}>
                 <Typography variant="h1" className={classes.title}>

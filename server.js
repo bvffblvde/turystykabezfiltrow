@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/bydgoszcz', async  function (req, res) {
-    const bydgoszczCategoryIdResponse = await axios.get(`https://weckwerthblog.wordpress.com/wp-json/wp/v2/categories?slug=bydgoszcz`);
+    const bydgoszczCategoryIdResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?slug=bydgoszcz`);
     const d = await   bydgoszczCategoryIdResponse.data;
 
     sendHTMLFileWithMetadata(d[0].yoast_head_json.og_title, d[0].yoast_head_json.og_title, '/static/media/bydgoszcz-image.png', res);
@@ -61,7 +61,7 @@ app.get('/regiony/:tagSlug', function (req, res) {
 app.get('/regiony/:tagSlug/:postSlug',async function (req, res) {
 
     const response = await fetch(
-        `https://weckwerthblog.wordpress.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
     console.log(await response.json())

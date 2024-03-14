@@ -229,10 +229,11 @@ const ContactForm = ({paddingBottom}) => {
                                                     error={form.errors.checkbox && form.touched.checkbox}/>}
                                                 label={
                                                     <Typography className={classes.checkBoxDescription}>
-                                                        Wyrażam zgodę na przetwarzanie <a
-                                                        //href="https://drive.google.com/file/d/11HQYLksadgMaGXe3DmrOt37ldEO1qQiv/view?usp=drive_link"
-                                                        target="_blank" rel="noreferrer"
-                                                        className={classes.docLinktext}>danych osobowych</a>
+                                                        Wyrażam zgodę na przetwarzanie
+                                                        {/*<a*/}
+                                                        {/*href="https://drive.google.com/file/d/11HQYLksadgMaGXe3DmrOt37ldEO1qQiv/view?usp=drive_link"*/}
+                                                        {/*target="_blank" rel="noreferrer"*/}
+                                                        {/*className={classes.docLinktext}>danych osobowych</a>*/}
                                                     </Typography>
                                                 }
                                             />
