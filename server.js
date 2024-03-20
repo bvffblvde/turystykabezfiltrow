@@ -170,6 +170,30 @@ app.get('/o-nas', function (req, res) {
     sendHTMLFileWithMetadata( 'O Nas', 'Description for O Nas', '/static/media/main-about-page.*.png', res);
 });
 
+app.get('/projekty/:projectSlug', async function (req, res) {
+    const categoriesResponse = await fetch(
+        'https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100'
+    );
+    const categories = await categoriesResponse.json();
+
+    const projektyCategory = categories.find(
+        (category) => category.name.toLowerCase() === 'projekty'
+    );
+
+    if (!projektyCategory) {
+        throw new Error('Wycieczki category not found');
+    }
+
+    const response = await fetch(
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${projektyCategory.id}&slug=${req.params.projectSlug}&_embed=true`
+    );
+
+    const d = await response.json();
+    console.log(d[0].yoast_head_json)
+
+    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
+});
+
 
 app.use(express.static(path.resolve(__dirname, './build')));
 

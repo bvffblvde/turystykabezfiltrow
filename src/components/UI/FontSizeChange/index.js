@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) =>
 const FontSizeButtons = () => {
     const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
-    const {aPlusClicked, updateFontSize, resetFontSize } = useFontSize();
+    const { fontSize, aPlusClicked, updateFontSize, resetFontSize } = useFontSize();
 
     const handleButtonClick = (change) => {
         if (aPlusClicked) {

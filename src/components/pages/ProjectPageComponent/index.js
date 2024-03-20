@@ -40,18 +40,28 @@ const ProjectDetails = () => {
                 );
                 const categories = await categoriesResponse.json();
 
-                // Ищем категорию 'wycieczki' независимо от регистра
-                const wycieczkiCategory = categories.find(
-                    (category) => category.name.toLowerCase() === 'wycieczki'
-                );
+                // Ищем категорию, которая соответствует URL
+                const isProjekty = window.location.href.includes('/projekty/');
+                const isWycieczki = window.location.href.includes('/wycieczki/');
 
-                if (!wycieczkiCategory) {
-                    throw new Error('Wycieczki category not found');
+                let categoryId;
+                if (isProjekty) {
+                    const projektyCategory = categories.find(
+                        (category) => category.name.toLowerCase() === 'projekty'
+                    );
+                    categoryId = projektyCategory.id;
+                } else if (isWycieczki) {
+                    const wycieczkiCategory = categories.find(
+                        (category) => category.name.toLowerCase() === 'wycieczki'
+                    );
+                    categoryId = wycieczkiCategory.id;
+                } else {
+                    throw new Error('Category not found in URL');
                 }
 
-                // Получаем посты из категории 'wycieczki'
+                // Получаем посты из выбранной категории
                 const response = await fetch(
-                    `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&slug=${projectSlug}&_embed=true`
+                    `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${categoryId}&slug=${projectSlug}&_embed=true`
                 );
 
                 if (!response.ok) {
@@ -71,6 +81,7 @@ const ProjectDetails = () => {
 
         fetchData();
     }, [projectSlug]);
+
 
     const extractImages = (content) => {
         const images = [];
@@ -138,8 +149,13 @@ const ProjectDetails = () => {
         while ((match = regex.exec(content)) !== null) {
             const url = match[1];
 
-            // Проверяем, является ли URL файловым и оканчивается на ".pdf"
-            const isFileUrl = !url.startsWith('mailto:') && url.toLowerCase().endsWith('.pdf');
+            // Получаем расширение файла из URL
+            const fileExtension = url.split('.').pop()?.toLowerCase();
+
+            // Проверяем, является ли URL файловым и имеет расширение PDF, DOC или DOCX
+            const isFileUrl =
+                !url.startsWith('mailto:') &&
+                ['pdf', 'doc', 'docx'].includes(fileExtension);
 
             // Если это файловый URL и его еще нет в Set, добавляем его
             if (isFileUrl && !fileUrlsSet.has(url)) {
@@ -147,24 +163,20 @@ const ProjectDetails = () => {
             }
         }
 
-        // Преобразуем Set обратно в массив
         return [...fileUrlsSet];
     };
 
     const filteredFileUrls = extractFileUrls(project?.content?.rendered || '');
+
 
     const descriptionWithoutImagesAndFiles = filteredFileUrls.reduce((content, fileUrl) => {
         // eslint-disable-next-line no-useless-escape
         const fileRegex = new RegExp(`<a[^>]+href="${fileUrl}"[^>]*>.*?<\/a>`, 'g');
         const imageRegex = /<img[^>]+src="([^">]+)"[^>]*>/g;
 
-        // Удаляем файловые ссылки
         const contentWithoutFiles = content.replace(fileRegex, '');
 
-        // Удаляем изображения
-        const contentWithoutImages = contentWithoutFiles.replace(imageRegex, '');
-
-        return contentWithoutImages;
+        return contentWithoutFiles.replace(imageRegex, '');
     }, project?.content?.rendered || '');
 
 
@@ -351,7 +363,6 @@ const ProjectDetails = () => {
 
     return (
         <SectionWrapper paddingBottom="100px" paddingTop="120px">
-            {/*<RichLink name={project?.title?.rendered} title={project?.title?.rendered} description={descriptionWithoutImagesAndFiles} image={project?._embedded?.['wp:featuredmedia']?.[0]?.source_url}/>*/}
             <BreadCrumbs/>
             <Box className={classes.contentWrapper}>
                 <Box className={classes.textWrapper}>
@@ -387,12 +398,14 @@ const ProjectDetails = () => {
                                         dangerouslySetInnerHTML={{__html: descriptionWithoutImagesAndFiles}}
                                         className={classes.description}/>
                         </Box>
-                        <Box className={classes.downloadButtonWrapper}>
-                            {filteredFileUrls.map((filteredFileUrl, index) => {
-                                console.log('pdfUrl:', filteredFileUrl); // Добавьте эту строку для отладки
-                                return <DownloadButton key={index} pdfUrl={filteredFileUrl}/>;
-                            })}
-                        </Box>
+                        {filteredFileUrls && filteredFileUrls.length > 0 && (
+                            <Box className={classes.downloadButtonWrapper}>
+                                {filteredFileUrls.map((filteredFileUrl, index) => {
+                                    console.log('pdfUrl:', filteredFileUrl);
+                                    return <DownloadButton key={index} pdfUrl={filteredFileUrl}/>;
+                                })}
+                            </Box>
+                        )}
                     </Box>
                 </Box>
 
@@ -400,18 +413,6 @@ const ProjectDetails = () => {
                     <Sidebar>
                         <ProjectCard projectLimit={3} smallProjectView/>
                     </Sidebar>
-                    {/*{project?._embedded && project._embedded['wp:featuredmedia'] && (*/}
-                    {/*    <div className={classes.imageContainer}>*/}
-                    {/*        <img*/}
-                    {/*            src={project._embedded['wp:featuredmedia'][0].source_url}*/}
-                    {/*            alt={project.title?.rendered}*/}
-                    {/*            className={classes.image}*/}
-                    {/*            loading="lazy"*/}
-                    {/*            onClick={handleOpenMainImageModal}*/}
-
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
                 </Box>
             </Box>
             <Box>

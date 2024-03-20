@@ -41,6 +41,8 @@ const RedirectOldUrl = () => {
         if (window.location.pathname === '/szlaki/') {
             // Перенаправление на новый URL /artykuly/bartodzieje-szlak
             navigate('/artykuly/bartodzieje-szlak', {replace: true});
+        } if (window.location.pathname === '/projekty') {
+            navigate('/o-nas', {replace: true});
         }
     }, [navigate]);
 
@@ -57,7 +59,6 @@ const App = () => {
 
     return (
         <ThemeProvider>
-            <FloatingButtonProvider>
                 <FontSizeProvider>
                     <Router>
                         <CssBaseline/>
@@ -93,13 +94,16 @@ const App = () => {
 
                                 <Route path="/declaracja-dostepnosci" element={<DocumentPage/>}/>
                                 <Route path="/o-nas" element={<About/>}/>
+
+                                <Route path="/projekty" element={<RedirectOldUrl/>}/>
+                                <Route path="/projekty/:projectSlug" element={<ProjectDetails/>}/>
+
                                 {/*<Route path="*" element={<NotFoundPage/>}/>*/}
                             </Routes>
                             <Footer/>
                         </>
                     </Router>
                 </FontSizeProvider>
-            </FloatingButtonProvider>
         </ThemeProvider>
 
     );

@@ -10,7 +10,7 @@ import {themes} from "../../../theme/themeContext/themes";
 import {ReactComponent as WCAGIcon} from "../../../assets/Icons/wcag-logo.svg";
 import SettingsDrawer from "../../UI/WCAGDrawer";
 import ToggleMenu from "../ToggleMenu";
-import FloatingButton from "../../UI/FloatingButton";
+// import FloatingButton from "../../UI/FloatingButton";
 import {ReactComponent as SearchIcon} from "../../../assets/Icons/search.svg";
 
 
@@ -206,7 +206,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             display: 'flex',
             flexDirection: 'row',
-            gap: '32px',
+            gap: '25px',
+            alignItems: 'center',
         }
     },
     subMenu: {
@@ -242,6 +243,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: ({lineBackgroundColor}) => lineBackgroundColor,
     },
     iconLink: {
+        width: '40px',
+        height: '40px',
         "& path": {
             transition: '300ms ease-in-out',
             stroke: ({iconColorFill}) => iconColorFill,
@@ -380,8 +383,17 @@ function Header() {
                         <SettingsDrawer />
                     </Box>
                 </Box>
-                <FloatingButton />
+                {/*<FloatingButton />*/}
                 <Box className={classes.mobileButtonSection}>
+                    <Box style={{width: '40px'}}>
+                        <Link to="/wyszukiwarka" className={classes.iconLink}>
+                            <Icon
+                                component={SearchIcon}
+                                className={classes.icon}
+                                src={SearchIcon}
+                            />
+                        </Link>
+                    </Box>
                     <ToggleMenu />
                 </Box>
             </Toolbar>

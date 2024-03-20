@@ -277,7 +277,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: '20px',
-        marginTop: '20px',
+        margin: '20px 0 20px 0',
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'column',
         }

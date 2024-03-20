@@ -12,12 +12,14 @@ import Banner from "../../../assets/Banners/main-about-page.png";
 import InnaPhoto from "../../../assets/Banners/inna.png";
 import DonatBadge from "../../UI/DonatBadge";
 import useStyles from "./styles";
+import ProjectsPublicationCard from "../../UI/ProjectsPublicationCard";
+import PublicationCards from "../../UI/PublicationCard";
 
 const sections = [
     {id: 'bez-filtrow', label: 'BEZ FILTRÓW - czyli?'},
     {id: 'wesprzyj-nas', label: 'Wesprzyj nas!'},
-    // {id: 'projekty', label: 'Projekty'},
-    // {id: 'publikacje', label: 'Publikacje'},
+    {id: 'projekty', label: 'Projekty'},
+    {id: 'publikacje', label: 'Publikacje'},
 ];
 
 const coRobimyText = `<p>„Turystyka BEZ FILTRÓW”  to marka, która startowała jako hobbystyczny blog turystyczny, z czasem rozrastając się do znaczącej w skali Bydgoszczy i regionu, inicjatywy. Dziś obejmuje ona stronę internetową (www.turystykabezfiltrow.com), na której regularnie pojawiają się artykuły o tematyce turystyczno-kulturowej (m.in. cykle: „Bydgoskie osiedla BEZ FILTRÓW”, „Bydgoszcz przez dziurkę od klucza”), kanały na portalu YouTube („Turystyka BEZ FILTRÓW” oraz „RBF – Rozmowy BEZ FILTRÓW”), a także cykliczne spacery tematyczne po Bydgoszczy, głównie zaś po bydgoskich osiedlach (w ramach serii „Bydgoskie osiedla BEZ TAJEMNIC”).</p>
@@ -122,16 +124,19 @@ const About = () => {
                         <DonatBadge/>
                     </div>
                     <Box id="projekty">
+                        <Typography variant="h1" className={classes.titleBlock}>
+                            Projekty
+                        </Typography>
                         <Grid className={classes.gridWrapper}>
-                            {/*<Grid item xs={12} sm={12} md={4} lg={4} xl={4}>*/}
-                            {/*    <Typography variant="h1" className={classes.titleBlock}>*/}
-                            {/*        Statut*/}
-                            {/*    </Typography>*/}
-                            {/*</Grid>*/}
-                            {/*<Grid item xs={12} sm={12} md={8} lg={8} xl={8}>*/}
-                            {/*    <DownloadButton*/}
-                            {/*        pdfUrl='https://fundacjanadrzeka.com/wp-content/uploads/2022/02/Statut-AKTUALNY.pdf'/>*/}
-                            {/*</Grid>*/}
+                            <ProjectsPublicationCard/>
+                        </Grid>
+                    </Box>
+                    <Box id="publikacje">
+                        <Typography variant="h1" className={classes.titleBlock}>
+                            Publikacje
+                        </Typography>
+                        <Grid className={classes.gridWrapper}>
+                            <PublicationCards/>
                         </Grid>
                     </Box>
                 </Box>

@@ -58,7 +58,7 @@ const themes = {
         aboutPageTextTitleColor: '#353535',
         borderColorForAboutPage: '#D9D9D9',
         downloadButtonBorderColor: '#D9D9D9',
-        downloadButtonBorderColorHover: '#39B2B9',
+        downloadButtonBorderColorHover: '#90AFFF',
 
 
         floatingButtonBackgroundColor: '#0047FF',

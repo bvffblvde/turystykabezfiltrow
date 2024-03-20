@@ -193,7 +193,7 @@ const useStyles = makeStyles((theme) => ({
                 fill: ({iconColorFillHover}) => iconColorFillHover,
             },
         },
-    }
+    },
 }));
 
 export default useStyles;

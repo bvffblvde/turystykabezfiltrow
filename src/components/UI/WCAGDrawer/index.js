@@ -1,9 +1,9 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {IconButton, Popover, makeStyles, createStyles, Icon, Button, Box} from '@material-ui/core';
+import {IconButton, Popover, makeStyles, createStyles, Icon} from '@material-ui/core';
 import {ReactComponent as WCAGIcon} from "../../../assets/Icons/wcag-logo.svg";
-import FontSizeButtons from "../FontSizeChange";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
+import PopoverContent from "./PopoverContent";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -28,25 +28,7 @@ const useStyles = makeStyles((theme) =>
                 },
             },
         },
-        wcagButton: {
-            padding: 0,
-            fontFamily: 'Inter-Regular',
-            fontSize: '20px',
-            fontWeight: 400,
-            color: ({postsTextColor}) => postsTextColor,
-            transition: "all 0.3s ease-out",
-            border: 'none',
-            textTransform: 'none',
-            backgroundColor: 'transparent',
-            cursor: 'pointer',
-            '&:hover': {
-                backgroundColor: 'transparent',
-                color: ({postsHoverTextColor}) => postsHoverTextColor,
-            }
-        },
-        icon: {
-
-        },
+        icon: {},
         paper: {
             padding: '20px',
             marginTop: '40px',
@@ -54,11 +36,6 @@ const useStyles = makeStyles((theme) =>
             borderRadius: '0',
             backgroundColor: ({backgroundColor}) => backgroundColor,
         },
-        boxWrapper: {
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '15px',
-        }
     })
 );
 
@@ -130,21 +107,7 @@ const SettingsDrawer = () => {
                 }}
                 onClose={handlePopoverClose}
             >
-                <Box className={classes.boxWrapper}>
-                    <Box>
-                        <FontSizeButtons/>
-                    </Box>
-                    <Box>
-                        <Button onClick={toggleTheme} className={classes.wcagButton}>
-                            Wersja kontrastowa
-                        </Button>
-                    </Box>
-                    <Box>
-                        <Button className={classes.wcagButton} as="a" href="/declaracja-dostepnosci">
-                            Deklaracja dostępności cyfrowej
-                        </Button>
-                    </Box>
-                </Box>
+                <PopoverContent toggleThemeClickEvent={toggleTheme}/>
             </Popover>
         </>
     );

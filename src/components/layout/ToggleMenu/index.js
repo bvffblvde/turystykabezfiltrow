@@ -271,6 +271,8 @@ import {ReactComponent as TikTokLogo} from "../../../assets/SocialMediaLogo/tt.s
 import {ReactComponent as FirstButtonIcon} from "../../../assets/Icons/contact-icon.svg";
 import {ReactComponent as SecondButtonIcon} from "../../../assets/Icons/support-icon.svg";
 import AdbisBadge from "../../UI/AdbisCreatedPlug";
+import SettingsDrawer from "../../UI/WCAGDrawer";
+import PopoverContent from "../../UI/WCAGDrawer/PopoverContent";
 
 
 const socialLinks = [
@@ -427,7 +429,7 @@ function NavigationLink({ link, closeMenuAfterClick }) {
 
 
 function ToggleMenu() {
-    const { theme } = useTheme();
+    const {theme, toggleTheme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [open, setOpen] = React.useState(false);
 
@@ -469,6 +471,7 @@ function ToggleMenu() {
                 <LinedButton text="Dołącz do zespołu!" to="https://forms.gle/CG4xzZzapzC43mf76" width="100%" icon={FirstButtonIcon} borderBottom="none"/>
                 <LinedButton text="Zaproponuj pomysł!" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%" icon={SecondButtonIcon}/>
             </Box>
+            <PopoverContent toggleThemeClickEvent={toggleTheme} paddingBottom={'20px'}/>
             <Box className={classes.socialLink}>
                 {socialLinks.map((link, index) => (
                     <Link to={link.to} key={index} className={classes.socialLink}>
