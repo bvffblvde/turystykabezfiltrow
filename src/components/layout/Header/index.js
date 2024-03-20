@@ -337,10 +337,8 @@ function Header() {
                                             {navLink.subLinks.map((subLink, subIndex) => (
                                                 <Link
                                                     key={subIndex}
-                                                    to={subLink.url}
-                                                    onClick={() =>
-                                                        subLink.sectionId && scrollToSection(subLink.sectionId)
-                                                    }
+                                                    to={`${subLink.url}#${subLink.sectionId}`}
+                                                    onClick={() => subLink.sectionId && scrollToSection(subLink.sectionId)}
                                                     className={classes.link}
                                                     {...(navLink.openInNewTab && {
                                                         target: '_blank',
@@ -349,6 +347,7 @@ function Header() {
                                                 >
                                                     {subLink.text}
                                                 </Link>
+
                                             ))}
                                         </Box>
                                     </React.Fragment>

@@ -41,10 +41,26 @@ const About = () => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+// Компонент страницы, на которую вы переходите (например, ProjectDetails)
 
+    useEffect(() => {
+        // Получаем id секции из URL
+        const sectionId = window.location.hash.substring(1);
+
+        // Функция прокрутки к секции
+        const scrollToSection = () => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop - 120,
+                    behavior: 'smooth',
+                });
+            }
+        };
+
+        // Выполняем прокрутку к секции после загрузки страницы
+        scrollToSection();
+    }, []);
 
     return (
         <SectionWrapper paddingTop="120px">
