@@ -269,7 +269,7 @@ const ProjectCard = ({project, projectMediaData}) => {
 
 
 const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
-    const {theme} = useTheme();
+    const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [projectData, setProjectData] = useState([]);
     const [projectMediaData, setProjectMediaData] = useState({});
@@ -278,11 +278,9 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
         const fetchData = async () => {
             try {
                 // Получаем все категории (categories)
-                const categoriesResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100');
-                console.log('Categories Response:', categoriesResponse.data);
-                const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
-
-                if (!wycieczkiCategory) {
+                    const categoriesResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100');
+                    const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
+                    if (!wycieczkiCategory) {
                     console.error('Category not found');
                     return;
                 }
@@ -319,16 +317,16 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                     setProjectData(latestWycieczkiResponse.data);
 
                     const mediaIds = latestWycieczkiResponse.data.map((project) => project.featured_media);
-                    const mediaPromises = mediaIds.map((mediaId) =>
-                        axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/media/${mediaId}`)
-                    );
-                    const mediaResults = await Promise.all(mediaPromises);
+                const mediaPromises = mediaIds.map((mediaId) =>
+                    axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/media/${mediaId}`)
+                );
+                const mediaResults = await Promise.all(mediaPromises);
 
-                    const mediaDataObject = mediaResults.reduce((acc, media) => {
-                        acc[media.data.id] = media.data;
-                        return acc;
-                    }, {});
-                    setProjectMediaData(mediaDataObject);
+                const mediaDataObject = mediaResults.reduce((acc, media) => {
+                    acc[media.data.id] = media.data;
+                    return acc;
+                }, {});
+                setProjectMediaData(mediaDataObject);
                 }
             } catch (error) {
                 console.error(`Error fetching project data: ${error}`);
@@ -339,8 +337,8 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
     }, [projectLimit, seasonCard]);
 
 
-    const smallProjects = projectData.slice(1, 5).map(project => ({...project, large: false}));
-    const largeProject = projectData.slice(0, 1).map(project => ({...project, large: true}));
+    const smallProjects = projectData.slice(1, 5).map(project => ({ ...project, large: false }));
+    const largeProject = projectData.slice(0, 1).map(project => ({ ...project, large: true }));
 
     return (
         <>
@@ -359,7 +357,7 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                 <Box className={classes.boxWrapper}>
                     <Box className={classes.largeCardBoxWrapper}>
                         {largeProject.length > 0 && (
-                            <ProjectCard project={largeProject[0]} projectMediaData={projectMediaData}/>
+                            <ProjectCard project={largeProject[0]} projectMediaData={projectMediaData} />
                         )}
                     </Box>
                     <Box className={classes.smallCardBoxWrapper}>
@@ -379,6 +377,7 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
 };
 
 export default Projects;
+
 
 
 

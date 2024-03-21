@@ -13,6 +13,8 @@ import Sidebar from "../../UI/SideBar";
 import DonatBadgeComponent from "../../UI/DonatBadge";
 import StyledButton from "../../UI/StyledButton";
 import CommentButton from "../../UI/CommentButton";
+import DownloadButton from "../../UI/DownloadButton";
+import ContactForm from "../../UI/ContactForm";
 
 
 const PostDetails = () => {
@@ -59,7 +61,7 @@ const PostDetails = () => {
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
-            const offset = 80; // Задайте необходимый отступ от верхней части страницы (высота вашего хедера)
+            const offset = 80;
             const targetPosition = targetElement.offsetTop - offset;
 
             window.scrollTo({
@@ -127,6 +129,42 @@ const PostDetails = () => {
         return imgTag;
     });
 
+    const extractFileUrls = (content) => {
+        const fileUrlsSet = new Set();
+        const regex = /<a[^>]+href="([^">]+)"[^>]*>(.*?)<\/a>/g;
+
+        let match;
+        while ((match = regex.exec(content)) !== null) {
+            const url = match[1];
+
+            // Получаем расширение файла из URL
+            const fileExtension = url.split('.').pop()?.toLowerCase();
+
+            // Проверяем, является ли URL файловым и имеет расширение PDF, DOC или DOCX
+            const isFileUrl =
+                !url.startsWith('mailto:') &&
+                ['pdf', 'doc', 'docx'].includes(fileExtension);
+
+            // Если это файловый URL и его еще нет в Set, добавляем его
+            if (isFileUrl && !fileUrlsSet.has(url)) {
+                fileUrlsSet.add(url);
+            }
+        }
+
+        return [...fileUrlsSet];
+    };
+
+    const filteredFileUrls = extractFileUrls(post?.content?.rendered || '');
+
+    const descriptionWithImagesAndWithoutFiles = updatedDescriptionWithImages.replace(/<a[^>]+href="([^">]+)"[^>]*>(.*?)<\/a>/g, (aTag, url, content) => {
+        const fileExtension = url.split('.').pop()?.toLowerCase();
+        if (['pdf', 'doc', 'docx'].includes(fileExtension)) {
+            return '';
+        }
+        return aTag;
+
+    });
+
     return (
         <SectionWrapper paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
@@ -160,9 +198,18 @@ const PostDetails = () => {
                         )}
                     </Box>
                     <Box className={classes.textContainer}>
-                        <Typography variant="body1" dangerouslySetInnerHTML={{__html: updatedDescriptionWithImages}}
+                        <Typography variant="body1" dangerouslySetInnerHTML={{__html: descriptionWithImagesAndWithoutFiles}}
                                     className={classes.description}/>
                     </Box>
+
+                    {filteredFileUrls && filteredFileUrls.length > 0 && (
+                        <Box className={classes.downloadButtonWrapper}>
+                            {filteredFileUrls.map((filteredFileUrl, index) => {
+                                console.log('pdfUrl:', filteredFileUrl);
+                                return <DownloadButton key={index} pdfUrl={filteredFileUrl}/>;
+                            })}
+                        </Box>
+                    )}
 
                     {/* Отображение комментариев */}
                     {comments.length > 0 && (
@@ -199,6 +246,9 @@ const PostDetails = () => {
                 </Box>
             </Box>
             <DonatBadgeComponent />
+            <Box>
+                <ContactForm/>
+            </Box>
         </SectionWrapper>
     );
 };
