@@ -102,10 +102,14 @@ const useStyles = makeStyles((theme) => ({
         margin: '20px',
         width: 'calc(100% - 40px)',
         border: '1px solid',
+        position: 'fixed',
         borderColor: ({inputBorderColor}) => inputBorderColor,
     },
     hidden: {
         transform: "translate(0, -120%)",
+    },
+    hiddenAbsolute: {
+      position: 'absolute',
     },
     menuButton: {
         marginRight: 10,
@@ -273,6 +277,7 @@ function Header() {
     // eslint-disable-next-line no-unused-vars
     const [scrolled, setScrolled] = useState(false);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
 
 
     const scrollToSection = (sectionId) => {
@@ -301,14 +306,26 @@ function Header() {
         };
     }, [prevScrollPos, visible]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 600); // Измените значение на ваше мобильное разрешение
+        };
+
+        handleResize(); // Вызовите функцию при загрузке страницы
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
 
     return (
-        <AppBar position={'fixed'} className={`${classes.appBar} ${!visible && classes.hidden}`}>
+        <AppBar position={'fixed'} className={`${classes.appBar} ${!visible && classes.hidden} ${isMobile && classes.hiddenAbsolute}`}>
             <Toolbar className={classes.toolbar}>
                 <Box>
                     <a href={'/'}>
-                        <img src={Logo} alt="logo" className={classes.logo} />
+                        <img src={Logo} alt="logo" className={classes.logo}/>
                     </a>
                 </Box>
                 <Box className={classes.title}>
@@ -333,7 +350,7 @@ function Header() {
                                             {navLink.text}
                                         </Link>
                                         <Box className={classes.subMenu}>
-                                            <div className={classes.line} />
+                                            <div className={classes.line}/>
                                             {navLink.subLinks.map((subLink, subIndex) => (
                                                 <Link
                                                     key={subIndex}
@@ -379,7 +396,7 @@ function Header() {
                         </Link>
                     </Box>
                     <Box>
-                        <SettingsDrawer />
+                        <SettingsDrawer/>
                     </Box>
                 </Box>
                 {/*<FloatingButton />*/}
@@ -393,7 +410,7 @@ function Header() {
                             />
                         </Link>
                     </Box>
-                    <ToggleMenu />
+                    <ToggleMenu/>
                 </Box>
             </Toolbar>
         </AppBar>

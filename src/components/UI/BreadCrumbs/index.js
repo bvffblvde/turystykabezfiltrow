@@ -60,7 +60,7 @@ const Breadcrumbs = () => {
         breadcrumbs.push(
             <span key="home">
                 <Link component={RouterLink} to="/" className={classes.useLocationLink}>
-                    Główny
+                    Główna
                 </Link>
             </span>
         );
