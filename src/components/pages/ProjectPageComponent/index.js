@@ -13,6 +13,7 @@ import ContactForm from "../../UI/ContactForm";
 import ProjectCard from "../../UI/ActualProjectsCard";
 import Sidebar from "../../UI/SideBar";
 import ShareButton from "../../UI/ShareButton";
+import CommentsSection from "../../UI/CommentsSection";
 
 
 const ProjectDetails = () => {
@@ -22,6 +23,7 @@ const ProjectDetails = () => {
     const [loading, setLoading] = useState(true);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
     const [fullscreenModalOpen, setFullscreenModalOpen] = useState(false);
+    const [comments, setComments] = useState([]);
 
     const {projectSlug} = useParams();
 
@@ -70,6 +72,11 @@ const ProjectDetails = () => {
 
                 const [data] = await response.json();
                 setProject(data);
+
+                // Запрос комментариев при получении данных о проекте
+                const commentsResponse = await fetch(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/comments?post=${data?.id}`);
+                const commentsData = await commentsResponse.json();
+                setComments(commentsData);
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -81,6 +88,8 @@ const ProjectDetails = () => {
 
         fetchData();
     }, [projectSlug]);
+
+
 
 
     const extractImages = (content) => {
@@ -407,6 +416,9 @@ const ProjectDetails = () => {
                             </Box>
                         )}
                     </Box>
+                    {project && (
+                        <CommentsSection comments={comments} postId={project.id}/>
+                    )}
                 </Box>
 
                 <Box className={classes.imageWrapper}>

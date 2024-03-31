@@ -36,13 +36,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CommentButton = ({ text}) => {
+const CommentButton = ({ text, clicked}) => {
     const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
 
 
     return (
-        <Button className={classes.button}>
+        <Button className={classes.button} onClick={clicked}>
             <Box>
                 <Icon
                     component={ArrowLine}

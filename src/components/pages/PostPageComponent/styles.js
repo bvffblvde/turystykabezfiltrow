@@ -105,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
             borderRadius: '16px',
         },
         '& svg': {
+            maxWidth: '100%',
             width: '100%',
             height: '100%',
         },
@@ -178,7 +179,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         gap: '20px',
-        paddingBottom: '30px',
+        //paddingBottom: '30px',
         // borderRight: '1px solid',
         // borderColor: ({borderColor}) => borderColor,
     },

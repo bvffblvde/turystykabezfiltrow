@@ -2,15 +2,15 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
-import {useTheme} from "../../../theme/themeContext";
-import {themes} from "../../../theme/themeContext/themes";
+import { useTheme } from '../../../theme/themeContext';
+import { themes } from '../../../theme/themeContext/themes';
 
 const useStyles = makeStyles((theme) => ({
     defaultButton: {
-        color: ({defaultButtonTextColor}) => defaultButtonTextColor,
-        backgroundColor: ({defaultButtonBackgroundColor}) => defaultButtonBackgroundColor,
+        color: ({ defaultButtonTextColor }) => defaultButtonTextColor,
+        backgroundColor: ({ defaultButtonBackgroundColor }) => defaultButtonBackgroundColor,
         border: `1px solid`,
-        borderColor: ({defaultButtonBorderColor}) => defaultButtonBorderColor,
+        borderColor: ({ defaultButtonBorderColor }) => defaultButtonBorderColor,
         borderRadius: '6px',
         padding: '10px',
         fontFamily: 'Inter-Regular',
@@ -19,9 +19,12 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'none',
         transition: 'all 0.3s ease-in-out',
         '&:hover': {
-            backgroundColor: ({defaultHoverButtonBackgroundColor}) => defaultHoverButtonBackgroundColor,
-            color: ({defaultHoverButtonTextColor}) => defaultHoverButtonTextColor,
-            borderColor: ({defaultHoverButtonBorderColor}) => defaultHoverButtonBorderColor,
+            backgroundColor: ({ defaultHoverButtonBackgroundColor }) => defaultHoverButtonBackgroundColor,
+            color: ({ defaultHoverButtonTextColor }) => defaultHoverButtonTextColor,
+            borderColor: ({ defaultHoverButtonBorderColor }) => defaultHoverButtonBorderColor,
+        },
+        '&:disabled': {
+            opacity: '0.5',
         },
         [theme.breakpoints.down('sm')]: {
             padding: '10px 10px',
@@ -29,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     whiteButton: {
-        color: ({darkButtonTextColor}) => darkButtonTextColor,
-        backgroundColor: ({darkButtonBackgroundColor}) => darkButtonBackgroundColor,
+        color: ({ darkButtonTextColor }) => darkButtonTextColor,
+        backgroundColor: ({ darkButtonBackgroundColor }) => darkButtonBackgroundColor,
         border: `1px solid`,
-        borderColor: ({darkButtonBorderColor}) => darkButtonBorderColor,
+        borderColor: ({ darkButtonBorderColor }) => darkButtonBorderColor,
         borderRadius: '6px',
         padding: '10px',
         fontFamily: 'Inter-Regular',
@@ -41,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'none',
 
         '&:hover': {
-            backgroundColor: ({darkHoverButtonBackgroundColor}) => darkHoverButtonBackgroundColor,
-            color: ({darkHoverButtonTextColor}) => darkHoverButtonTextColor,
-            borderColor: ({darkHoverButtonBorderColor}) => darkHoverButtonBorderColor,
+            backgroundColor: ({ darkHoverButtonBackgroundColor }) => darkHoverButtonBackgroundColor,
+            color: ({ darkHoverButtonTextColor }) => darkHoverButtonTextColor,
+            borderColor: ({ darkHoverButtonBorderColor }) => darkHoverButtonBorderColor,
         },
         [theme.breakpoints.down('sm')]: {
             padding: '10px 10px',
@@ -52,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const StyledButton = ({ variant, text, width, to, clicked }) => {
-    const {theme} = useTheme();
+const StyledButton = ({ variant, text, width, to, clicked, disabled }) => {
+    const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const navigate = useNavigate();
 
@@ -80,6 +83,7 @@ const StyledButton = ({ variant, text, width, to, clicked }) => {
             variant={variant}
             style={{ width: width }}
             onClick={clicked ? clicked : handleClick}
+            disabled={disabled}
         >
             {text}
         </Button>
