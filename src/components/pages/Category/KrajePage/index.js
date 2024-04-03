@@ -82,7 +82,10 @@ const KrajePage = () => {
         };
 
         fetchData().then(() => console.log('Posts data fetched'));
-    }, [location.pathname]);
+
+    }, []);
+
+
 
     return (
         <SectionWrapper id="kraje" paddingBottom="100px" paddingTop="120px">

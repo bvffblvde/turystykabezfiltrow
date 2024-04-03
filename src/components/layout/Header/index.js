@@ -308,10 +308,10 @@ function Header() {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 600); // Измените значение на ваше мобильное разрешение
+            setIsMobile(window.innerWidth <= 600);
         };
 
-        handleResize(); // Вызовите функцию при загрузке страницы
+        handleResize();
         window.addEventListener('resize', handleResize);
 
         return () => {
@@ -354,7 +354,7 @@ function Header() {
                                             {navLink.subLinks.map((subLink, subIndex) => (
                                                 <Link
                                                     key={subIndex}
-                                                    to={`${subLink.url}#${subLink.sectionId}`}
+                                                    to={subLink.sectionId ? `${subLink.url}#${subLink.sectionId}` : subLink.url} // Проверка наличия sectionId перед добавлением к URL
                                                     onClick={() => subLink.sectionId && scrollToSection(subLink.sectionId)}
                                                     className={classes.link}
                                                     {...(navLink.openInNewTab && {
@@ -364,7 +364,6 @@ function Header() {
                                                 >
                                                     {subLink.text}
                                                 </Link>
-
                                             ))}
                                         </Box>
                                     </React.Fragment>

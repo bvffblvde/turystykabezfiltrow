@@ -24,7 +24,7 @@ const RegionyPostsPage = () => {
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
     const { tagSlug } = useParams();
-    // eslint-disable-next-line no-unused-vars
+    const [prevTagSlug, setPrevTagSlug] = useState(null); // Переменная для отслеживания предыдущего tagSlug
     const [currentTagSlug, setCurrentTagSlug] = useState(null);
     const [currentTagName, setCurrentTagName] = useState('');
     const [page, setPage] = useState(1);
@@ -32,6 +32,7 @@ const RegionyPostsPage = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
 
     const fetchData = async (pageNum) => {
         setLoading(true);
@@ -58,7 +59,7 @@ const RegionyPostsPage = () => {
                     throw new Error('Failed to fetch posts data');
                 }
 
-                const data = postsResponse.data;
+                const data = postsResponse.data.filter(post => !posts.find(existingPost => existingPost.id === post.id)); // Исключаем дубликаты
                 setPosts((prevPosts) => [...prevPosts, ...data]);
             } else {
                 console.error('Tag not found.');
@@ -72,11 +73,18 @@ const RegionyPostsPage = () => {
     };
 
     useEffect(() => {
+        if (prevTagSlug !== tagSlug) { // Проверяем, изменился ли tagSlug
+            setPosts([]); // Очищаем текущие посты
+            setPage(1); // Сбрасываем страницу на первую
+            fetchData(1); // Вызываем fetchData снова для нового tagSlug
+            setPrevTagSlug(tagSlug); // Обновляем prevTagSlug
+        }
+    }, [tagSlug]); // Зависимость только от tagSlug
+
+    useEffect(() => {
         fetchData(page);
-    },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [tagSlug, page]
-    );
+    }, [page]);
+
 
     const handleLoadMore = () => {
         setPage((prevPage) => prevPage + 1);
@@ -141,7 +149,7 @@ const RegionyPostsPage = () => {
                 ))}
             </Grid>
             <Box className={classes.buttonWrapper}>
-                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%"/>
+                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%" disabled={loading || posts.length % postsPerPage !== 0} />
             </Box>
             <DonatBadgeComponent/>
             <ContactForm/>
