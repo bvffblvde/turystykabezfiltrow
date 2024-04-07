@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
             },
         },
         '& div': {
-            backgroundColor: 'transparent !important',
+            borderRadius: '6px',
+            //backgroundColor: 'transparent !important',
             '& button': {
               display: 'none',
             },

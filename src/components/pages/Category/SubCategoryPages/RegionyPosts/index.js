@@ -24,7 +24,7 @@ const RegionyPostsPage = () => {
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
     const { tagSlug } = useParams();
-    const [prevTagSlug, setPrevTagSlug] = useState(null); // Переменная для отслеживания предыдущего tagSlug
+    // eslint-disable-next-line no-unused-vars
     const [currentTagSlug, setCurrentTagSlug] = useState(null);
     const [currentTagName, setCurrentTagName] = useState('');
     const [page, setPage] = useState(1);
@@ -59,7 +59,7 @@ const RegionyPostsPage = () => {
                     throw new Error('Failed to fetch posts data');
                 }
 
-                const data = postsResponse.data.filter(post => !posts.find(existingPost => existingPost.id === post.id)); // Исключаем дубликаты
+                const data = postsResponse.data;
                 setPosts((prevPosts) => [...prevPosts, ...data]);
             } else {
                 console.error('Tag not found.');
@@ -73,18 +73,11 @@ const RegionyPostsPage = () => {
     };
 
     useEffect(() => {
-        if (prevTagSlug !== tagSlug) { // Проверяем, изменился ли tagSlug
-            setPosts([]); // Очищаем текущие посты
-            setPage(1); // Сбрасываем страницу на первую
-            fetchData(1); // Вызываем fetchData снова для нового tagSlug
-            setPrevTagSlug(tagSlug); // Обновляем prevTagSlug
-        }
-    }, [tagSlug]); // Зависимость только от tagSlug
-
-    useEffect(() => {
         fetchData(page);
-    }, [page]);
-
+    },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [tagSlug, page]
+    );
 
     const handleLoadMore = () => {
         setPage((prevPage) => prevPage + 1);
