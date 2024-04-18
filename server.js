@@ -197,9 +197,29 @@ app.get('/projekty/:projectSlug', async function (req, res) {
 
 app.use(express.static(path.resolve(__dirname, './build')));
 
-app.get('*', function (request, response) {
-    const filePath = path.resolve(__dirname, './build', 'index.html');
-    response.sendFile(filePath);
+app.get('*', async (request, response)=> {
+
+    const urlRequest = request.originalUrl.split(1);
+    const allCategory = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories`);
+    const searchedPost =  await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts/?slug=${urlRequest}`)
+        .then((response) => response.data);
+
+    if(urlRequest[0].includes('category')){
+        let r = urlRequest[0].replace('/category','')
+        response.redirect(`${r}`);
+    }else{
+        if(Object.keys(searchedPost).length>0 ){
+
+
+            response.redirect(`/artykuly/${urlRequest}`);
+
+        }
+    }
+    sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
+
+    // const filePath = path.resolve(__dirname, './build', 'index.html');
+
+    // response.sendFile(filePath);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
