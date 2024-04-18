@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5002;
+const port = process.env.PORT || 5003;
 const path = require('path');
 const fs = require('fs')
 const axios = require("axios");
@@ -216,11 +216,11 @@ app.get('*', async (request, response)=> {
 
         }
     }
-    sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
+    // sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
 
-    // const filePath = path.resolve(__dirname, './build', 'index.html');
-
-    // response.sendFile(filePath);
+    const filePath = path.resolve(__dirname, './build', 'index.html');
+    //
+    response.sendFile(filePath);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
