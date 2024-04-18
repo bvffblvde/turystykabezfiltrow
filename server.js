@@ -210,7 +210,7 @@ app.get('*', async (request, response)=> {
     }else{
         if(Object.keys(searchedPost).length>0 ){
 
-            sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
+            // sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
 
             response.redirect(`/artykuly${urlRequest}`);
 
