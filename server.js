@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5002;
+const port = process.env.PORT || 5003;
 const path = require('path');
 const fs = require('fs')
 const axios = require("axios");
@@ -197,8 +197,29 @@ app.get('/projekty/:projectSlug', async function (req, res) {
 
 app.use(express.static(path.resolve(__dirname, './build')));
 
-app.get('*', function (request, response) {
+app.get('*', async (request, response)=> {
+
+    const urlRequest = request.originalUrl.split(1);
+    const allCategory = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories`);
+    const searchedPost =  await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts/?slug=${urlRequest}`)
+        .then((response) => response.data);
+
+    if(urlRequest[0].includes('category')){
+        let r = urlRequest[0].replace('/category','')
+        response.redirect(`${r}`);
+    }else{
+        if(Object.keys(searchedPost).length>0 ){
+
+            // sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
+
+            response.redirect(`/artykuly${urlRequest}`);
+
+        }
+    }
+    // sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
+
     const filePath = path.resolve(__dirname, './build', 'index.html');
+    //
     response.sendFile(filePath);
 });
 
