@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         fontSize: '16px',
         fontWeight: 400,
+        padding: '0 10px 0 0',
         color: ({textColor}) => textColor,
         '& p': {
             margin: '0 0 20px 0',
@@ -207,10 +208,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         gap: '20px',
-        padding: '0 5%',
+        padding: '0 10px 0 0',
+        marginBottom: '20px',
         width: '100%',
         [theme.breakpoints.down('sm')]: {
             padding: '0px',
+            marginBottom: '10px',
         },
         '& figure': {
             margin: '0',

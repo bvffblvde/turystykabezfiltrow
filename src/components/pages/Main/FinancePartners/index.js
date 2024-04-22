@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const InvestBlock = () => {
+const InvestBlock = React.memo(() => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
 
@@ -64,6 +64,6 @@ const InvestBlock = () => {
             </Box>
         </SectionWrapper>
     );
-};
+});
 
 export default InvestBlock;

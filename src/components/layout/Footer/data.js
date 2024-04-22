@@ -8,7 +8,7 @@ const navLinksDataBydgoszcz = [
             {url: '/bydgoszcz/cykl-bydgoszcz-narodzona-z-wody', subTitle: 'BYDGOSZCZ – NARODZONA Z WODY'},
             {url: '/bydgoszcz/cykl-cuda-bydgoskie', subTitle: 'CUDA BYDGOSKIE'},
             {url: '/bydgoszcz/inne-bydgoskie', subTitle: 'INNE BYDGOSKIE'},
-            {url: '/artykuly/bartodzieje-szlak', subTitle: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+            {url: '/aktualnosci/bartodzieje-szlak', subTitle: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
 
         ].sort((a, b) => a.subTitle.localeCompare(b.subTitle)),
     },
@@ -102,7 +102,7 @@ const navLinksData = [
             {url: '/bydgoszcz/cykl-bydgoszcz-narodzona-z-wody', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
             {url: '/bydgoszcz/cykl-cuda-bydgoskie', text: 'CUDA BYDGOSKIE'},
             {url: '/bydgoszcz/inne-bydgoskie', text: 'INNE BYDGOSKIE'},
-            {url: '/artykuly/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+            {url: '/aktualnosci/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
 
         ].sort((a, b) => a.text.localeCompare(b.text)),
     },

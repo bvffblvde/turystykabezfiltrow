@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         gap: '20px',
         paddingBottom: '20px',
+        [theme.breakpoints.down('sm')]: {
+            paddingRight: '0',
+        }
     },
     userCommentDate: {
         display: 'flex',
@@ -151,6 +154,16 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '16px',
         color: ({textColor}) => textColor,
         opacity: '0.6',
+        lineClamp: 2,
+        boxOrient: 'vertical',
+        display: '-webkit-box',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+    },
+    replyAuthorBox: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '5px',
     }
 
 }));
@@ -291,7 +304,7 @@ const CommentsSection = ({comments, postId}) => {
                         className={classes.textField}
                         value={newComment}
                         onChange={handleCommentChange}
-                        label="Zostaw swoją opinię na temat tego artykułu"
+                        label="Zostaw swoją opinię"
                         type="text"
                         variant="outlined"
                         multiline
@@ -325,9 +338,15 @@ const CommentsSection = ({comments, postId}) => {
                         {comment?.parent !== 0 && ( // Проверяем, является ли текущий комментарий ответом
                             <Box className={classes.replyToBox}>
                                 <div className={classes.line}/>
-                                <Typography
-                                    dangerouslySetInnerHTML={{__html: comments.find((c) => c.id === comment.parent)?.content.rendered}}
-                                    className={classes.replyToText}/>
+                                <Box className={classes.replyAuthorBox}>
+                                    <Typography
+                                        dangerouslySetInnerHTML={{__html: comments.find((c) => c.id === comment.parent)?.author_name}}
+                                        className={classes.authorName}/>
+
+                                    <Typography
+                                        dangerouslySetInnerHTML={{__html: comments.find((c) => c.id === comment.parent)?.content.rendered}}
+                                        className={classes.replyToText}/>
+                                </Box>
                             </Box>
                         )}
                         <Typography

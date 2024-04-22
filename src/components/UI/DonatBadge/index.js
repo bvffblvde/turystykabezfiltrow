@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const DonatBadgeComponent = () => {
+const DonatBadgeComponent = React.memo(() => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
 
@@ -63,7 +63,6 @@ const DonatBadgeComponent = () => {
                 <Box className={classes.descriptionWrapper}>
                     <Typography variant="h2" component="h2" className={classes.badgeDescription}>
                         Wspieraj “TURYSTYKĘ BEZ FILTRÓW” NA PATRONITE!
-                        Zbieramy na kolejny film o Bydgoszczy.
                     </Typography>
                 </Box>
                 <Box className={classes.buttonWrapper}>
@@ -77,6 +76,6 @@ const DonatBadgeComponent = () => {
             </Box>
         </>
     );
-};
+});
 
 export default DonatBadgeComponent;

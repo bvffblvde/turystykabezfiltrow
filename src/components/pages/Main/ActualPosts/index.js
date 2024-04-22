@@ -18,11 +18,11 @@ const ActualPostsBlock = () => {
 
     return (
         <SectionWrapper id="main-actual-posts" paddingTop="30px">
-            <H1 text="Artykuły"/>
+            <H1 text="Aktualności"/>
             <PostsCard postLimit={6}/>
             <Grid container spacing={3} className={classes.buttonContainer}>
                 <Grid item xs={12} sm={6} md={4}>
-                    <StyledButton text="Wszystkie artykuły" width="100%" to="/artykuly"/>
+                    <StyledButton text="Wszystkie aktualności" width="100%" to="/aktualności"/>
                 </Grid>
             </Grid>
         </SectionWrapper>

@@ -2,11 +2,15 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        backgroundColor: ({backgroundColor}) => backgroundColor,
         color: ({textColor}) => textColor,
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
-        padding: '0',
+        padding: '10px 10px 20px 10px',
+        boxShadow: '0px 0px 16px 0px #0000000f',
+        transition: "all 0.5s ease-out",
+        borderRadius: '16px',
     },
     textContainer: {
         flex: 1,
@@ -42,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
     linkWrapper: {
         textDecoration: 'none',
-        color: 'inherit', // Унаследовать цвет из родительского элемента
+        color: 'inherit',
     },
     description: {
         fontFamily: 'Inter-Regular',

@@ -1,21 +1,21 @@
 import React from 'react';
-import { Button, makeStyles, createStyles } from '@material-ui/core';
+import { Radio, RadioGroup, FormControlLabel, makeStyles, createStyles } from '@material-ui/core';
 import { useTheme } from "../../../theme/themeContext";
 import { themes } from "../../../theme/themeContext/themes";
 import { useFontSize } from "./FontSizeContext";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
-        defaultFontSize: {
-            fontSize: theme.typography.fontSize,
-        },
-        increasedFontSize: {
-            fontSize: theme.typography.fontSize + 2,
-        },
-        decreasedFontSize: {
-            fontSize: theme.typography.fontSize - 2,
-        },
         button: {
+
+        },
+        buttonWrapper: {
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '12px',
+        },
+        radioLabel: {
+            cursor: 'pointer', // Делаем метку радио кликабельной
             fontFamily: 'Inter-Regular',
             fontSize: '20px',
             fontWeight: 400,
@@ -35,50 +35,50 @@ const useStyles = makeStyles((theme) =>
                 backgroundColor: 'transparent',
             }
         },
-        buttonWrapper: {
-            display: 'flex',
-            flexDirection: 'row',
-            gap: '12px',
-        }
+        radio: {
+            display: 'none', // Скрываем радио-кнопку
+        },
     })
 );
 
 const FontSizeButtons = () => {
     const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
-    const { fontSize, aPlusClicked, updateFontSize, resetFontSize } = useFontSize();
+    const { fontSize, updateFontSize, resetFontSize } = useFontSize();
 
-    const handleButtonClick = (change) => {
-        if (aPlusClicked) {
-            // Если кнопка "A+" или "A++" уже была выбрана, сразу сбросить до значения "A"
-            resetFontSize();
-        } else {
-            // Иначе увеличить размер шрифта на указанное значение
-            updateFontSize(change);
-        }
-    };
-
-
-    const handleDefaultFontSize = () => {
-        resetFontSize();
+    const handleChange = (event) => {
+        const value = event.target.value;
+        resetFontSize(); // Сбрасываем размер к значению по умолчанию
+        updateFontSize(parseInt(value)); // Устанавливаем новое значение
     };
 
     return (
-        <div className={classes.buttonWrapper}>
-            <Button onClick={handleDefaultFontSize} className={classes.button}>
-                A
-            </Button>
-            <Button onClick={() => handleButtonClick(2)} className={classes.button}>
-                A+
-            </Button>
-            <Button onClick={() => handleButtonClick(4)} className={classes.button}>
-                A++
-            </Button>
-        </div>
+        <RadioGroup className={classes.buttonWrapper} value={fontSize.toString()} onChange={handleChange}>
+            <FormControlLabel
+                value="default"
+                control={<Radio color="primary" className={classes.radio} />}
+                label="A"
+                className={classes.radioLabel} // Добавляем класс для метки радио
+            />
+            <FormControlLabel
+                value="2"
+                control={<Radio color="primary" className={classes.radio} />}
+                label="A+"
+                className={classes.radioLabel} // Добавляем класс для метки радио
+            />
+            <FormControlLabel
+                value="4"
+                control={<Radio color="primary" className={classes.radio} />}
+                label="A++"
+                className={classes.radioLabel} // Добавляем класс для метки радио
+            />
+        </RadioGroup>
     );
 };
 
 export default FontSizeButtons;
+
+
 
 
 

@@ -109,6 +109,10 @@ const FilmyPage = () => {
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const handleLoadMore = async () => {
         setLoading(true);
         try {

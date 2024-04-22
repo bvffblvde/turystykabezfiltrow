@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
             wordBreak: 'auto-phrase',
         },
         '& p.has-background': {
-            color: ({textColor}) => textColor,
+            color: ({spisTextColor}) => spisTextColor,
             borderRadius: '6px',
             padding: '20px',
-            //backgroundColor: '#90AFFF !important',
+            backgroundColor: ({spisBackgroundColor}) => spisBackgroundColor,
             '& a': {
                 color: ({useLocationLinkColor}) => useLocationLinkColor,
                 '&:hover': {
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
         },
         '& div': {
             borderRadius: '6px',
-            //backgroundColor: 'transparent !important',
+            backgroundColor: ({spisBackgroundColor}) => spisBackgroundColor,
             '& button': {
               display: 'none',
             },

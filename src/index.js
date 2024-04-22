@@ -12,7 +12,7 @@ import {ThemeProvider} from "./theme/themeContext";
 import PostDetails from "./components/pages/PostPageComponent";
 import ProjectDetails from "./components/pages/ProjectPageComponent";
 import DocumentPage from "./components/pages/Document";
-import {FloatingButtonProvider} from "./components/UI/FloatingButton/FloatingButtonContext";
+// import {FloatingButtonProvider} from "./components/UI/FloatingButton/FloatingButtonContext";
 import {FontSizeProvider} from "./components/UI/FontSizeChange/FontSizeContext";
 import BydgoszczPage from "./components/pages/Category/BydgoszczPage";
 import KrajePage from "./components/pages/Category/KrajePage";
@@ -40,9 +40,9 @@ const RedirectOldUrl = () => {
         // Проверка, что текущий путь — старый URL /szlaki/
         if (window.location.pathname === '/szlaki/') {
             // Перенаправление на новый URL /artykuly/bartodzieje-szlak
-            navigate('/artykuly/bartodzieje-szlak', {replace: true});
+            navigate('/aktualnosci/bartodzieje-szlak', {replace: true});
         } if (window.location.pathname === '/projekty') {
-            navigate('/o-nas', {replace: true});
+            navigate('/o-nas#projekty', {replace: true});
         }
     }, [navigate]);
 
@@ -79,8 +79,8 @@ const App = () => {
                                 <Route path="/kraje/:tagSlug" element={<RegionyPostsPage/>}/>
                                 <Route path="/kraje/:tagSlug/:postSlug" element={<PostDetails/>}/>
 
-                                <Route path="/artykuly" element={<ActualsPageComponent/>}/>
-                                <Route path="/artykuly/:postSlug" element={<PostDetails/>}/>
+                                <Route path="/aktualnosci" element={<ActualsPageComponent/>}/>
+                                <Route path="/aktualnosci/:postSlug" element={<PostDetails/>}/>
 
                                 <Route path="/wycieczki" element={<WycieczkiPageComponent/>}/>
                                 <Route path="/wycieczki/:projectSlug" element={<ProjectDetails/>}/>

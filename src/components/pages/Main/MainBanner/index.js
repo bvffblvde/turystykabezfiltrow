@@ -12,11 +12,11 @@ import PublicBanner from '../../../../assets/Banners/publikacje.png';
 const slides = [
     {
         image: MainBanner,
-        title: "Artykuły",
+        title: "Aktualności",
         description: "Obszerne teksty dot. turystyki \n" +
             "i dziedzictwa kulturowego urozmaicone masą ciekawych zdjęć",
         buttonText: "Czytaj więcej",
-        link: "/artykuly"
+        link: "/aktualnosci"
 
     },
     {
@@ -38,17 +38,17 @@ const slides = [
         title: "Publikacje",
         description: "Przygotowane przez nas publikacje tematyczne, opracowania, książki, czasopisma. Udostępnione do pobrania.",
         buttonText: "Czytaj więcej",
-        link: "/o-nas"
+        link: "/o-nas#publikacje"
 
     }
 ];
 
-const MainBannerComponent = () => {
+const MainBannerComponent = React.memo(() => {
     return (
         <>
             <Carousel slides={slides}/>
         </>
     );
-};
+});
 
 export default MainBannerComponent;

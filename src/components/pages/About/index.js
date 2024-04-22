@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from "../../UI/SideBar";
 import SectionWrapper from "../../UI/SectionWrapper";
-import {Box, Grid} from "@material-ui/core";
+import {Backdrop, Box, CircularProgress, Grid} from "@material-ui/core";
 import {useEffect} from 'react';
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
@@ -40,15 +40,24 @@ Ukrainka pochodząca ze wschodniego skraju Podola, mieszkająca w Bydgoszczy od 
 const About = () => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
+    const [loading, setLoading] = useState(true);
 
 // Компонент страницы, на которую вы переходите (например, ProjectDetails)
 
     useEffect(() => {
-        // Получаем id секции из URL
-        const sectionId = window.location.hash.substring(1);
+        // Имитация задержки загрузки данных
+        const timer = setTimeout(() => {
+            setLoading(false); // Устанавливаем состояние загрузки в false после 3000ms
+        }, 4000);
 
+        // Очистка таймера при размонтировании компонента или изменении зависимостей
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
         // Функция прокрутки к секции
         const scrollToSection = () => {
+            const sectionId = window.location.hash.substring(1);
             const section = document.getElementById(sectionId);
             if (section) {
                 window.scrollTo({
@@ -59,8 +68,10 @@ const About = () => {
         };
 
         // Выполняем прокрутку к секции после загрузки страницы
-        scrollToSection();
-    }, []);
+        if (!loading) {
+            scrollToSection();
+        }
+    }, [loading]);
 
     return (
         <SectionWrapper paddingTop="120px">
@@ -157,6 +168,9 @@ const About = () => {
                     </Box>
                 </Box>
             </Box>
+            <Backdrop className={classes.backdrop} open={loading}>
+                <CircularProgress color="inherit"/>
+            </Backdrop>
         </SectionWrapper>
     );
 };

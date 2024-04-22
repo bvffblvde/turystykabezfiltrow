@@ -156,7 +156,11 @@ const useStyles = makeStyles((theme) => ({
         '& p': {
             margin: '0 0 10px 0',
         }
-    }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }));
 
 export default useStyles;

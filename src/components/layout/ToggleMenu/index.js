@@ -271,7 +271,7 @@ import {ReactComponent as TikTokLogo} from "../../../assets/SocialMediaLogo/tt.s
 import {ReactComponent as FirstButtonIcon} from "../../../assets/Icons/contact-icon.svg";
 import {ReactComponent as SecondButtonIcon} from "../../../assets/Icons/support-icon.svg";
 import AdbisBadge from "../../UI/AdbisCreatedPlug";
-import SettingsDrawer from "../../UI/WCAGDrawer";
+// import SettingsDrawer from "../../UI/WCAGDrawer";
 import PopoverContent from "../../UI/WCAGDrawer/PopoverContent";
 
 
@@ -297,7 +297,7 @@ const navLinksData = [
             {url: '/bydgoszcz/cykl-bydgoszcz-narodzona-z-wody', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
             {url: '/bydgoszcz/cykl-cuda-bydgoskie', text: 'CUDA BYDGOSKIE'},
             {url: '/bydgoszcz/inne-bydgoskie', text: 'INNE BYDGOSKIE'},
-            {url: '/artykuly/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+            {url: '/aktualnosci/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
 
         ].sort((a, b) => a.text.localeCompare(b.text)),
     },
@@ -449,7 +449,7 @@ function ToggleMenu() {
         <div className={classes.list}>
             <Box className={classes.headerBlock}>
                 <a href={'/'}>
-                    <img src={Logo} alt="logo" className={classes.logo} />
+                    <Box className={classes.logo}/>
                 </a>
                 <Box>
                     <CloseIcon className={classes.closeIcon} onClick={toggleDrawer(false)} />

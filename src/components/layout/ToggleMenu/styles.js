@@ -194,6 +194,13 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
+    logo: {
+        backgroundImage: ({mainLogo}) => mainLogo,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        width: '158px',
+        height: '38px',
+    }
 }));
 
 export default useStyles;

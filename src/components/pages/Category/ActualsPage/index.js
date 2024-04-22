@@ -71,7 +71,7 @@ const ActualsPageComponent = () => {
         <SectionWrapper id="actual" paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
             <Typography variant="h1" className={classes.title}>
-                Artykuły
+                Aktualności
             </Typography>
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {categoriesData.map((post, index) => (
@@ -81,7 +81,7 @@ const ActualsPageComponent = () => {
                                 post.categories?.some(category => category === 730842049) ||
                                 post.tags?.some(tag => tag === 730842067)
                                     ? `/wycieczki/${post.slug}`
-                                    : `/artykuly/${post.slug}`
+                                    : `/aktualnosci/${post.slug}`
                             }
                             onClick={() => console.log("Link Clicked:", post)}
                             className={classes.linkWrapper}

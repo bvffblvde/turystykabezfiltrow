@@ -105,7 +105,7 @@ const BydgoszczPostsPage = () => {
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {posts.map((post, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>
-                        <Link to={`/artykuly/${post.slug}`} className={classes.link}>
+                        <Link to={`/bydgoszcz/${categorySlug}/${post.slug}`} className={classes.link}>
                             <Box className={classes.root}>
                                 {post._embedded && post._embedded['wp:featuredmedia'] && (
                                     <div className={classes.imageContainer}>

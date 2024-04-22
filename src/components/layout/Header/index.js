@@ -24,7 +24,7 @@ const navLinksData = [
             {url: '/bydgoszcz/cykl-bydgoszcz-narodzona-z-wody', text: 'BYDGOSZCZ – NARODZONA Z WODY'},
             {url: '/bydgoszcz/cykl-cuda-bydgoskie', text: 'CUDA BYDGOSKIE'},
             {url: '/bydgoszcz/inne-bydgoskie', text: 'INNE BYDGOSKIE'},
-            {url: '/artykuly/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
+            {url: '/aktualnosci/bartodzieje-szlak', text: 'SZLAKIEM BYDGOSKICH OSIEDLI #1 – BARTODZIEJE'},
 
         ].sort((a, b) => a.text.localeCompare(b.text)),
     },
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         backgroundColor: ({backgroundColor}) => backgroundColor,
         boxShadow: 'none',
-        transition: "all 0.3s ease-out",
+        transition: "all 1s ease-out",
         borderRadius: '10px',
         margin: '20px',
         width: 'calc(100% - 40px)',
@@ -265,11 +265,18 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             display: 'none',
         }
+    },
+    logo: {
+        backgroundImage: ({mainLogo}) => mainLogo,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        width: '158px',
+        height: '38px',
     }
 
 }));
 
-function Header() {
+const Header = React.memo(() => {
     // eslint-disable-next-line no-unused-vars
     const {theme, toggleTheme} = useTheme();
     const classes = useStyles(themes[theme]);
@@ -325,7 +332,7 @@ function Header() {
             <Toolbar className={classes.toolbar}>
                 <Box>
                     <a href={'/'}>
-                        <img src={Logo} alt="logo" className={classes.logo}/>
+                        <Box className={classes.logo}/>
                     </a>
                 </Box>
                 <Box className={classes.title}>
@@ -400,21 +407,21 @@ function Header() {
                 </Box>
                 {/*<FloatingButton />*/}
                 <Box className={classes.mobileButtonSection}>
-                    <Box style={{width: '40px'}}>
-                        <Link to="/wyszukiwarka" className={classes.iconLink}>
-                            <Icon
-                                component={SearchIcon}
-                                className={classes.icon}
-                                src={SearchIcon}
-                            />
-                        </Link>
-                    </Box>
+                    {/*<Box style={{width: '40px'}}>*/}
+                    {/*    <Link to="/wyszukiwarka" className={classes.iconLink}>*/}
+                    {/*        <Icon*/}
+                    {/*            component={SearchIcon}*/}
+                    {/*            className={classes.icon}*/}
+                    {/*            src={SearchIcon}*/}
+                    {/*        />*/}
+                    {/*    </Link>*/}
+                    {/*</Box>*/}
                     <ToggleMenu/>
                 </Box>
             </Toolbar>
         </AppBar>
     );
-}
+});
 
 export default Header;
 

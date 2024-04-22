@@ -10,12 +10,11 @@ const useStyles = makeStyles((theme) => ({
 
     downloadButton: {
         padding: '20px',
-        border: '1px solid',
-        transition: 'all 0.3s ease-in-out',
+        border: '2px solid',
+        transition: 'all 0.5s ease-in-out',
         borderRadius: '6px',
-        width: '355px',
         height: '100%',
-        borderColor: ({downloadButtonBorderColor}) => downloadButtonBorderColor,
+        borderColor: ({downloadButtonBorderColorHover}) => downloadButtonBorderColorHover,
         display: 'flex',
         '& .MuiIconButton-label': {
             flexDirection: 'column',
@@ -30,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
                 transition: 'all 0.3s ease-in-out',
                 fill: ({iconColorFillHover}) => iconColorFillHover,
             },
+            '& $text': {
+                transition: 'all 0.5s ease-in-out',
+                color: ({downloadButtonBorderColorHover}) => downloadButtonBorderColorHover,
+            }
         },
         [theme.breakpoints.down('sm')]: {
             width: '100%',
@@ -39,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         '& path': {
             transition: 'all 0.3s ease-in-out',
-            fill: ({iconColorFill}) => iconColorFill,
+            fill: ({iconColorFillHover}) => iconColorFillHover,
         },
     },
     iconWithText: {
@@ -54,20 +57,21 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'capitalize',
         fontWeight: '400',
         textAlign: 'left',
+        transition: 'all 0.5s ease-in-out',
         [theme.breakpoints.down('xs')]: {
             fontSize: '16px',
         },
     },
 }));
 
-const DownloadButton = ({pdfUrl}) => {
+const DownloadButton = ({pdfUrl, fullWidth}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
 
 
     return (
         <a href={pdfUrl} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
-            <IconButton className={classes.downloadButton}>
+            <IconButton className={classes.downloadButton} style={{ width: fullWidth ? fullWidth : '355px' }}>
                 <Typography variant="h6" className={classes.text}>
                     {pdfUrl.split('/').pop()}
                 </Typography>

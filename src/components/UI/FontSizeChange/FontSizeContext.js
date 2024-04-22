@@ -5,25 +5,20 @@ const FontSizeContext = createContext();
 export const FontSizeProvider = ({ children }) => {
     const savedFontSize = localStorage.getItem('fontSize');
     const [fontSize, setFontSize] = useState(savedFontSize ? parseFloat(savedFontSize) : 0);
-    const [aPlusClicked, setAPlusClicked] = useState(false);
+    const [lastSelectedSize, setLastSelectedSize] = useState(0);
 
     const updateFontSize = (change) => {
-        const computedBodyStyle = window.getComputedStyle(document.body);
-        const currentBodyFontSize = parseFloat(computedBodyStyle.fontSize);
-        const newBodyFontSize = currentBodyFontSize + change;
-
-        document.body.style.fontSize = `${newBodyFontSize}px`;
+        const newFontSize = lastSelectedSize + change;
+        document.body.style.fontSize = `${newFontSize}px`;
 
         document.querySelectorAll('body *').forEach((element) => {
             const computedStyle = window.getComputedStyle(element);
             const currentFontSize = parseFloat(computedStyle.fontSize);
-            const newFontSize = currentFontSize + change;
-
-            element.style.fontSize = `${newFontSize}px`;
+            const newElementFontSize = currentFontSize + change;
+            element.style.fontSize = `${newElementFontSize}px`;
         });
 
-        setFontSize((prevFontSize) => prevFontSize + change);
-        setAPlusClicked(true);
+        setFontSize(newFontSize);
     };
 
     const resetFontSize = () => {
@@ -34,39 +29,22 @@ export const FontSizeProvider = ({ children }) => {
         });
 
         setFontSize(0);
-        setAPlusClicked(false);
+        setLastSelectedSize(0);
     };
 
-    // Применяем сохраненный размер при загрузке страницы
     useEffect(() => {
         if (savedFontSize) {
-            updateFontSize(0);
+            setFontSize(parseFloat(savedFontSize));
+            setLastSelectedSize(parseFloat(savedFontSize));
         }
-    },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        []
-    );
-
-    // Добавляем слушатель события для обновления размера шрифта при изменении размеров окна
-    useEffect(() => {
-        const handleResize = () => {
-            updateFontSize(0);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
     }, []);
 
-    // Сохраняем значение fontSize в localStorage при его изменении
     useEffect(() => {
         localStorage.setItem('fontSize', fontSize);
     }, [fontSize]);
 
     return (
-        <FontSizeContext.Provider value={{ fontSize, aPlusClicked, updateFontSize, resetFontSize }}>
+        <FontSizeContext.Provider value={{ fontSize, lastSelectedSize, updateFontSize, resetFontSize }}>
             {children}
         </FontSizeContext.Provider>
     );

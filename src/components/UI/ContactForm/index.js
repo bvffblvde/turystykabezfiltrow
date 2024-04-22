@@ -155,7 +155,7 @@ const validationSchema = Yup.object().shape({
     checkbox: Yup.boolean().oneOf([true], 'To pole jest wymagane').required('To pole jest wymagane'),
 });
 
-const ContactForm = ({paddingBottom}) => {
+const ContactForm = React.memo(({paddingBottom}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     // eslint-disable-next-line no-unused-vars
@@ -283,7 +283,7 @@ const ContactForm = ({paddingBottom}) => {
             </Box>
         </SectionWrapper>
     );
-};
+});
 
 export default ContactForm;
 

@@ -1,15 +1,24 @@
 import MainBannerLight from '../../assets/Banners/main-banner.png';
 import MainBannerDark from '../../assets/Banners/main-banner-filter.png';
+import LogoDefault from '../../assets/Logo/LOGO.svg';
+import LogoDark from '../../assets/Logo/logo-main-contrast.svg';
 
 
 const themes = {
     light: {
         sectionWrapperBackgroundColor: '#F5F5F7',
+
+        spisBackgroundColor: '',
+        spisTextColor: '',
+
         backgroundColor: '#ffffff',
         textColor: '#252525',
         borderColor: '#d9d9d9',
         lineBackgroundColor: 'black',
         bannerTextColor: 'white',
+
+        mainLogo: `url(${LogoDefault})`,
+
         mainBannerBackgroundImage: `url(${MainBannerLight})`,
 
         postsTextColor: 'black',
@@ -79,6 +88,12 @@ const themes = {
     },
     dark: {
         inputBorderColor: '#FFEA2E',
+
+        spisBackgroundColor: '#151515 !important',
+        spisTextColor: '#FFEA2E !important',
+
+        mainLogo: `url(${LogoDark})`,
+
         listIconColorFillHover: '#FFEA2E',
         listIconColorFill: '#FFEA2E',
         defaultBorderColor: '#FFEA2E',

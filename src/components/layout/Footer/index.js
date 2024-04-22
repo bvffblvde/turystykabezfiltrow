@@ -115,7 +115,7 @@ const socialLinks = [
 ];
 
 
-function Footer() {
+const Footer = React.memo(() => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
 
@@ -233,7 +233,7 @@ function Footer() {
             <AdbisBadge/>
         </>
     );
-}
+});
 
 export default Footer;
 

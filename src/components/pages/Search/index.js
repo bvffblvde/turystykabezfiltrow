@@ -116,7 +116,7 @@ const Wyszukiwarka = () => {
                                 post.categories?.some(category => category === 730842049) ||
                                 post.tags?.some(tag => tag === 730842067)
                                     ? `/wycieczki/${post.slug}`
-                                    : `/artykuly/${post.slug}`
+                                    : `/aktualnosci/${post.slug}`
                             }
                             onClick={() => console.log("Link Clicked:", post)}
                             className={classes.linkWrapper}

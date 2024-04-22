@@ -50,13 +50,12 @@ const PublicationCard = ({post, mediaData}) => {
 
     return (
         <Box className={classes.root}>
-            <H4 className={classes.mainTitle}>{post.title.rendered}</H4>
-
             {media && (
                 <Box className={classes.imageContainer}>
                     <img src={media.source_url} alt={post.title.rendered} className={classes.image} loading="lazy"/>
                 </Box>
             )}
+            <H4 className={classes.mainTitle}>{post.title.rendered}</H4>
             <Box className={classes.textContainer}>
                 <Typography variant="body2" className={classes.content}
                             dangerouslySetInnerHTML={{__html: descriptionWithoutImagesAndFiles}}/>
@@ -64,7 +63,7 @@ const PublicationCard = ({post, mediaData}) => {
             <Box>
                 {filteredFileUrls.map((filteredFileUrl, index) => {
                     console.log('pdfUrl:', filteredFileUrl);
-                    return <DownloadButton key={index} pdfUrl={filteredFileUrl}/>;
+                    return <DownloadButton key={index} pdfUrl={filteredFileUrl} fullWidth="100%"/>;
                 })}
             </Box>
         </Box>
@@ -117,7 +116,7 @@ const PublicationCards = ({postLimit}) => {
     return (
         <Grid container spacing={3} className={classes.cardWrapper}>
             {postData.map((post) => (
-                <Grid item xs={12} sm={12} md={12} key={post.id}>
+                <Grid item xs={12} sm={12} md={6} key={post.id}>
                     <PublicationCard post={post} mediaData={mediaData}/>
                 </Grid>
             ))}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import H1 from "../../../UI/H1";
 import SectionWrapper from "../../../UI/SectionWrapper";
 import { makeStyles } from "@material-ui/core/styles";

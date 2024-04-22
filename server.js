@@ -84,11 +84,11 @@ app.get('/kraje/:tagSlug/:postSlug', async function (req, res) {
     sendHTMLFileWithMetadata('Kraje Posts', 'Description for Kraje Posts', d[0].jetpack_featured_media_url, res);
 });
 
-app.get('/artykuly', function (req, res) {
-    sendHTMLFileWithMetadata( 'Artykuly', 'Description for Artykuly', '/static/media/artykuly-image.png', res);
+app.get('/aktualnosci', function (req, res) {
+    sendHTMLFileWithMetadata( 'Aktualności', 'Description for Artykuly', '/static/media/artykuly-image.png', res);
 });
 
-app.get('/artykuly/:postSlug', async function (req, res) {
+app.get('/aktualnosci/:postSlug', async function (req, res) {
     const response = await fetch(
         `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
 );

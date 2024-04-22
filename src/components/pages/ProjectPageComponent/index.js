@@ -416,6 +416,12 @@ const ProjectDetails = () => {
                             </Box>
                         )}
                     </Box>
+                    <Box className={classes.columnsWrapper}>
+                        {renderImages()}
+                        <Backdrop className={classes.backdrop} open={loading}>
+                            <CircularProgress color="inherit"/>
+                        </Backdrop>
+                    </Box>
                     {project && (
                         <CommentsSection comments={comments} postId={project.id}/>
                     )}
@@ -431,12 +437,6 @@ const ProjectDetails = () => {
                 <DonatBadgeComponent/>
             </Box>
             <Box className={classes.root}>
-                <Box className={classes.columnsWrapper}>
-                    {renderImages()}
-                    <Backdrop className={classes.backdrop} open={loading}>
-                        <CircularProgress color="inherit"/>
-                    </Backdrop>
-                </Box>
                 <FullscreenModal
                     open={fullscreenModalOpen}
                     onClose={handleCloseFullscreenModal}
