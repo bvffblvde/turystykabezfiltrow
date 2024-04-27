@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import {CssBaseline} from "@material-ui/core";
@@ -27,6 +27,9 @@ import SeasonPageComponent from "./components/pages/Season";
 import About from "./components/pages/About";
 
 import {HelmetProvider} from 'react-helmet-async';
+import Sklep from "./components/pages/Sklep";
+import ProductPage from "./components/pages/ProductPage";
+import CartPage from "./components/pages/CartPage";
 
 const helmetContext = {};
 
@@ -35,6 +38,7 @@ ReactGA.initialize('G-B6XDVLHYFK');
 
 const RedirectOldUrl = () => {
     const navigate = useNavigate();
+
 
     useEffect(() => {
         // Проверка, что текущий путь — старый URL /szlaki/
@@ -52,6 +56,8 @@ const RedirectOldUrl = () => {
 
 
 const App = () => {
+    const [cartItems, setCartItems] = useState([]);
+
 
     useEffect(() => {
         ReactGA.pageview(window.location.pathname + window.location.search);
@@ -97,6 +103,11 @@ const App = () => {
 
                                 <Route path="/projekty" element={<RedirectOldUrl/>}/>
                                 <Route path="/projekty/:projectSlug" element={<ProjectDetails/>}/>
+
+                                <Route path="/sklep" element={<Sklep/>}/>
+                                <Route path="/sklep/:productSlug" element={<ProductPage setCartItems={setCartItems} cartItems={cartItems} />} />
+
+                                <Route path="/sklep/koszyk" element={<CartPage cartItems={cartItems} />} />
 
                                 {/*<Route path="*" element={<NotFoundPage/>}/>*/}
                             </Routes>

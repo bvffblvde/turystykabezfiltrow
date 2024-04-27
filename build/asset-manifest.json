@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e8bbaa52.css",
-    "main.js": "/static/js/main.106a9d55.js",
+    "main.js": "/static/js/main.8f09dff2.js",
     "static/media/publikacje.png": "/static/media/publikacje.77a5fb1926b71b4545d1.png",
     "static/media/background-main.png": "/static/media/background-main.1cb2f1af0067d2f90c8c.png",
     "static/media/filmy.png": "/static/media/filmy.2a6b7b5f0504e30d9f9f.png",
@@ -15,9 +15,14 @@
     "static/media/LOGO.svg": "/static/media/LOGO.591c7013ed3db506e5507edded2ac669.svg",
     "static/media/arrowLine.svg": "/static/media/arrowLine.fa9453a291323a0e21395f9a1f1b73de.svg",
     "static/media/adbis-promouted.svg": "/static/media/adbis-promouted.ac4c9d4f658473b5f8096b3db37df50d.svg",
+    "static/media/logo-main-contrast.svg": "/static/media/logo-main-contrast.27f4a5f6be0e64af14fb3f4d4bc83621.svg",
     "static/media/support-icon.svg": "/static/media/support-icon.b145a2687f34d6f3d5c056567c5e3ff7.svg",
     "static/media/contact-icon.svg": "/static/media/contact-icon.f1bba9524c74451a55a66d1def8a5566.svg",
+    "static/media/g-pay.svg": "/static/media/g-pay.a543626e6df8773c21104adc13a3e991.svg",
+    "static/media/Basket.svg": "/static/media/Basket.1801b700abc41929deb53ac57ed7deea.svg",
     "static/media/posts-count-icon.svg": "/static/media/posts-count-icon.bb2f59b579e7a5507fb95871909efa67.svg",
+    "static/media/delete-icon-for-sklep.svg": "/static/media/delete-icon-for-sklep.4f65c4f2e26a1f10453e459e472727af.svg",
+    "static/media/apple-pay.svg": "/static/media/apple-pay.931916211a666a6f24a6ad064d4b6ce7.svg",
     "static/media/download-icon.svg": "/static/media/download-icon.9893fab3f26d42139ed4acd4ca1d2320.svg",
     "index.html": "/index.html",
     "static/media/Share.svg": "/static/media/Share.38c3a600e0f0b418bb35c5f242ff2266.svg",
@@ -32,10 +37,10 @@
     "static/media/Close.svg": "/static/media/Close.b28e214a61fd0638fe9ecd565c229380.svg",
     "static/media/ArrowIcon.svg": "/static/media/ArrowIcon.32e8fcc03fe7eaea4d1c5fd7270d9ef5.svg",
     "main.e8bbaa52.css.map": "/static/css/main.e8bbaa52.css.map",
-    "main.106a9d55.js.map": "/static/js/main.106a9d55.js.map"
+    "main.8f09dff2.js.map": "/static/js/main.8f09dff2.js.map"
   },
   "entrypoints": [
     "static/css/main.e8bbaa52.css",
-    "static/js/main.106a9d55.js"
+    "static/js/main.8f09dff2.js"
   ]
 }

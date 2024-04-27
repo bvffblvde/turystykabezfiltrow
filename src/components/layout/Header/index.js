@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {makeStyles} from '@material-ui/core/styles';
-import Logo from "../../../assets/Logo/LOGO.svg";
 import {Box, Icon} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {useTheme} from "../../../theme/themeContext";
@@ -10,8 +9,8 @@ import {themes} from "../../../theme/themeContext/themes";
 import {ReactComponent as WCAGIcon} from "../../../assets/Icons/wcag-logo.svg";
 import SettingsDrawer from "../../UI/WCAGDrawer";
 import ToggleMenu from "../ToggleMenu";
-// import FloatingButton from "../../UI/FloatingButton";
 import {ReactComponent as SearchIcon} from "../../../assets/Icons/search.svg";
+import {ReactComponent as BasketIcon} from "../../../assets/Icons/Basket.svg";
 
 
 const navLinksData = [
@@ -53,10 +52,10 @@ const navLinksData = [
         url: '/filmy',
         text: 'Filmy',
     },
-    // {
-    //     url: 'https://turystykabezfiltrow.com/wycieczki/',
-    //     text: 'Sklep',
-    // },
+    {
+        url: '/sklep',
+        text: 'Sklep',
+    },
     {
         url: '/wydarzenia',
         text: 'Wydarzenia',
@@ -249,6 +248,7 @@ const useStyles = makeStyles((theme) => ({
     iconLink: {
         width: '40px',
         height: '40px',
+        position: 'relative',
         "& path": {
             transition: '300ms ease-in-out',
             stroke: ({iconColorFill}) => iconColorFill,
@@ -272,6 +272,22 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: 'no-repeat',
         width: '158px',
         height: '38px',
+    },
+    cartItemCount: {
+        position: 'absolute',
+        bottom: '15px',
+        left: '15px',
+        backgroundColor: ({textColor}) => textColor,
+        color: ({backgroundColor}) => backgroundColor,
+        borderRadius: '50%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '15px',
+        height: '15px',
+        fontSize: '10px',
+        fontFamily: 'Inter-Regular',
+
     }
 
 }));
@@ -285,6 +301,16 @@ const Header = React.memo(() => {
     const [scrolled, setScrolled] = useState(false);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    const [cartItemCount, setCartItemCount] = useState(0); // Состояние для количества товаров в корзине
+
+    useEffect(() => {
+        // Логика для обновления состояния cartItemCount при загрузке страницы или изменении содержимого корзины
+        const storedCartItems = localStorage.getItem('cartItems');
+        if (storedCartItems) {
+            const parsedCartItems = JSON.parse(storedCartItems);
+            setCartItemCount(parsedCartItems.length); // Устанавливаем количество товаров в корзине
+        }
+    }, []);
 
 
     const scrollToSection = (sectionId) => {
@@ -404,18 +430,20 @@ const Header = React.memo(() => {
                     <Box>
                         <SettingsDrawer/>
                     </Box>
+                    <Box>
+                        <Link to="/sklep/koszyk" className={classes.iconLink}>
+                            <Icon
+                                component={BasketIcon}
+                                className={classes.icon}
+                                src={BasketIcon}
+                            />
+                            {cartItemCount > 0 && (
+                                <div className={classes.cartItemCount}>{cartItemCount}</div>
+                            )}
+                        </Link>
+                    </Box>
                 </Box>
-                {/*<FloatingButton />*/}
                 <Box className={classes.mobileButtonSection}>
-                    {/*<Box style={{width: '40px'}}>*/}
-                    {/*    <Link to="/wyszukiwarka" className={classes.iconLink}>*/}
-                    {/*        <Icon*/}
-                    {/*            component={SearchIcon}*/}
-                    {/*            className={classes.icon}*/}
-                    {/*            src={SearchIcon}*/}
-                    {/*        />*/}
-                    {/*    </Link>*/}
-                    {/*</Box>*/}
                     <ToggleMenu/>
                 </Box>
             </Toolbar>
