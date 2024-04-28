@@ -86,15 +86,10 @@ app.get('/aktualnosci', function (req, res) {
 });
 
 app.get('/artykuly/:postSlug', async function (req, res) {
-    const response = await fetch(
-        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
-    );
-    const d = await   response.json();
-
-    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
-
+    
     res.redirect(`/aktualnosci/${req.params.postSlug}`);
 });
+
 app.get('/aktualnosci/:postSlug', async function (req, res) {
     const response = await fetch(
         `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
@@ -208,9 +203,9 @@ app.get('*', async (request, response)=> {
     const searchedPost =  await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts/?slug=${urlRequest}`)
         .then((response) => response.data);
 
-    if(urlRequest[0].includes('/artykuly/')){
-        response.redirect(urlRequest[0].replace('/artykuly/','/aktualnosci/'));
-    }
+    // if(urlRequest[0].includes('/artykuly/')){
+    //     response.redirect(urlRequest[0].replace('/artykuly/','/aktualnosci/'));
+    // }
 
     if(urlRequest && searchedPost[0] && searchedPost[0].categories.length>0){
 
