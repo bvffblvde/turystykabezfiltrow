@@ -198,7 +198,12 @@ app.get('*', async (request, response)=> {
     const searchedPost =  await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts/?slug=${urlRequest}`)
         .then((response) => response.data);
 
-    if(urlRequest){
+    if(urlRequest[0].includes('/artykuly/')){
+        console.log('thissssss',urlRequest[0].replace('/artykuly/','/aktualnosci/'))
+        response.redirect(urlRequest[0].replace('/artykuly/','/aktualnosci/'));
+    }
+
+    if(urlRequest && searchedPost[0] && searchedPost[0].categories.length>0){
 
         if(searchedPost[0].categories.includes(14786)){
             response.redirect(`/aktualnosci${urlRequest}`);
@@ -207,6 +212,7 @@ app.get('*', async (request, response)=> {
             response.redirect(`/wycieczki${urlRequest}`);
         }
     }
+
 
 
     if(urlRequest[0].includes('category')){
