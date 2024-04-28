@@ -47,7 +47,6 @@ app.get('/bydgoszcz/:categorySlug/:postSlug', async function (req, res) {
         `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
-    console.log(await response.json())
     sendHTMLFileWithMetadata(d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
@@ -64,7 +63,6 @@ app.get('/regiony/:tagSlug/:postSlug',async function (req, res) {
         `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
-    console.log(await response.json())
     sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
 
@@ -80,7 +78,6 @@ app.get('/kraje/:tagSlug/:postSlug', async function (req, res) {
         `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
-    console.log(d[0].yoast_head_json)
     sendHTMLFileWithMetadata('Kraje Posts', 'Description for Kraje Posts', d[0].jetpack_featured_media_url, res);
 });
 
@@ -93,7 +90,6 @@ app.get('/aktualnosci/:postSlug', async function (req, res) {
         `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
 );
     const d = await   response.json();
-    console.log(d[0].yoast_head_json)
 
     sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
@@ -123,7 +119,6 @@ app.get('/wycieczki/:projectSlug', async function (req, res) {
     );
 
     const d = await response.json();
-    console.log(d[0].yoast_head_json)
 
     sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
@@ -138,7 +133,6 @@ app.get('/wydarzenia/:postSlug', async function (req, res) {
         `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
     );
     const d = await response.json();
-    console.log(d[0].yoast_head_json)
 
     sendHTMLFileWithMetadata(d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
 });
@@ -204,6 +198,17 @@ app.get('*', async (request, response)=> {
     const searchedPost =  await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts/?slug=${urlRequest}`)
         .then((response) => response.data);
 
+    if(urlRequest){
+
+        if(searchedPost[0].categories.includes(14786)){
+            response.redirect(`/aktualnosci${urlRequest}`);
+        }
+        if(searchedPost[0].categories.includes(730842049)){
+            response.redirect(`/wycieczki${urlRequest}`);
+        }
+    }
+
+
     if(urlRequest[0].includes('category')){
         let r = urlRequest[0].replace('/category','')
         response.redirect(`${r}`);
@@ -212,11 +217,11 @@ app.get('*', async (request, response)=> {
 
             // sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
 
-            response.redirect(`/artykuly${urlRequest}`);
+            // response.redirect(`/artykuly${urlRequest}`);
 
         }
     }
-    // sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png',response);
+    // sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png');
 
     const filePath = path.resolve(__dirname, './build', 'index.html');
     //
