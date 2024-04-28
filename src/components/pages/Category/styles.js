@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
             //     transform: 'scale(1.05)',
             // },
         },
-        '&:hover $mainTitle': {
+        '&:hover $h4': {
             transition: "all 0.3s ease-out",
             color: ({postsHoverTextColor}) => postsHoverTextColor,
             "& path": {

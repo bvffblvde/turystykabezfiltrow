@@ -52,10 +52,10 @@ const navLinksData = [
         url: '/filmy',
         text: 'Filmy',
     },
-    {
-        url: '/sklep',
-        text: 'Sklep',
-    },
+    // {
+    //     url: '/sklep',
+    //     text: 'Sklep',
+    // },
     {
         url: '/wydarzenia',
         text: 'Wydarzenia',
@@ -430,18 +430,18 @@ const Header = React.memo(() => {
                     <Box>
                         <SettingsDrawer/>
                     </Box>
-                    <Box>
-                        <Link to="/sklep/koszyk" className={classes.iconLink}>
-                            <Icon
-                                component={BasketIcon}
-                                className={classes.icon}
-                                src={BasketIcon}
-                            />
-                            {cartItemCount > 0 && (
-                                <div className={classes.cartItemCount}>{cartItemCount}</div>
-                            )}
-                        </Link>
-                    </Box>
+                    {/*<Box>*/}
+                    {/*    <Link to="/sklep/koszyk" className={classes.iconLink}>*/}
+                    {/*        <Icon*/}
+                    {/*            component={BasketIcon}*/}
+                    {/*            className={classes.icon}*/}
+                    {/*            src={BasketIcon}*/}
+                    {/*        />*/}
+                    {/*        {cartItemCount > 0 && (*/}
+                    {/*            <div className={classes.cartItemCount}>{cartItemCount}</div>*/}
+                    {/*        )}*/}
+                    {/*    </Link>*/}
+                    {/*</Box>*/}
                 </Box>
                 <Box className={classes.mobileButtonSection}>
                     <ToggleMenu/>

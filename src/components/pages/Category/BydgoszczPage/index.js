@@ -18,11 +18,7 @@ import {ReactComponent as PostsCount} from "../../../../assets/Icons/posts-count
 import useStyles from "../styles";
 import ReactGA from "react-ga";
 
-ReactGA.initialize('G-K3T049PZW8');
 const BydgoszczPage = () => {
-    ReactGA.pageview(window.location.pathname);
-    console.log(window.location.pathname)
-    //const { categorySlug } = useParams();
     const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
@@ -34,47 +30,64 @@ const BydgoszczPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
             try {
-                const bydgoszczCategoryIdResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?slug=bydgoszcz`);
-
-                if (bydgoszczCategoryIdResponse.data.length === 0) {
-                    console.error('Category "bydgoszcz" not found.');
-                    return;
-                }
-
+                setLoading(true); // Установка состояния загрузки в true перед запросом
+                const bydgoszczCategoryIdResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?slug=bydgoszcz');
                 const bydgoszczCategoryId = bydgoszczCategoryIdResponse.data[0].id;
 
-                const subCategoriesResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?parent=${bydgoszczCategoryId}&per_page=100`);
+                const subCategoriesResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?parent=${bydgoszczCategoryId}`);
 
                 const categoriesData = [];
 
                 for (const category of subCategoriesResponse.data) {
-                    const postsResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${category.id}&per_page=1&_embed`);
+                    const categoryId = category.id;
+                    let categoryImage = '';
 
-                    if (postsResponse.data.length > 0) {
-                        const imageUrl = postsResponse.data[0]._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-
-                        categoriesData.push({
-                            categoryName: category.name,
-                            lastPostImage: imageUrl,
-                            postCount: category.count,
-                            categorySlug: category.slug,
-                            categoryId: category.id,
-                        });
+                    // Добавление изображения для каждой подкатегории на основе ее ID
+                    switch (categoryId) {
+                        case 718423471:
+                            categoryImage = 'https://i.ibb.co/zJ5Jzyb/bydgoskie-osiedla-bez-filtrow.png';
+                            break;
+                        case 718423601:
+                            categoryImage = 'https://i.ibb.co/m8p2TDv/bydgoszcz-nad-woda.png';
+                            break;
+                        case 729534262:
+                            categoryImage = 'https://i.ibb.co/MRZfLWv/bydgoszcz.png';
+                            break;
+                        case 718423608:
+                            categoryImage = 'https://i.ibb.co/12YdN6P/cuda-bydgoskie.png';
+                            break;
+                        case 718429647:
+                            categoryImage = 'https://i.ibb.co/8cgTC3K/bydgoskie-ciekawostki.png';
+                            break;
+                        default:
+                            categoryImage = ''; // По умолчанию пустое изображение, если ID не совпадает
+                            break;
                     }
+
+                    // Формирование объекта данных для каждой подкатегории
+                    const categoryData = {
+                        categoryName: category.name,
+                        categoryImage: categoryImage,
+                        postCount: category.count,
+                        categorySlug: category.slug,
+                        categoryId: categoryId,
+                    };
+
+                    categoriesData.push(categoryData);
                 }
 
                 setCategoriesData(categoriesData);
             } catch (error) {
                 console.error('Error fetching categories data:', error);
             } finally {
-                setLoading(false);
+                setLoading(false); // Установка состояния загрузки в false после завершения запроса
             }
         };
 
-        fetchData().then(() => console.log('Categories data fetched'));
+        fetchData();
     }, []);
+
 
     return (
         <SectionWrapper id="bydgoszcz" paddingBottom="100px" paddingTop="120px">
@@ -87,10 +100,10 @@ const BydgoszczPage = () => {
                     <Grid item key={index} xs={12} sm={6} md={4}>
                         <Link to={`/bydgoszcz/${category.categorySlug}`} className={classes.linkWrapper}>
                             <Box className={classes.root}>
-                                {category.lastPostImage && (
+                                {category.categoryImage && (
                                     <div className={classes.imageContainer}>
                                         <img
-                                            src={category.lastPostImage}
+                                            src={category.categoryImage}
                                             alt={category.categoryName}
                                             className={classes.image}
                                             loading="lazy"
