@@ -199,7 +199,6 @@ app.get('*', async (request, response)=> {
         .then((response) => response.data);
 
     if(urlRequest[0].includes('/artykuly/')){
-        console.log('thissssss',urlRequest[0].replace('/artykuly/','/aktualnosci/'))
         response.redirect(urlRequest[0].replace('/artykuly/','/aktualnosci/'));
     }
 
