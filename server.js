@@ -85,6 +85,16 @@ app.get('/aktualnosci', function (req, res) {
     sendHTMLFileWithMetadata( 'Aktualności', 'Description for Artykuly', '/static/media/artykuly-image.png', res);
 });
 
+app.get('/artykuly/:postSlug', async function (req, res) {
+    const response = await fetch(
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
+    );
+    const d = await   response.json();
+
+    sendHTMLFileWithMetadata( d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
+
+    res.redirect(`/aktualnosci/${req.params.postSlug}`);
+});
 app.get('/aktualnosci/:postSlug', async function (req, res) {
     const response = await fetch(
         `https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?slug=${req.params.postSlug}&_embed=true`
