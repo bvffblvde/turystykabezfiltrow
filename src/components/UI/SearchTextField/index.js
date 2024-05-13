@@ -25,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
             borderRadius: '6px',
             backgroundColor: ({backgroundColor}) => backgroundColor,
             '& fieldset': {
-                borderColor: ({inputBorderColor}) => inputBorderColor,
+                borderColor: ({borderColor}) => borderColor,
             },
             '&:hover fieldset': {
-                borderColor: ({inputBorderColor}) => inputBorderColor,
+                borderColor: ({postsHoverTextColor}) => postsHoverTextColor,
             },
             '&.Mui-focused fieldset': {
-                borderColor: ({inputBorderColor}) => inputBorderColor,
+                borderColor: ({postsHoverTextColor}) => postsHoverTextColor,
             },
             '& input.MuiInputBase-input': {
                 color: ({textColor}) => textColor,

@@ -215,6 +215,12 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         fontSize: '16px',
         color: ({textColor}) => textColor,
+    },
+    settingsProductButtonSection: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '10px',
+
     }
 }));
 

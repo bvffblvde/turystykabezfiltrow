@@ -17,6 +17,8 @@ const themes = {
         lineBackgroundColor: 'black',
         bannerTextColor: 'white',
 
+        costCardBackgroundColor: '#d9d9d9',
+
         mainLogo: `url(${LogoDefault})`,
 
         mainBannerBackgroundImage: `url(${MainBannerLight})`,
@@ -93,7 +95,7 @@ const themes = {
         spisTextColor: '#FFEA2E !important',
 
         mainLogo: `url(${LogoDark})`,
-
+        costCardBackgroundColor: '#151515',
         listIconColorFillHover: '#FFEA2E',
         listIconColorFill: '#FFEA2E',
         defaultBorderColor: '#FFEA2E',

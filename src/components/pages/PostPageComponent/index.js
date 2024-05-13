@@ -14,6 +14,7 @@ import DonatBadgeComponent from "../../UI/DonatBadge";
 import DownloadButton from "../../UI/DownloadButton";
 import ContactForm from "../../UI/ContactForm";
 import CommentsSection from "../../UI/CommentsSection";
+import PostsCard from "../../UI/ActualPostCard";
 
 
 const PostDetails = () => {
@@ -123,7 +124,7 @@ const PostDetails = () => {
     const updatedDescriptionWithImages = descriptionWithImages.replace(/<img[^>]*>/g, (imgTag) => {
         const imageUrl = extractImageUrl(imgTag);
         if (imageUrl) {
-            return `<img src="${imageUrl}" alt="post image" loading="lazy" />`;
+            return `<a href="${imageUrl}" target="_blank"><img src="${imageUrl}" alt="post image" loading="lazy" /></a>`;
         }
         return imgTag;
     });
@@ -164,6 +165,15 @@ const PostDetails = () => {
 
     });
 
+    useEffect(() => {
+        if (!loading) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    }, [loading]);
+
     return (
         <SectionWrapper paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
@@ -197,7 +207,8 @@ const PostDetails = () => {
                         )}
                     </Box>
                     <Box className={classes.textContainer}>
-                        <Typography variant="body1" dangerouslySetInnerHTML={{__html: descriptionWithImagesAndWithoutFiles}}
+                        <Typography variant="body1"
+                                    dangerouslySetInnerHTML={{__html: descriptionWithImagesAndWithoutFiles}}
                                     className={classes.description}/>
                     </Box>
 
@@ -215,11 +226,15 @@ const PostDetails = () => {
                 </Box>
                 <Box className={classes.imageWrapper}>
                     <Sidebar>
-                        <ProjectCard projectLimit={3} smallProjectView/>
+                        <ProjectCard projectLimit={3} smallProjectView seasonCard/>
                     </Sidebar>
                 </Box>
             </Box>
-            <DonatBadgeComponent />
+            <DonatBadgeComponent/>
+            <Box className={classes.nextSectionWrapper}>
+                <Typography variant="h2" className={classes.titleNextInSection}>Wyglądają tak samo</Typography>
+                <PostsCard postLimit={3} random={true}/>
+            </Box>
             <Box>
                 <ContactForm/>
             </Box>

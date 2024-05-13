@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     image: {
         width: '100%',
         height: '100%',
+        aspectRatio: '16/9',
         objectFit: 'cover',
         objectPosition: 'center',
         borderRadius: '16px',
@@ -75,6 +76,12 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         fontSize: '16px',
         fontWeight: '400',
+        lineClamp: 4,
+        boxOrient: 'vertical',
+        display: '-webkit-box',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        marginBottom: '32px',
         color: ({textColor}) => textColor,
     }
 }));

@@ -296,7 +296,26 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             padding: '20px 0 0 0',
         }
-    }
+    },
+    nextSectionWrapper: {
+        marginTop: '60px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px',
+        [theme.breakpoints.down('sm')]: {
+            gap: '20px',
+            marginTop: '40px',
+        }
+    },
+    titleNextInSection: {
+        fontFamily: 'Inter-Regular',
+        fontSize: '32px',
+        fontWeight: 500,
+        color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '24px',
+        }
+    },
 
 }));
 

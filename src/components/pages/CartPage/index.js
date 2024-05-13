@@ -6,11 +6,13 @@ import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 import useStyles from "./styles";
 import {ReactComponent as DeleteIcon} from '../../../assets/Icons/delete-icon-for-sklep.svg';
+import {ReactComponent as ViewIcon} from '../../../assets/Icons/view-icon.svg';
 import StyledButton from "../../UI/StyledButton";
 import DonatBadge from "../../UI/DonatBadge";
 import ContactForm from "../../UI/ContactForm";
 import GpayIcon from '../../../assets/Icons/g-pay.svg';
 import ApplePayIcon from '../../../assets/Icons/apple-pay.svg';
+import {Link} from "react-router-dom";
 
 const CartPage = ({cartItems}) => {
     const {theme} = useTheme();
@@ -19,6 +21,10 @@ const CartPage = ({cartItems}) => {
     const [localCartItems, setLocalCartItems] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [cartItemCount, setCartItemCount] = useState(0);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         const storedCartItems = localStorage.getItem('cartItems');
@@ -86,9 +92,18 @@ const CartPage = ({cartItems}) => {
                                                 </Box>
                                             </Box>
                                         )}
-                                        <Button className={classes.iconButton} onClick={() => removeItem(index)}>
-                                            <DeleteIcon className={classes.icon}/>
-                                        </Button>
+                                        <Box className={classes.settingsProductButtonSection}>
+                                            <Button className={classes.iconButton} onClick={() => removeItem(index)}>
+                                                <DeleteIcon className={classes.icon}/>
+                                            </Button>
+                                            {item.slug && (
+                                                <Link to={`/sklep/${item.slug}`} style={{textDecoration: 'none'}}>
+                                                    <Button className={classes.iconButton}>
+                                                        <ViewIcon className={classes.icon}/>
+                                                    </Button>
+                                                </Link>
+                                            )}
+                                        </Box>
                                     </Box>
                                 </Box>
                             ))}
@@ -116,7 +131,10 @@ const CartPage = ({cartItems}) => {
                         <Typography className={classes.summaryPrice}>{finalPrice} Zł</Typography>
                     </Box>
                     <StyledButton width="100%" text="Przejdź do kasy"
-                                  onClick={() => console.log('Przejdź do płatności')}/>
+                                  onClick={() => console.log('Przejdź do płatności')}
+                                  to="/sklep/koszyk/podsumowanie"
+                                  disabled={localCartItems.length === 0}
+                    />
                 </Grid>
             </Grid>
             <DonatBadge/>

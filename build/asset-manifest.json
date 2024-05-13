@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e8bbaa52.css",
-    "main.js": "/static/js/main.3b1f868a.js",
+    "main.js": "/static/js/main.9e11b071.js",
     "static/media/publikacje.png": "/static/media/publikacje.77a5fb1926b71b4545d1.png",
     "static/media/background-main.png": "/static/media/background-main.1cb2f1af0067d2f90c8c.png",
     "static/media/filmy.png": "/static/media/filmy.2a6b7b5f0504e30d9f9f.png",
@@ -16,6 +16,7 @@
     "static/media/arrowLine.svg": "/static/media/arrowLine.fa9453a291323a0e21395f9a1f1b73de.svg",
     "static/media/adbis-promouted.svg": "/static/media/adbis-promouted.ac4c9d4f658473b5f8096b3db37df50d.svg",
     "static/media/logo-main-contrast.svg": "/static/media/logo-main-contrast.27f4a5f6be0e64af14fb3f4d4bc83621.svg",
+    "static/media/cardType.svg": "/static/media/cardType.6211a872d741f0d353120c8b79bc7cbb.svg",
     "static/media/support-icon.svg": "/static/media/support-icon.b145a2687f34d6f3d5c056567c5e3ff7.svg",
     "static/media/contact-icon.svg": "/static/media/contact-icon.f1bba9524c74451a55a66d1def8a5566.svg",
     "static/media/g-pay.svg": "/static/media/g-pay.a543626e6df8773c21104adc13a3e991.svg",
@@ -25,6 +26,7 @@
     "static/media/apple-pay.svg": "/static/media/apple-pay.931916211a666a6f24a6ad064d4b6ce7.svg",
     "static/media/download-icon.svg": "/static/media/download-icon.9893fab3f26d42139ed4acd4ca1d2320.svg",
     "index.html": "/index.html",
+    "static/media/view-icon.svg": "/static/media/view-icon.cb56091ac5294611c70e7cf07e8969a6.svg",
     "static/media/Share.svg": "/static/media/Share.38c3a600e0f0b418bb35c5f242ff2266.svg",
     "static/media/tt.svg": "/static/media/tt.cb534131b3e99620a7882d6720dfd7c5.svg",
     "static/media/wcag-logo.svg": "/static/media/wcag-logo.1c002b20de382fea1fc6f21c68a78eec.svg",
@@ -33,14 +35,15 @@
     "static/media/fb.svg": "/static/media/fb.8f1198a8e626e1a439bb368f073bdbfb.svg",
     "static/media/ArrowRightForLink.svg": "/static/media/ArrowRightForLink.f025d42fd05a8fba2d970f4968da084f.svg",
     "static/media/search.svg": "/static/media/search.d27248beef2778e945d83f566d9a3a11.svg",
+    "static/media/comment-count.svg": "/static/media/comment-count.b02aa4c7c962666a06adcf21cca02679.svg",
     "static/media/ToggleMenuIcon.svg": "/static/media/ToggleMenuIcon.61c70dd5b128e1c06158112cb972243c.svg",
     "static/media/Close.svg": "/static/media/Close.b28e214a61fd0638fe9ecd565c229380.svg",
     "static/media/ArrowIcon.svg": "/static/media/ArrowIcon.32e8fcc03fe7eaea4d1c5fd7270d9ef5.svg",
     "main.e8bbaa52.css.map": "/static/css/main.e8bbaa52.css.map",
-    "main.3b1f868a.js.map": "/static/js/main.3b1f868a.js.map"
+    "main.9e11b071.js.map": "/static/js/main.9e11b071.js.map"
   },
   "entrypoints": [
     "static/css/main.e8bbaa52.css",
-    "static/js/main.3b1f868a.js"
+    "static/js/main.9e11b071.js"
   ]
 }

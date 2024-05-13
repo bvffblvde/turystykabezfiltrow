@@ -139,15 +139,13 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column-reverse',
         gap: '20px',
     },
-    line: {
-        width: '3px',
-        backgroundColor: ({addCommentColor}) => addCommentColor,
-    },
     replyToBox: {
+        backgroundColor: ({sectionWrapperBackgroundColor}) => sectionWrapperBackgroundColor,
         display: 'flex',
         flexDirection: 'row',
         gap: '10px',
         marginBottom: '16px',
+        borderRadius: '6px',
     },
     replyToText: {
         fontFamily: 'Inter-Regular',
@@ -162,8 +160,12 @@ const useStyles = makeStyles((theme) => ({
     },
     replyAuthorBox: {
         display: 'flex',
+        paddingLeft: '10px',
+        borderLeft: '4px solid',
+        borderColor: ({addCommentColor}) => addCommentColor,
         flexDirection: 'column',
         gap: '5px',
+        borderRadius: '7px',
     }
 
 }));
@@ -337,7 +339,6 @@ const CommentsSection = ({comments, postId}) => {
                         </Box>
                         {comment?.parent !== 0 && ( // Проверяем, является ли текущий комментарий ответом
                             <Box className={classes.replyToBox}>
-                                <div className={classes.line}/>
                                 <Box className={classes.replyAuthorBox}>
                                     <Typography
                                         dangerouslySetInnerHTML={{__html: comments.find((c) => c.id === comment.parent)?.author_name}}

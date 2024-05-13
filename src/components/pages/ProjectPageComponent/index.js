@@ -14,6 +14,7 @@ import ProjectCard from "../../UI/ActualProjectsCard";
 import Sidebar from "../../UI/SideBar";
 import ShareButton from "../../UI/ShareButton";
 import CommentsSection from "../../UI/CommentsSection";
+import PostsCard from "../../UI/ActualPostCard";
 
 
 const ProjectDetails = () => {
@@ -429,12 +430,16 @@ const ProjectDetails = () => {
 
                 <Box className={classes.imageWrapper}>
                     <Sidebar>
-                        <ProjectCard projectLimit={3} smallProjectView/>
+                        <ProjectCard projectLimit={3} smallProjectView seasonCard/>
                     </Sidebar>
                 </Box>
             </Box>
             <Box>
                 <DonatBadgeComponent/>
+            </Box>
+            <Box className={classes.nextSectionWrapper}>
+                <Typography variant="h2" className={classes.titleNextInSection}>Wyglądają tak samo</Typography>
+                <PostsCard postLimit={3} random={true}/>
             </Box>
             <Box className={classes.root}>
                 <FullscreenModal

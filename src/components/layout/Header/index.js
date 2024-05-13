@@ -55,6 +55,9 @@ const navLinksData = [
     // {
     //     url: '/sklep',
     //     text: 'Sklep',
+    //     subLinks: [
+    //         {url: '/sklep/koszyk', text: 'Koszyk'},
+    //     ]
     // },
     {
         url: '/wydarzenia',
@@ -277,17 +280,16 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         bottom: '15px',
         left: '15px',
-        backgroundColor: ({textColor}) => textColor,
-        color: ({backgroundColor}) => backgroundColor,
+        backgroundColor: ({postsHoverTextColor}) => postsHoverTextColor,
         borderRadius: '50%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         width: '15px',
         height: '15px',
+        color: ({textColor}) => textColor,
         fontSize: '10px',
         fontFamily: 'Inter-Regular',
-
     }
 
 }));
@@ -438,7 +440,7 @@ const Header = React.memo(() => {
                     {/*            src={BasketIcon}*/}
                     {/*        />*/}
                     {/*        {cartItemCount > 0 && (*/}
-                    {/*            <div className={classes.cartItemCount}>{cartItemCount}</div>*/}
+                    {/*            <div className={classes.cartItemCount}>!</div>*/}
                     {/*        )}*/}
                     {/*    </Link>*/}
                     {/*</Box>*/}

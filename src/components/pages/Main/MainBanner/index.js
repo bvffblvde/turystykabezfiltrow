@@ -12,11 +12,11 @@ import PublicBanner from '../../../../assets/Banners/publikacje.png';
 const slides = [
     {
         image: MainBanner,
-        title: "Aktualności",
+        title: "Artykuły",
         description: "Obszerne teksty dot. turystyki \n" +
             "i dziedzictwa kulturowego urozmaicone masą ciekawych zdjęć",
         buttonText: "Czytaj więcej",
-        link: "/aktualnosci"
+        link: "/bydgoszcz"
 
     },
     {

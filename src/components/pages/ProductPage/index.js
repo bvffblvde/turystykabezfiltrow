@@ -16,6 +16,7 @@ import DonatBadge from "../../UI/DonatBadge";
 import ContactForm from "../../UI/ContactForm";
 import StyledButton from "../../UI/StyledButton";
 import SklepCard from "../../UI/SklepCard";
+import ProductModal from "../../UI/ProductModal";
 
 const ProductPage = ({ setCartItems, cartItems }) => {
     const {productSlug} = useParams();
@@ -26,6 +27,9 @@ const ProductPage = ({ setCartItems, cartItems }) => {
     const classes = useStyles(themes[theme]);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для открытия модального окна
+    // eslint-disable-next-line no-unused-vars
+    const [selectedProduct, setSelectedProduct] = useState(null); // Состояние для хранения выбранного товара
 
 
     useEffect(() => {
@@ -81,6 +85,20 @@ const ProductPage = ({ setCartItems, cartItems }) => {
         fetchProduct();
     }, [productSlug]);
 
+
+
+    // Функция для открытия модального окна с выбранным товаром
+    const openModal = (product) => {
+        setSelectedProduct(product);
+        setIsModalOpen(true);
+    };
+
+    // Функция для закрытия модального окна
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    // Добавление товара в корзину и открытие модального окна с данными о товаре
     const handleAddToCart = () => {
         if (product) {
             const newItem = {
@@ -90,9 +108,9 @@ const ProductPage = ({ setCartItems, cartItems }) => {
                 color: selectedColor || '',
                 image: product.images.length > 0 ? product.images[0].src : '', // Первая картинка товара
                 slug: product.slug,
-            };
+                productId: product.id, // Добавление product_id
 
-            console.log('New item:', newItem); // Проверка содержимого newItem
+            };
 
             // Обновляем состояние корзины и сохраняем в localStorage
             setCartItems(prevItems => {
@@ -100,6 +118,9 @@ const ProductPage = ({ setCartItems, cartItems }) => {
                 localStorage.setItem('cartItems', JSON.stringify(updatedCart));
                 return updatedCart;
             });
+
+            // Открыть модальное окно с информацией о добавленном товаре
+            openModal(product);
 
             // Сбросить выбранный размер и цвет на пустые значения
             setSelectedSize('');
@@ -110,8 +131,6 @@ const ProductPage = ({ setCartItems, cartItems }) => {
             console.log('Товар не выбран или отсутствует информация о нём');
         }
     };
-
-
 
     useEffect(() => {
         if (!loading) {
@@ -275,6 +294,11 @@ const ProductPage = ({ setCartItems, cartItems }) => {
             <Backdrop className={classes.backdrop} open={loading}>
                 <CircularProgress color="inherit"/>
             </Backdrop>
+            <ProductModal
+                isOpen={isModalOpen}
+                handleClose={closeModal}
+                cartItems={cartItems}
+            />
         </SectionWrapper>
     );
 };

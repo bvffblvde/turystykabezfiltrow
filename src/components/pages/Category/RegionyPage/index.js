@@ -5,7 +5,6 @@ import {
     Backdrop,
     CircularProgress, Box, Icon,
 } from '@material-ui/core';
-import {useParams} from 'react-router-dom';
 import H4 from "../../../UI/H4";
 import SectionWrapper from "../../../UI/SectionWrapper";
 import {useTheme} from "../../../../theme/themeContext";
@@ -26,66 +25,68 @@ const RegionyPage = () => {
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const {tagSlug} = useParams();
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    const regionyTags = ['WŁOCŁAWEK', 'INOWROCŁAW', 'KRAKÓW', 'SZCZECIN', 'GRUDZIĄDZ', 'CHOJNICEOKOLICE', 'GÓRYSOWIE'];
+    const regionImages = {
+        WŁOCŁAWEK: 'https://i.ibb.co/TrqCf9j/w-ocwa-ek.png',
+        INOWROCŁAW: 'https://i.ibb.co/0hxZ4M0/inowroc-aw.png',
+        KRAKÓW: 'https://i.ibb.co/bsF0h2T/krako-w.png',
+        SZCZECIN: 'https://i.ibb.co/XxfgQCW/szczecin.png',
+        GRUDZIĄDZ: 'https://i.ibb.co/mqzn8H7/grudzia-dz.png',
+        CHOJNICEIOKOLICE: 'https://i.ibb.co/HhcRWvZ/chojnice.png',
+        GÓRYSOWIE: 'https://i.ibb.co/ZmSN2f2/go-ry-sowie.png'
+        // Добавьте другие регионы и соответствующие URL изображений
+    };
 
     useEffect(() => {
-            const fetchData = async () => {
-                setLoading(true);
-                try {
-                    const tagsResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/tags?per_page=100');
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const tagsResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/tags?per_page=100');
 
-                    if (tagsResponse.data.length === 0) {
-                        console.error('No tags found.');
-                        return;
-                    }
-
-                    const allTags = tagsResponse.data.map(tag => ({name: tag.name, count: tag.count, slug: tag.slug}));
-                    console.log('All tags:', allTags);
-
-                    const filteredTags = regionyTags.filter(regionyTag =>
-                        tagsResponse.data.some(tag => tag.name.toLowerCase() === regionyTag.toLowerCase())
-                    );
-
-                    const tagRequests = filteredTags.map(async regionyTag => {
-                        const tag = tagsResponse.data.find(tag => tag.name.toLowerCase() === regionyTag.toLowerCase());
-                        const postsResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?tags=${tag.id}&per_page=1&_embed`);
-                        const post = postsResponse.data[0];
-
-                        if (post) {
-                            const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-                            return {
-                                postTitle: tag.name,
-                                lastPostImage: imageUrl,
-                                postCount: tag.count,
-                                tagSlug: tag.slug,
-                            };
-                        } else {
-                            return null;
-                        }
-                    });
-
-                    const categoriesData = (await Promise.all(tagRequests)).filter(post => post !== null);
-                    setCategoriesData(categoriesData);
-
-                    console.log('Fetched data for regionyTags:', categoriesData);
-                } catch (error) {
-                    console.error('Error fetching posts data:', error);
-                } finally {
-                    setLoading(false);
+                if (tagsResponse.data.length === 0) {
+                    console.error('No tags found.');
+                    return;
                 }
-            };
 
-            fetchData().then(() => console.log('Posts data fetched'));
-        },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [tagSlug]
-    );
+                const filteredTags = tagsResponse.data.filter(tag =>
+                    regionImages.hasOwnProperty(tag.name.toUpperCase())
+                );
+
+                const tagRequests = filteredTags.map(async regionyTag => {
+                    const tag = tagsResponse.data.find(tag => tag.name.toLowerCase() === regionyTag.name.toLowerCase());
+                    const postsResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?tags=${tag.id}&per_page=1&_embed`);
+                    const post = postsResponse.data[0];
+
+                    if (post) {
+                        const imageUrl = regionImages[regionyTag.name.toUpperCase()];
+                        return {
+                            postTitle: tag.name,
+                            lastPostImage: imageUrl,
+                            postCount: tag.count,
+                            tagSlug: tag.slug,
+                        };
+                    } else {
+                        return null;
+                    }
+                });
+
+                const categoriesData = (await Promise.all(tagRequests)).filter(post => post !== null);
+                setCategoriesData(categoriesData);
+
+                console.log('Fetched data for regionyTags:', categoriesData);
+            } catch (error) {
+                console.error('Error fetching posts data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData().then(() => console.log('Posts data fetched'));
+    }, []);
 
     const formatTagName = (postTitle) => {
         // Assuming tagName is in CamelCase format

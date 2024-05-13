@@ -30,6 +30,7 @@ import {HelmetProvider} from 'react-helmet-async';
 import Sklep from "./components/pages/Sklep";
 import ProductPage from "./components/pages/ProductPage";
 import CartPage from "./components/pages/CartPage";
+import PayPage from "./components/pages/PayPage";
 
 const helmetContext = {};
 
@@ -108,6 +109,7 @@ const App = () => {
                                 <Route path="/sklep/:productSlug" element={<ProductPage setCartItems={setCartItems} cartItems={cartItems} />} />
 
                                 <Route path="/sklep/koszyk" element={<CartPage cartItems={cartItems} />} />
+                                <Route path="/sklep/koszyk/podsumowanie" element={<PayPage cartItems={cartItems} />} />
 
                                 {/*<Route path="*" element={<NotFoundPage/>}/>*/}
                             </Routes>

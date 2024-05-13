@@ -1,36 +1,28 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Typography from '@material-ui/core/Typography';
+import React, {useEffect, useState} from 'react';
+import {Modal, Typography, IconButton, Box} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import {useTheme} from "../../../theme/themeContext";
+import useStyles from "./styles";
+import {themes} from "../../../theme/themeContext/themes";
+import StyledButton from "../StyledButton";
+import SklepCard from "../SklepCard";
 
-const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-    image: {
-        maxWidth: '100%',
-        marginBottom: theme.spacing(2),
-    },
-}));
+const ProductModal = ({isOpen, handleClose, cartItems}) => {
+    const {theme} = useTheme();
+    const classes = useStyles(themes[theme]);
 
-const ProductModal = ({ isOpen, handleClose, product }) => {
-    const classes = useStyles();
+    const [lastCartItem, setLastCartItem] = useState(null);
 
-    if (!product) {
-        return null;
-    }
-
-    const { name, price, sizes, colors, images } = product;
-    const selectedSize = sizes && sizes.find((size) => size.selected); // Проверка на наличие sizes и поиск выбранного размера
-    const selectedColor = colors && colors.find((color) => color.selected); // Проверка на наличие colors и поиск выбранного цвета
-    const firstImageSrc = images && images.length > 0 ? images[0].src : null;
+    useEffect(() => {
+        const storedCartItems = localStorage.getItem('cartItems');
+        if (storedCartItems) {
+            const parsedCartItems = JSON.parse(storedCartItems);
+            if (parsedCartItems.length > 0) {
+                const lastItem = parsedCartItems[parsedCartItems.length - 1];
+                setLastCartItem(lastItem);
+            }
+        }
+    }, [isOpen]);
 
     return (
         <Modal
@@ -40,25 +32,62 @@ const ProductModal = ({ isOpen, handleClose, product }) => {
             aria-labelledby="product-modal-title"
             aria-describedby="product-modal-description"
         >
-            <div className={classes.paper}>
-                {firstImageSrc && (
-                    <img src={firstImageSrc} alt={name} className={classes.image} />
-                )}
-                <Typography variant="h5" id="product-modal-title" gutterBottom>
-                    {name}
-                </Typography>
-                <Typography variant="body1" id="product-modal-description" gutterBottom>
-                    {selectedSize && `Размер: ${selectedSize}`}
-                </Typography>
-                <Typography variant="body1" id="product-modal-description" gutterBottom>
-                    {selectedColor && `Цвет: ${selectedColor}`}
-                </Typography>
-                <Typography variant="body1" id="product-modal-description" gutterBottom>
-                    Цена: {parseFloat(price).toLocaleString('pl-PL')} Zł
-                </Typography>
-            </div>
+            {lastCartItem && (
+                <div className={classes.paper}>
+                    <Box className={classes.headerModal}>
+                        <IconButton className={classes.closeButton} onClick={handleClose}>
+                            <CloseIcon/>
+                        </IconButton>
+                    </Box>
+                    <Box className={classes.modalContent}>
+                        <Box>
+                            <Typography className={classes.modalTitle}>
+                                Został dodany do koszyka
+                            </Typography>
+                        </Box>
+                        <Box className={classes.infoAboutSelectProduct}>
+                            <Box className={classes.imageWrapper}>
+                                <img src={lastCartItem.image} alt={lastCartItem.name} className={classes.image}/>
+                            </Box>
+                            <Box className={classes.textInfoAboutProductWrapper}>
+                                <Typography variant="h5" id="product-modal-title" className={classes.nameProduct}>
+                                    {lastCartItem.name}
+                                </Typography>
+                                <Typography variant="body1" id="product-modal-description">
+                                    Rozmiar: {lastCartItem.size}
+                                </Typography>
+                                <Box style={{display: 'flex', flexDirection: 'row', gap: '5px', alignItems: 'center'}}>
+                                    <Typography variant="body1" id="product-modal-description" className={classes.colorAndSizeInfoText}>
+                                        Kolor:
+                                    </Typography>
+                                    <Box
+                                        className={classes.circleColor}
+                                        style={{backgroundColor: lastCartItem.color.toLowerCase() === 'biały' ? 'white' : 'black'}}
+                                    />
+                                </Box>
+                                <Typography variant="body1" id="product-modal-description" className={classes.priceInfo}>
+                                    {lastCartItem.price} Zł
+                                </Typography>
+                            </Box>
+                        </Box>
+                        <Box className={classes.buttonWrapper}>
+                            <StyledButton width="100%" text="Kontynuować zakupy" clicked={handleClose} variant='outlined'/>
+                            <StyledButton width="100%" text="Przejdź do koszyka" to="/sklep/koszyk"/>
+                        </Box>
+                        <Box className={classes.propossal}>
+                            <Typography variant="body1" id="product-modal-description" className={classes.propossalText}>
+                                Często kupowane od razu
+                            </Typography>
+                            <Box>
+                                <SklepCard postLimit={4} random={true} smallCardVariant={true}/>
+                            </Box>
+                        </Box>
+                    </Box>
+                </div>
+            )}
         </Modal>
     );
 };
 
 export default ProductModal;
+

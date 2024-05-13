@@ -28,10 +28,13 @@ const RegionyPostsPage = () => {
     const [currentTagSlug, setCurrentTagSlug] = useState(null);
     const [currentTagName, setCurrentTagName] = useState('');
     const [page, setPage] = useState(1);
+    const [commentCounts, setCommentCounts] = useState({});
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        setPosts([]); // Сбросить текущие посты при изменении тега
+    }, [tagSlug]); // Зависимость от tagSlug для перезагрузки при измен
 
 
     const fetchData = async (pageNum) => {

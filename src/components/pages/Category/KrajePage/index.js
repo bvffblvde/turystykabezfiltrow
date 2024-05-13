@@ -25,11 +25,15 @@ const KrajePage = () => {
     const classes = useStyles(themes[theme]);
     const [categoriesData, setCategoriesData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const location = useLocation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const regionImages = {
+        Ukraina: 'https://i.ibb.co/DKqdYJH/Ukraina.png',
+        Niemcy: 'https://i.ibb.co/8jJLb5Q/niemcy.png',
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,9 +45,6 @@ const KrajePage = () => {
                     console.error('No tags found.');
                     return;
                 }
-
-                const allTags = tagsResponse.data.map(tag => ({name: tag.name, count: tag.count}));
-                console.log('All tags:', allTags);
 
                 const regionyTags = ['Ukraina', 'Niemcy'];
 
@@ -57,12 +58,12 @@ const KrajePage = () => {
                     const post = postsResponse.data[0];
 
                     if (post) {
-                        const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+                        const imageUrl = regionImages[regionyTag]; // Используем статическое изображение для региона
                         return {
                             postTitle: regionyTag,
                             lastPostImage: imageUrl,
                             postCount: tag.count,
-                            tagSlug: tag.slug,  // добавим slug для создания ссылки
+                            tagSlug: tag.slug,
                         };
                     } else {
                         return null;
@@ -70,7 +71,6 @@ const KrajePage = () => {
                 });
 
                 const categoriesData = (await Promise.all(tagRequests)).filter(post => post !== null);
-
                 setCategoriesData(categoriesData);
 
                 console.log('Fetched data for regionyTags:', categoriesData);

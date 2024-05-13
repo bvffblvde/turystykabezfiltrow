@@ -230,14 +230,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProjectCard = ({project, projectMediaData}) => {
+const ProjectCard = ({project, projectMediaData, linkPath}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const featuredMediaId = project.featured_media;
     const media = featuredMediaId ? projectMediaData[featuredMediaId] : null;
 
     return (
-        <Link to={`/wycieczki/${project.slug}`} className={classes.linkWrapper}>
+        <Link to={`/${linkPath}/${project.slug}`} className={classes.linkWrapper}>
             <Box className={project.large ? classes.root : classes.rootSmall}>
                 {media && (
                     <Box className={classes.imageContainer}>
@@ -268,7 +268,7 @@ const ProjectCard = ({project, projectMediaData}) => {
 };
 
 
-const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
+const Projects = ({ projectLimit, seasonCard, smallProjectView }) => {
     const { theme } = useTheme();
     const classes = useStyles(themes[theme]);
     const [projectData, setProjectData] = useState([]);
@@ -277,19 +277,9 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Получаем все категории (categories)
-                    const categoriesResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100');
-                    const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
-                    if (!wycieczkiCategory) {
-                    console.error('Category not found');
-                    return;
-                }
-
-                // Получаем последние посты с выбранной категорией 'wycieczki'
-                const latestWycieczkiResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${projectLimit}`);
-
-                // Если есть seasonCard, добавляем последний пост с тегом "sezon"
+                let response;
                 if (seasonCard) {
+                    // Если seasonCard установлен, получаем посты с тегом "sezon"
                     const tagsResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/tags?per_page=100');
                     const sezonTag = tagsResponse.data.find(tag => tag.name.toLowerCase() === 'sezon');
 
@@ -298,26 +288,26 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                         return;
                     }
 
-                    const latestSezonResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=1&_embed`);
-                    const combinedData = [...latestSezonResponse.data, ...latestWycieczkiResponse.data];
-                    setProjectData(combinedData);
-
-                    const mediaIds = combinedData.map((project) => project.featured_media);
-                    const mediaPromises = mediaIds.map((mediaId) =>
-                        axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/media/${mediaId}`)
-                    );
-                    const mediaResults = await Promise.all(mediaPromises);
-
-                    const mediaDataObject = mediaResults.reduce((acc, media) => {
-                        acc[media.data.id] = media.data;
-                        return acc;
-                    }, {});
-                    setProjectMediaData(mediaDataObject);
+                    response = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?tags=${sezonTag.id}&per_page=${projectLimit}`);
                 } else {
-                    setProjectData(latestWycieczkiResponse.data);
+                    // Иначе получаем посты из категории 'wycieczki'
+                    const categoriesResponse = await axios.get('https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?per_page=100');
+                    const wycieczkiCategory = categoriesResponse.data.find(category => category.name.toLowerCase() === 'wycieczki');
 
-                    const mediaIds = latestWycieczkiResponse.data.map((project) => project.featured_media);
-                const mediaPromises = mediaIds.map((mediaId) =>
+                    if (!wycieczkiCategory) {
+                        console.error('Category "wycieczki" not found.');
+                        return;
+                    }
+
+                    response = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/posts?categories=${wycieczkiCategory.id}&per_page=${projectLimit}`);
+                }
+
+                // Устанавливаем данные о проектах
+                setProjectData(response.data);
+
+                // Получаем медиа-данные для проектов
+                const mediaIds = response.data.map(project => project.featured_media);
+                const mediaPromises = mediaIds.map(mediaId =>
                     axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/media/${mediaId}`)
                 );
                 const mediaResults = await Promise.all(mediaPromises);
@@ -327,15 +317,13 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                     return acc;
                 }, {});
                 setProjectMediaData(mediaDataObject);
-                }
             } catch (error) {
                 console.error(`Error fetching project data: ${error}`);
             }
         };
 
-        fetchData().then(r => console.log('Project data fetched'));
+        fetchData().then(() => console.log('Project data fetched'));
     }, [projectLimit, seasonCard]);
-
 
     const smallProjects = projectData.slice(1, 5).map(project => ({ ...project, large: false }));
     const largeProject = projectData.slice(0, 1).map(project => ({ ...project, large: true }));
@@ -348,6 +336,7 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                         <ProjectCard
                             key={index}
                             project={project}
+                            linkPath={seasonCard ? 'wydarzenia' : 'wycieczki'}
                             projectMediaData={projectMediaData}
                             className={index === 0 ? classes.firstCard : ''}
                         />
@@ -357,7 +346,7 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                 <Box className={classes.boxWrapper}>
                     <Box className={classes.largeCardBoxWrapper}>
                         {largeProject.length > 0 && (
-                            <ProjectCard project={largeProject[0]} projectMediaData={projectMediaData} />
+                            <ProjectCard project={largeProject[0]} projectMediaData={projectMediaData} linkPath={seasonCard ? 'wydarzenia' : 'wycieczki'}/>
                         )}
                     </Box>
                     <Box className={classes.smallCardBoxWrapper}>
@@ -365,6 +354,7 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
                             <ProjectCard
                                 key={index}
                                 project={project}
+                                linkPath={seasonCard ? 'wydarzenia' : 'wycieczki'}
                                 projectMediaData={projectMediaData}
                                 className={index === 0 ? classes.firstCard : ''}
                             />
@@ -377,8 +367,6 @@ const Projects = ({projectLimit, seasonCard, smallProjectView}) => {
 };
 
 export default Projects;
-
-
 
 
 

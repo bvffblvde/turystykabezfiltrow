@@ -25,8 +25,41 @@ const useStyles = makeStyles((theme) => ({
             color: ({postsHoverTextColor}) => postsHoverTextColor,
         },
     },
+    rootMini: {
+        backgroundColor: ({backgroundColor}) => backgroundColor,
+        color: ({textColor}) => textColor,
+        display: 'flex',
+        flexDirection: 'column',
+        cursor: 'pointer',
+        padding: '10px',
+        boxShadow: '0px 0px 16px 0px #0000000f',
+        transition: "all 0.5s ease-out",
+        borderRadius: '16px',
+        '&:hover': {
+            transition: "all 0.5s ease-out",
+            transform: 'scale(1.02)',
+            // '& $image': {
+            //     transition: "all 0.5s ease-out",
+            //     transform: 'scale(1.05)',
+            // },
+        },
+        '&:hover $mainTitleMini': {
+            transition: "all 0.3s ease-out",
+            color: ({postsHoverTextColor}) => postsHoverTextColor,
+        },
+    },
     textContainer: {
         flex: 1,
+    },
+    priceWithButton: {
+      display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    textContainerMini: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
     },
     image: {
         transition: "all 0.3s ease-out",
@@ -38,6 +71,14 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             height: '30vh',
         }
+    },
+    imageMini: {
+        transition: "all 0.3s ease-out",
+        width: '100%',
+        aspectRatio: '1/1',
+        objectFit: 'cover',
+        objectPosition: 'center',
+        borderRadius: '6px',
     },
     imageContainer: {
         display: 'flex',
@@ -51,6 +92,12 @@ const useStyles = makeStyles((theme) => ({
     //TODO: refactor
     cardWrapper: {
         marginBottom: '6px',
+    },
+    cardWrapperMini: {
+      display: 'flex',
+        flexDirection: 'row',
+        gap: '10px',
+
     },
     linkWrapper: {
         textDecoration: 'none',
@@ -82,6 +129,22 @@ const useStyles = makeStyles((theme) => ({
             marginBottom: '10px',
         }
     },
+    mainTitleMini: {
+        fontFamily: 'Inter-Regular',
+        transition: "all 0.3s ease-out",
+        color: ({textColor}) => textColor,
+        fontSize: '16px',
+        marginBottom: '12px',
+        lineClamp: 2,
+        boxOrient: 'vertical',
+        display: '-webkit-box',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '14px',
+            marginBottom: '10px',
+        }
+    },
     price: {
         fontFamily: 'Inter-Regular',
         fontSize: '20px',
@@ -94,6 +157,60 @@ const useStyles = makeStyles((theme) => ({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
+    },
+    // iconLink: {
+    //     width: '40px',
+    //     height: '40px',
+    //     position: 'relative',
+    //     backgroundColor: ({backgroundColor}) => backgroundColor,
+    //     borderRadius
+    //
+    //     "& path": {
+    //         transition: '300ms ease-in-out',
+    //         stroke: ({iconColorFill}) => iconColorFill,
+    //     },
+    //     '&:hover': {
+    //         backgroundColor: 'transparent',
+    //         "& path": {
+    //             transition: '300ms ease-in-out',
+    //             stroke: ({iconColorFillHover}) => iconColorFillHover,
+    //         },
+    //     },
+    // },
+    iconLink: {
+        border: '1px solid',
+        borderColor: ({backgroundColor}) => backgroundColor,
+        width: '40px',
+        padding: '0',
+        height: '40px',
+        minWidth: '40px',
+        backgroundColor: ({backgroundColor}) => backgroundColor,
+        display: 'flex',
+        borderRadius: '4px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        boxShadow: '0px 0px 16px 0px #0000000f',
+        transition: "all 0.5s ease-out",
+
+        "& path": {
+            transition: "all 0.5s ease-out",
+            fill: ({iconColorFill}) => iconColorFill,
+        },
+
+        '&:hover': {
+            transition: "all 0.5s ease-out",
+            transform: 'scale(1.02)',
+            borderColor: ({postsHoverTextColor}) => postsHoverTextColor,
+            backgroundColor: ({backgroundColor}) => backgroundColor,
+            // '& $image': {
+            //     transition: "all 0.5s ease-out",
+            //     transform: 'scale(1.05)',
+            // },
+            "& path": {
+                transition: '300ms ease-in-out',
+                fill: ({iconColorFillHover}) => iconColorFillHover,
+            },
+        },
     },
 }));
 
