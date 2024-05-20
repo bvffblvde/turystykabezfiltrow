@@ -138,18 +138,18 @@ const ProjectDetails = () => {
         setFullscreenModalOpen(true);
     };
 
-    // eslint-disable-next-line no-unused-vars
-    const handleOpenMainImageModal = () => {
-        const mainImageUrl = project?._embedded?.['wp:featuredmedia']?.[0]?.source_url;
-        console.log('Main Image URL:', mainImageUrl); // Отладочное сообщение
-
-        if (mainImageUrl) {
-            setSelectedImageIndex(null); // Сбрасываем выбранный индекс массива
-            setFullscreenModalOpen(true);
-        } else {
-            console.error('Main image URL not found');
-        }
-    };
+    // // eslint-disable-next-line no-unused-vars
+    // const handleOpenMainImageModal = () => {
+    //     const mainImageUrl = project?._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+    //     console.log('Main Image URL:', mainImageUrl); // Отладочное сообщение
+    //
+    //     if (mainImageUrl) {
+    //         setSelectedImageIndex(null); // Сбрасываем выбранный индекс массива
+    //         setFullscreenModalOpen(true);
+    //     } else {
+    //         console.error('Main image URL not found');
+    //     }
+    // };
 
     const extractFileUrls = (content) => {
         const fileUrlsSet = new Set();

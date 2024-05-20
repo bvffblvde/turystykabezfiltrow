@@ -8,17 +8,20 @@ export const FontSizeProvider = ({ children }) => {
     const [lastSelectedSize, setLastSelectedSize] = useState(0);
 
     const updateFontSize = (change) => {
-        const newFontSize = lastSelectedSize + change;
+        setLastSelectedSize(change); // Устанавливаем выбранный размер как последний выбранный
+    };
+
+    const applyFontSize = (newFontSize) => {
         document.body.style.fontSize = `${newFontSize}px`;
 
         document.querySelectorAll('body *').forEach((element) => {
             const computedStyle = window.getComputedStyle(element);
             const currentFontSize = parseFloat(computedStyle.fontSize);
-            const newElementFontSize = currentFontSize + change;
+            const newElementFontSize = currentFontSize + newFontSize;
             element.style.fontSize = `${newElementFontSize}px`;
         });
 
-        setFontSize(newFontSize);
+        setFontSize(newFontSize); // Устанавливаем новый размер шрифта
     };
 
     const resetFontSize = () => {
@@ -40,6 +43,14 @@ export const FontSizeProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
+        // Применяем изменения размера шрифта только если выбран новый размер
+        if (lastSelectedSize !== 0) {
+            const newFontSize = fontSize + lastSelectedSize;
+            applyFontSize(newFontSize);
+        }
+    }, [lastSelectedSize]); // Следим только за изменением lastSelectedSize
+
+    useEffect(() => {
         localStorage.setItem('fontSize', fontSize);
     }, [fontSize]);
 
@@ -57,3 +68,4 @@ export const useFontSize = () => {
     }
     return context;
 };
+

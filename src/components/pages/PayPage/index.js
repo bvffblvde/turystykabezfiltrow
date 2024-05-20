@@ -45,7 +45,6 @@ const initialValuesData = {
 };
 
 
-
 const PayPage = ({cartItems}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
@@ -58,7 +57,7 @@ const PayPage = ({cartItems}) => {
         }
     }, []);
 
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const handleSubmit = async (values, {setSubmitting}) => {
         setSubmitting(true);
 
         try {
@@ -66,9 +65,26 @@ const PayPage = ({cartItems}) => {
             const apiSecret = process.env.REACT_APP_CONSUMER_SECRET;
             const authHeader = `Basic ${btoa(`${apiKey}:${apiSecret}`)}`;
 
-            // Отправляем данные заказа на WooCommerce API для создания нового заказа
-            const response = await axios.post('https://weckwerthblog.wpcomstaging.com/wp-json/wc/v3/orders', {
-                payment_method: values.buyType, // Способ оплаты
+            // Получаем элементы корзины из localStorage
+            const localCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            const lineItems = localCartItems.map(item => ({
+                product_id: item.productId,
+                quantity: item.quantity,
+                meta_data: [
+                    {
+                        key: 'size',
+                        value: item.size,
+                    },
+                    {
+                        key: 'color',
+                        value: item.color,
+                    },
+                ],
+            }));
+
+            const orderData = {
+                payment_method: values.buyType,
                 billing: {
                     first_name: values.firstName,
                     last_name: values.lastName,
@@ -77,29 +93,54 @@ const PayPage = ({cartItems}) => {
                     postcode: values.postalCode,
                     email: values.email,
                     phone: values.phoneNumber,
+                    card_number: values.cardNumber,
+                    expiration_date: values.expirationDate,
+                    cvv: values.cvv,
                 },
-                line_items: localCartItems.map(item => ({
-                    product_id: item.productId,
-                    quantity: item.quantity,
-                })),
-                shipping_lines: [
+                line_items: lineItems,
+            };
+
+            // Если выбран способ доставки "Courier", добавляем информацию о доставке
+            if (values.deliveryType === 'delivery') {
+                orderData.shipping = {
+                    first_name: values.firstName,
+                    last_name: values.lastName,
+                    address_1: values.street,
+                    address_2: values.houseNumber, // Вторая линия адреса (номер дома)
+                    city: values.city,
+                    postcode: values.postalCode,
+                    country: values.region,
+                    state: values.region, // Регион (например, Воеводство / Регион)
+                    phone: values.phoneNumber,
+                    email: values.email,
+                };
+                orderData.shipping_lines = [
                     {
-                        method_id: values.deliveryType === 'delivery' ? 'flat_rate' : 'free_shipping',
-                        method_title: values.deliveryType === 'delivery' ? 'Courier' : 'Self-pickup',
-                        total: values.deliveryType === 'delivery' ? '19.99' : '0.00',
-                    }
-                ],
-            }, {
+                        method_id: 'flat_rate',
+                        method_title: 'Courier',
+                        total: '19.99',
+                    },
+                ];
+            }
+
+            const response = await axios.post('https://weckwerthblog.wpcomstaging.com/wp-json/wc/v3/orders', orderData, {
                 headers: {
                     Authorization: authHeader,
-                }
+                },
             });
 
             console.log('Order created:', response.data);
-            // Здесь можно обработать успешное создание заказа и оплаты
         } catch (error) {
             console.error('Error creating order:', error);
-            // Здесь можно обработать ошибку при создании заказа
+            if (error.response) {
+                console.log('Response data:', error.response.data);
+                console.log('Response status:', error.response.status);
+                console.log('Response headers:', error.response.headers);
+            } else if (error.request) {
+                console.log('Request:', error.request);
+            } else {
+                console.log('Error:', error.message);
+            }
         }
 
         setSubmitting(false);
@@ -118,11 +159,6 @@ const PayPage = ({cartItems}) => {
         window.scrollTo(0, 0);
     }, []);
 
-    // const handleSubmit = (values, {setSubmitting}) => {
-    //     console.log('Submitted Data:', values);
-    //     setSubmitting(false);
-    // };
-
     const totalPrice = localCartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
     const deliveryCost = 19.99;
     const finalPrice = totalPrice + deliveryCost;
@@ -134,16 +170,6 @@ const PayPage = ({cartItems}) => {
                 Zamówienie
             </Typography>
             <Box className={classes.root}>
-                <Box className={classes.buttonWrapper}>
-                    <StyledButton buttonWithIcon={true} icon={GpayIcon} width="100%"/>
-                    <StyledButton buttonWithIcon={true} icon={ApplePayIcon} width="100%"/>
-                </Box>
-                <Box className={classes.lineWrapper}>
-                    <hr className={classes.line}/>
-                    <Typography variant="h2" className={classes.subButtonText}>LUB</Typography>
-                    <hr className={classes.line}/>
-                </Box>
-                <Typography variant="h2" className={classes.subTitle}>Płatność i wysyłka</Typography>
                 <Formik
                     initialValues={initialValuesData}
                     validationSchema={validationSchema}
@@ -151,6 +177,16 @@ const PayPage = ({cartItems}) => {
                 >
                     {({isSubmitting, isValid, errors, touched, values, setFieldValue}) => (
                         <Form className={classes.formSection}>
+                            {/*<Box className={classes.buttonWrapper}>*/}
+                            {/*    <StyledButton buttonWithIcon={true} icon={GpayIcon} width="100%" type="submit" disabled={isSubmitting || !isValid} value="google-pay"/>*/}
+                            {/*    <StyledButton buttonWithIcon={true} icon={ApplePayIcon} width="100%" type="submit" disabled={isSubmitting || !isValid} value="apple-pay"/>*/}
+                            {/*</Box>*/}
+                            {/*<Box className={classes.lineWrapper}>*/}
+                            {/*    <hr className={classes.line}/>*/}
+                            {/*    <Typography variant="h2" className={classes.subButtonText}>LUB</Typography>*/}
+                            {/*    <hr className={classes.line}/>*/}
+                            {/*</Box>*/}
+                            <Typography variant="h2" className={classes.subTitle}>Płatność i wysyłka</Typography>
                             <Grid container spacing={3} className={classes.formSection}>
                                 <Grid item xs={12} md={6}>
                                     <Field name="name">
@@ -281,6 +317,8 @@ const PayPage = ({cartItems}) => {
                                             <Typography>{finalPrice} Zł</Typography>
                                         </Box>
                                     </Box>
+                                    <StyledButton type="submit" width="100%" text="Złóż zamówienie"
+                                                  disabled={isSubmitting || !isValid} className={classes.submitButton}/>
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <RadioGroup
@@ -317,16 +355,14 @@ const PayPage = ({cartItems}) => {
                                                     control={<Radio/>}
                                                     label="Karta"
                                                 />
-                                                <img src={CardType} alt="Visa Or Mastercard" className={classes.paymentIcon}/>
+                                                <img src={CardType} alt="Visa Or Mastercard"
+                                                     className={classes.paymentIcon}/>
                                             </Box>
                                             {values.buyType === 'visaOrMastercard' && (renderCardForm(values, setFieldValue))}
                                         </Box>
                                     </RadioGroup>
                                 </Grid>
                             </Grid>
-                            <Button type="submit" disabled={isSubmitting || !isValid} className={classes.submitButton}>
-                                Złóż zamówienie
-                            </Button>
                         </Form>
                     )}
                 </Formik>

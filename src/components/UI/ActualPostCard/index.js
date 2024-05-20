@@ -107,7 +107,14 @@ const PostCard = ({post, mediaData, commentCount}) => {
     const media = featuredMediaId ? mediaData[featuredMediaId] : null;
 
     return (
-        <Link to={`/aktualnosci/${post.slug}`} className={classes.linkWrapper}>
+        <Link
+            to={
+                post.categories?.some(category => category === 730842049) ||
+                post.tags?.some(tag => tag === 730842067)
+                    ? `/wycieczki/${post.slug}`
+                    : `/aktualnosci/${post.slug}`
+            }
+            className={classes.linkWrapper}>
             <Box className={classes.root}>
                 {media && (
                     <Box className={classes.imageContainer}>

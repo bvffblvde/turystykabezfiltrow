@@ -52,13 +52,13 @@ const navLinksData = [
         url: '/filmy',
         text: 'Filmy',
     },
-    // {
-    //     url: '/sklep',
-    //     text: 'Sklep',
-    //     subLinks: [
-    //         {url: '/sklep/koszyk', text: 'Koszyk'},
-    //     ]
-    // },
+    {
+        url: '/sklep',
+        text: 'Sklep',
+        subLinks: [
+            {url: '/sklep/koszyk', text: 'Koszyk'},
+        ]
+    },
     {
         url: '/wydarzenia',
         text: 'Wydarzenia',
@@ -303,6 +303,7 @@ const Header = React.memo(() => {
     const [scrolled, setScrolled] = useState(false);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [cartItemCount, setCartItemCount] = useState(0); // Состояние для количества товаров в корзине
 
     useEffect(() => {
@@ -432,18 +433,18 @@ const Header = React.memo(() => {
                     <Box>
                         <SettingsDrawer/>
                     </Box>
-                    {/*<Box>*/}
-                    {/*    <Link to="/sklep/koszyk" className={classes.iconLink}>*/}
-                    {/*        <Icon*/}
-                    {/*            component={BasketIcon}*/}
-                    {/*            className={classes.icon}*/}
-                    {/*            src={BasketIcon}*/}
-                    {/*        />*/}
-                    {/*        {cartItemCount > 0 && (*/}
-                    {/*            <div className={classes.cartItemCount}>!</div>*/}
-                    {/*        )}*/}
-                    {/*    </Link>*/}
-                    {/*</Box>*/}
+                    <Box>
+                        <Link to="/sklep/koszyk" className={classes.iconLink}>
+                            <Icon
+                                component={BasketIcon}
+                                className={classes.icon}
+                                src={BasketIcon}
+                            />
+                            {cartItemCount > 0 && (
+                                <div className={classes.cartItemCount}>!</div>
+                            )}
+                        </Link>
+                    </Box>
                 </Box>
                 <Box className={classes.mobileButtonSection}>
                     <ToggleMenu/>

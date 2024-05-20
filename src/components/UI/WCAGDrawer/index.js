@@ -33,7 +33,9 @@ const useStyles = makeStyles((theme) =>
             padding: '20px',
             marginTop: '40px',
             boxShadow: 'none',
-            borderRadius: '0',
+            borderRadius: '10px',
+            border: '1px solid',
+            borderColor: ({inputBorderColor}) => inputBorderColor,
             backgroundColor: ({backgroundColor}) => backgroundColor,
         },
     })

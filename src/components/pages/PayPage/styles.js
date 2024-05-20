@@ -136,6 +136,7 @@ const useStyles = makeStyles((theme) => ({
         borderColor: ({defaultBorderColor}) => defaultBorderColor,
         backgroundColor: ({costCardBackgroundColor}) => costCardBackgroundColor,
         padding: '20px',
+        marginBottom: '20px',
     },
     priceInfoSection: {
         display: 'flex',

@@ -106,10 +106,9 @@ const ProductPage = ({ setCartItems, cartItems }) => {
                 price: parseFloat(product.price).toLocaleString('pl-PL'),
                 size: selectedSize || '',
                 color: selectedColor || '',
-                image: product.images.length > 0 ? product.images[0].src : '', // Первая картинка товара
+                image: product.images.length > 0 ? product.images[0].src : '',
                 slug: product.slug,
-                productId: product.id, // Добавление product_id
-
+                productId: product.id,
             };
 
             // Обновляем состояние корзины и сохраняем в localStorage
@@ -131,6 +130,7 @@ const ProductPage = ({ setCartItems, cartItems }) => {
             console.log('Товар не выбран или отсутствует информация о нём');
         }
     };
+
 
     useEffect(() => {
         if (!loading) {
