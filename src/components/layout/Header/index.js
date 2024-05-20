@@ -10,7 +10,7 @@ import {ReactComponent as WCAGIcon} from "../../../assets/Icons/wcag-logo.svg";
 import SettingsDrawer from "../../UI/WCAGDrawer";
 import ToggleMenu from "../ToggleMenu";
 import {ReactComponent as SearchIcon} from "../../../assets/Icons/search.svg";
-import {ReactComponent as BasketIcon} from "../../../assets/Icons/Basket.svg";
+// import {ReactComponent as BasketIcon} from "../../../assets/Icons/Basket.svg";
 
 
 const navLinksData = [
@@ -52,13 +52,13 @@ const navLinksData = [
         url: '/filmy',
         text: 'Filmy',
     },
-    {
-        url: '/sklep',
-        text: 'Sklep',
-        subLinks: [
-            {url: '/sklep/koszyk', text: 'Koszyk'},
-        ]
-    },
+    // {
+    //     url: '/sklep',
+    //     text: 'Sklep',
+    //     subLinks: [
+    //         {url: '/sklep/koszyk', text: 'Koszyk'},
+    //     ]
+    // },
     {
         url: '/wydarzenia',
         text: 'Wydarzenia',
@@ -433,18 +433,18 @@ const Header = React.memo(() => {
                     <Box>
                         <SettingsDrawer/>
                     </Box>
-                    <Box>
-                        <Link to="/sklep/koszyk" className={classes.iconLink}>
-                            <Icon
-                                component={BasketIcon}
-                                className={classes.icon}
-                                src={BasketIcon}
-                            />
-                            {cartItemCount > 0 && (
-                                <div className={classes.cartItemCount}>!</div>
-                            )}
-                        </Link>
-                    </Box>
+                    {/*<Box>*/}
+                    {/*    <Link to="/sklep/koszyk" className={classes.iconLink}>*/}
+                    {/*        <Icon*/}
+                    {/*            component={BasketIcon}*/}
+                    {/*            className={classes.icon}*/}
+                    {/*            src={BasketIcon}*/}
+                    {/*        />*/}
+                    {/*        {cartItemCount > 0 && (*/}
+                    {/*            <div className={classes.cartItemCount}>!</div>*/}
+                    {/*        )}*/}
+                    {/*    </Link>*/}
+                    {/*</Box>*/}
                 </Box>
                 <Box className={classes.mobileButtonSection}>
                     <ToggleMenu/>
