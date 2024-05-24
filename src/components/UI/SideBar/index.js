@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Box, Button, Typography} from "@material-ui/core";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     sidebar: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     linkText: {
-        fontSize: '20px',
+        fontSize: ({h4FontSize}) => h4FontSize,
         fontFamily: 'Inter-Regular',
         fontWeight: 500,
         padding: '0',
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             color: ({useLocationLinkColorHover}) => useLocationLinkColorHover,
         },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
+        }
     },
     flexBox: {
         display: 'flex',
@@ -46,7 +50,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidebar = ({ children, sections }) => {
     const { theme } = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [headerHeight, setHeaderHeight] = useState(0);
 
     useEffect(() => {
@@ -76,7 +86,7 @@ const Sidebar = ({ children, sections }) => {
                             className={classes.linkButton}
                             onClick={() => scrollToSection(section.id)}
                         >
-                            <Typography variant="h6" className={classes.linkText}>
+                            <Typography className={classes.linkText}>
                                 {section.label}
                             </Typography>
                         </Button>

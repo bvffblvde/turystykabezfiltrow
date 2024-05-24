@@ -17,11 +17,18 @@ import axios from "axios";
 import useStyles from "../styles";
 import StyledButton from "../../../UI/StyledButton";
 import {Skeleton} from "@material-ui/lab";
+import {useFontSize} from "../../../UI/FontSizeChange/FontSizeContext";
 
 
 const ActualsPageComponent = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [categoriesData, setCategoriesData] = useState([]);
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;

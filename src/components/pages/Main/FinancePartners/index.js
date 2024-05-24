@@ -6,6 +6,7 @@ import {useTheme} from "../../../../theme/themeContext";
 import {Box} from "@material-ui/core";
 import Invest from "../../../../assets/Partners/invest.svg";
 import Typography from "@material-ui/core/Typography";
+import {useFontSize} from "../../../UI/FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     contentWrapper: {
@@ -27,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
     },
     descriptionText: {
         fontFamily: 'Inter-Regular',
-        fontSize: '20px',
+        fontSize: ({h4FontSize}) => h4FontSize,
         fontWeight: '400',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
         }
     },
     imageBox: {
@@ -48,7 +49,13 @@ const useStyles = makeStyles((theme) => ({
 
 const InvestBlock = React.memo(() => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
 
     return (
         <SectionWrapper id="main-invest">

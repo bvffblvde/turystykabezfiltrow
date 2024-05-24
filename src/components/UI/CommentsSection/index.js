@@ -5,6 +5,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 import CommentButton from "../CommentButton";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     commentBoxWrapper: {
@@ -50,25 +51,33 @@ const useStyles = makeStyles((theme) => ({
     },
     authorName: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 700,
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+
+        }
     },
     commentText: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 400,
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+
+        }
     },
     date: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 400,
         opacity: '0.6',
         color: ({textColor}) => textColor,
         marginBottom: '12px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '12px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
             marginBottom: '20px',
         },
     },
@@ -149,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
     },
     replyToText: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         color: ({textColor}) => textColor,
         opacity: '0.6',
         lineClamp: 2,
@@ -157,6 +166,9 @@ const useStyles = makeStyles((theme) => ({
         display: '-webkit-box',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+        }
     },
     replyAuthorBox: {
         display: 'flex',
@@ -173,7 +185,13 @@ const useStyles = makeStyles((theme) => ({
 
 const CommentsSection = ({comments, postId}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [newComment, setNewComment] = useState('');
     const [authorName, setAuthorName] = useState('');
     const [authorEmail, setAuthorEmail] = useState('');

@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import React from "react";
 import {Box, Icon, makeStyles, Typography} from "@material-ui/core";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     defaultButton: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 700,
         color: ({textColor}) => textColor,
         textTransform: 'uppercase',
@@ -47,8 +48,13 @@ const useStyles = makeStyles((theme) => ({
 
 const LinedButton = ({text, width, to, icon, borderBottom}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
 
+    const classes = useStyles(combinedTheme);
 
     return (
         <Link to={to} style={{textDecoration: 'none', color: 'inherit'}} target='_blank' rel='noopener noreferrer'>

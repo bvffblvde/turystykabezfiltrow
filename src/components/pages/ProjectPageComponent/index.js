@@ -15,11 +15,18 @@ import Sidebar from "../../UI/SideBar";
 import ShareButton from "../../UI/ShareButton";
 import CommentsSection from "../../UI/CommentsSection";
 import PostsCard from "../../UI/ActualPostCard";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 
 const ProjectDetails = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const {fontSize} = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [project, setProject] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);

@@ -14,19 +14,19 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontFamily: 'Inter-Regular',
-        fontSize: '36px',
+        fontSize: ({h2FontSize}) => h2FontSize,
         fontWeight: 500,
         color: ({textColor}) => textColor,
         marginBottom: '12px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '24px',
+            fontSize: ({h2FontSizeMobile}) => h2FontSizeMobile,
             fontWeight: 700,
             marginBottom: '10px',
         },
     },
     description: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 400,
         padding: '0 10px 0 0',
         color: ({textColor}) => textColor,
@@ -63,18 +63,18 @@ const useStyles = makeStyles((theme) => ({
             }
         },
         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         }
     },
     date: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 400,
         opacity: '0.6',
         color: ({textColor}) => textColor,
         marginBottom: '20px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '12px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
             marginBottom: '20px',
         },
     },
@@ -236,7 +236,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         top: '50%',
         fontFamily: 'Inter-Bold',
-        fontSize: '32px',
+        fontSize: ({h2FontSize}) => h2FontSize,
         fontWeight: 700,
         textTransform: 'none',
         left: '50%',
@@ -247,7 +247,7 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: 'rgba(0, 0, 0, 0.7)',
         },
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({h2FontSizeMobile}) => h2FontSizeMobile,
         }
     },
     textWrapper: {
@@ -309,11 +309,11 @@ const useStyles = makeStyles((theme) => ({
     },
     titleNextInSection: {
         fontFamily: 'Inter-Regular',
-        fontSize: '32px',
+        fontSize: ({h2FontSize}) => h2FontSize,
         fontWeight: 500,
         color: ({textColor}) => textColor,
         [theme.breakpoints.down('sm')]: {
-            fontSize: '24px',
+            fontSize: ({h2FontSizeMobile}) => h2FontSizeMobile,
         }
     },
 

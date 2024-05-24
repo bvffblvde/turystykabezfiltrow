@@ -17,11 +17,18 @@ import useStyles from '../../pages/Category/styles';
 import H4 from '../../UI/H4';
 import SearchField from "../../UI/SearchTextField";
 import StyledButton from "../../UI/StyledButton";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 
 const Wyszukiwarka = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [postsData, setPostsData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchKeyword, setSearchKeyword] = useState('');

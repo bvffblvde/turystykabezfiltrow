@@ -14,6 +14,7 @@ import DonatBadge from "../../UI/DonatBadge";
 import useStyles from "./styles";
 import ProjectsPublicationCard from "../../UI/ProjectsPublicationCard";
 import PublicationCards from "../../UI/PublicationCard";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 const sections = [
     {id: 'bez-filtrow', label: 'BEZ FILTRÓW - czyli?'},
@@ -39,7 +40,13 @@ Ukrainka pochodząca ze wschodniego skraju Podola, mieszkająca w Bydgoszczy od 
 
 const About = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [loading, setLoading] = useState(true);
 
 // Компонент страницы, на которую вы переходите (например, ProjectDetails)

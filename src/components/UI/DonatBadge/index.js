@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Logo from "../../../assets/Logo/LOGO.svg";
 import StyledButton from "../StyledButton";
 import {Link} from "react-router-dom";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     badge: {
@@ -27,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
     },
     badgeDescription: {
         color: ({defaultButtonTextColor}) => defaultButtonTextColor,
-        fontSize: '20px',
+        fontSize: ({h4FontSize}) => h4FontSize,
         fontWeight: '500',
         fontFamily: 'Inter-Regular',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
         }
     },
     descriptionWrapper: {
@@ -50,7 +51,13 @@ const useStyles = makeStyles((theme) => ({
 
 const DonatBadgeComponent = React.memo(() => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
 
     return (
         <>

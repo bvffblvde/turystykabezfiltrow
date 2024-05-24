@@ -28,27 +28,27 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontFamily: 'Inter-Bold',
-        fontSize: '60px',
+        fontSize: ({titleSectionFontSize}) => titleSectionFontSize,
         fontWeight: 700,
         textAlign: "center",
         color: ({textColor}) => textColor,
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '32px',
+            fontSize: ({titleSectionFontSizeMobile}) => titleSectionFontSizeMobile,
             fontWeight: 700,
             marginBottom: '16px',
         },
     },
     subTitle: {
         fontFamily: 'Inter-Regular',
-        fontSize: '20px',
+        fontSize: ({h4FontSize}) => h4FontSize,
         fontWeight: 400,
         textAlign: "center",
         color: ({textColor}) => textColor,
         marginBottom: '40px',
         width: '80%',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
             width: '100%',
             marginBottom: '16px',
         }
@@ -79,33 +79,37 @@ const useStyles = makeStyles((theme) => ({
     },
     titleBlock: {
         fontFamily: 'Inter-Bold',
-        fontSize: '36px',
+        fontSize: ({h2FontSize}) => h2FontSize,
         fontWeight: 500,
         marginBottom: '20px',
         color: ({aboutPageTextTitleColor}) => aboutPageTextTitleColor,
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({h2FontSizeMobile}) => h2FontSizeMobile,
             marginBottom: '20px',
         }
     },
     titleBlockFirst: {
         fontFamily: 'Inter-Regular',
-        fontSize: '36px',
+        fontSize: ({h2FontSize}) => h2FontSize,
         fontWeight: 400,
         marginBottom: '20px',
         color: ({aboutPageTextTitleColor}) => aboutPageTextTitleColor,
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({h2FontSizeMobile}) => h2FontSizeMobile,
         }
     },
     descriptionText: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 400,
         color: ({textColor}) => textColor,
         '& p': {
             margin: '0 0 10px 0',
         },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+
+        }
     },
     individualPhoto: {
         width: '100%',
@@ -115,12 +119,12 @@ const useStyles = makeStyles((theme) => ({
     },
     boldText: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 700,
         color: ({textColor}) => textColor,
         marginBottom: '10px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         }
     },
     descriptionForZespol: {
@@ -150,11 +154,15 @@ const useStyles = makeStyles((theme) => ({
     },
     descriptionStartSection: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 400,
         color: ({textColor}) => textColor,
         '& p': {
             margin: '0 0 10px 0',
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+
         }
     },
     backdrop: {

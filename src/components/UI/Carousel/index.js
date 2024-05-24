@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import 'swiper/swiper.min.css';
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 SwiperCore.use([Pagination, Autoplay, EffectFade]);
 
@@ -80,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 1,
     },
     title: {
-        fontSize: '56px',
+        fontSize: ({bannerTitleFontSize}) => bannerTitleFontSize,
         marginBottom: '20px',
         fontWeight: 700,
         textAlign: 'left',
@@ -89,13 +90,13 @@ const useStyles = makeStyles((theme) => ({
 
         fontFamily: 'Inter-Bold',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '32px',
+            fontSize: ({bannerTitleFontSizeMobile}) => bannerTitleFontSizeMobile,
         }
     },
     description: {
         fontFamily: 'Inter-Bold',
         textTransform: 'uppercase',
-        fontSize: '24px',
+        fontSize: ({bannerDescriptionFontSize}) => bannerDescriptionFontSize,
         fontWeight: 500,
         color: ({inputBorderColor}) => inputBorderColor,
         textAlign: 'left',
@@ -105,15 +106,21 @@ const useStyles = makeStyles((theme) => ({
             padding: 0,
         },
         [theme.breakpoints.down('sm')]: {
+            fontSize: ({bannerDescriptionFontSizeMobile}) => bannerDescriptionFontSizeMobile,
             width: '80%',
-            fontSize: '20px',
         }
     }
 }));
 
 const Carousel = ({slides}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [activeSlide, setActiveSlide] = useState(0);
 
     const handleSlideChange = (swiper) => {

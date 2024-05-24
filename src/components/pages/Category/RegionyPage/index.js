@@ -16,13 +16,17 @@ import axios from "axios";
 import {ReactComponent as PostsCount} from "../../../../assets/Icons/posts-count-icon.svg";
 import useStyles from "../styles";
 import {Link as RouterLink} from 'react-router-dom';
-
-
-// ... (ваш импорт)
+import {useFontSize} from "../../../UI/FontSizeChange/FontSizeContext";
 
 const RegionyPage = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [categoriesData, setCategoriesData] = useState([]);
     const [loading, setLoading] = useState(false);
 

@@ -18,10 +18,17 @@ import useStyles from "../Category/styles";
 import H1 from "../../UI/H1";
 import ProjectCard from "../../UI/ActualProjectsCard";
 import StyledButton from "../../UI/StyledButton";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 const SeasonPageComponent = () => {
     const { theme } = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [categoriesData, setCategoriesData] = useState([]);
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
@@ -78,9 +85,7 @@ const SeasonPageComponent = () => {
     return (
         <SectionWrapper id="actual" paddingBottom="100px" paddingTop="120px">
             <BreadCrumbs/>
-            <Typography variant="h1" className={classes.title}>
-                WEŹ UDZIAŁ
-            </Typography>
+            <H1 text="WEŹ UDZIAŁ"/>
             <Grid container spacing={3} className={classes.cardWrapper}>
                 {categoriesData.map((post, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>

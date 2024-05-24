@@ -6,6 +6,7 @@ import H4 from "../H4";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 import {Link} from "react-router-dom";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
         },
         '& $h4': {
             [theme.breakpoints.down('sm')]: {
-                fontSize: '20px',
+                transition: "all 0.5s ease-out",
+                fontSize: ({h4FontSize}) => h4FontSize,
                 marginBottom: '0',
                 lineClamp: 2,
                 boxOrient: 'vertical',
@@ -40,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 [theme.breakpoints.down('sm')]: {
-                    fontSize: '16px',
+                    fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
                 }
             },
         },
@@ -79,7 +81,8 @@ const useStyles = makeStyles((theme) => ({
             color: ({postsHoverTextColor}) => postsHoverTextColor,
         },
         '& $h4': {
-            fontSize: '20px',
+            transition: "all 0.5s ease-out",
+            fontSize: ({h4FontSize}) => h4FontSize,
             marginBottom: '0',
             lineClamp: 2,
             boxOrient: 'vertical',
@@ -87,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             [theme.breakpoints.down('sm')]: {
-                fontSize: '16px',
+                fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
             }
         },
         [theme.breakpoints.down('sm')]: {
@@ -115,11 +118,11 @@ const useStyles = makeStyles((theme) => ({
     },
     date: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         opacity: '0.6',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '12px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         }
     },
     textContainerLarge: {
@@ -228,11 +231,30 @@ const useStyles = makeStyles((theme) => ({
             marginBottom: '10px',
         }
     },
+    h4: {
+        color: ({postsTextColor}) => postsTextColor,
+        transition: "all 0.5s ease-out",
+        fontSize: ({h4FontSize}) => h4FontSize,
+        fontWeight: '500',
+        fontFamily: 'Inter-Regular',
+        marginBottom: '12px',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
+            marginBottom: '10px',
+
+        }
+    },
 }));
 
 const ProjectCard = ({project, projectMediaData, linkPath}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const featuredMediaId = project.featured_media;
     const media = featuredMediaId ? projectMediaData[featuredMediaId] : null;
 
@@ -250,7 +272,7 @@ const ProjectCard = ({project, projectMediaData, linkPath}) => {
                 )}
                 <Box className={project.large ? classes.textContainerLarge : classes.textContainerSmall}>
                     <div>
-                        <H4 className={classes.h4}>{project.title?.rendered}</H4>
+                        <Typography className={classes.h4} id="myElementId" dangerouslySetInnerHTML={{__html: project.title?.rendered}}/>
                     </div>
                     <div>
                         <Typography variant="h1" className={classes.date}>

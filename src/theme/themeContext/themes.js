@@ -172,6 +172,81 @@ const themes = {
 
         aboutPageTextTitleColor: '#FFEA2E',
     },
+
+    defaultSize: {
+        h4FontSize: '20px',
+        h4FontSizeMobile: '16px',
+
+        descriptionTextFontSize: '16px',
+        descriptionTextFontSizeMobile: '14px',
+
+        h3FontSize: '24px',
+
+        h1FontSize: '40px',
+        h1FontSizeMobile: '24px',
+
+        bannerDescriptionFontSize: '24px',
+        bannerDescriptionFontSizeMobile: '20px',
+
+        bannerTitleFontSize: '56px',
+        bannerTitleFontSizeMobile: '24px',
+
+        titleSectionFontSize: '60px',
+        titleSectionFontSizeMobile: '24px',
+
+        h2FontSize: '36px',
+        h2FontSizeMobile: '24px',
+    },
+
+    mediumSize: {
+        h4FontSize: '22px',
+        h4FontSizeMobile: '18px',
+
+        descriptionTextFontSize: '18px',
+        descriptionTextFontSizeMobile: '16px',
+
+        h3FontSize: '26px',
+
+        h1FontSize: '42px',
+        h1FontSizeMobile: '26px',
+
+        bannerDescriptionFontSize: '26px',
+        bannerDescriptionFontSizeMobile: '22px',
+
+        bannerTitleFontSize: '58px',
+        bannerTitleFontSizeMobile: '26px',
+
+        titleSectionFontSize: '62px',
+        titleSectionFontSizeMobile: '26px',
+
+        h2FontSize: '38px',
+        h2FontSizeMobile: '26px',
+    },
+
+    largeSize: {
+        h4FontSize: '24px',
+        h4FontSizeMobile: '20px',
+
+        descriptionTextFontSize: '20px',
+        descriptionTextFontSizeMobile: '18px',
+
+        h3FontSize: '28px',
+
+        h1FontSize: '44px',
+        h1FontSizeMobile: '28px',
+
+        bannerDescriptionFontSize: '28px',
+        bannerDescriptionFontSizeMobile: '24px',
+
+        bannerTitleFontSize: '60px',
+        bannerTitleFontSizeMobile: '28px',
+
+        titleSectionFontSize: '64px',
+        titleSectionFontSizeMobile: '28px',
+
+        h2FontSize: '40px',
+        h2FontSizeMobile: '28px',
+    },
 };
 
 export {themes};

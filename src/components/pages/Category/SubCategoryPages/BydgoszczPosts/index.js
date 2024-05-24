@@ -15,10 +15,17 @@ import DonatBadgeComponent from "../../../../UI/DonatBadge";
 import useStyles from "../styles";
 import {themes} from "../../../../../theme/themeContext/themes";
 import StyledButton from "../../../../UI/StyledButton";
+import {useFontSize} from "../../../../UI/FontSizeChange/FontSizeContext";
 
 const BydgoszczPostsPage = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [posts, setPosts] = useState([]);
     const postsPerPage = 9;
     const {categorySlug} = useParams();

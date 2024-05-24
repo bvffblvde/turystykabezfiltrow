@@ -126,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontFamily: 'Inter-Bold',
-        fontSize: '60px',
+        fontSize: ({titleSectionFontSize}) => titleSectionFontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         textAlign: 'center',
@@ -145,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
     },
     postDescription: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         lineClamp: 4,
         boxOrient: 'vertical',
@@ -155,15 +155,19 @@ const useStyles = makeStyles((theme) => ({
         color: ({textColor}) => textColor,
         '& p': {
             margin: '0',
-        }
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+        },
     },
     date: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         opacity: '0.6',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         }
     },
     noResults: {

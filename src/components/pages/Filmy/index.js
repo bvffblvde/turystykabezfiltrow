@@ -15,6 +15,7 @@ import DonatBadgeComponent from '../../UI/DonatBadge';
 import ShareButton from '../../UI/ShareButton';
 import axios from 'axios';
 import StyledButton from "../../UI/StyledButton";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontFamily: 'Inter-Regular',
-        fontSize: '36px',
+        fontSize: ({h2FontSize}) => h2FontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         textAlign: 'left',
         marginBottom: '12px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({h2FontSizeMobile}) => h2FontSizeMobile,
             marginBottom: '20px',
         },
     },
@@ -47,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             maxWidth: '100%',
         }
-        //marginBottom: '20px',
     },
     videoFrameWrapper: {
 
@@ -70,13 +70,13 @@ const useStyles = makeStyles((theme) => ({
     },
     titleSection: {
         fontFamily: 'Inter-Bold',
-        fontSize: '60px',
+        fontSize: ({titleSectionFontSize}) => titleSectionFontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         textAlign: 'center',
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({titleSectionFontSizeMobile}) => titleSectionFontSizeMobile,
             marginBottom: '20px',
         }
     },
@@ -104,7 +104,13 @@ const useStyles = makeStyles((theme) => ({
 
 const FilmyPage = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [videoPosts, setVideoPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
@@ -188,7 +194,6 @@ const FilmyPage = () => {
                 ))}
             </Box>
             <Box className={classes.buttonWrapper}>
-                {/* Используйте вашу кнопку "Загрузить еще" */}
                 <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%" />
             </Box>
             <DonatBadgeComponent />

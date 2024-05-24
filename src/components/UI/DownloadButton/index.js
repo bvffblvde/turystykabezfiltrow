@@ -5,6 +5,7 @@ import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -53,21 +54,26 @@ const useStyles = makeStyles((theme) => ({
     text: {
         color: ({textColor}) => textColor,
         fontFamily: 'Inter-Regular',
-        fontSize: '18px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         textTransform: 'capitalize',
         fontWeight: '400',
         textAlign: 'left',
         transition: 'all 0.5s ease-in-out',
         [theme.breakpoints.down('xs')]: {
-            fontSize: '16px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         },
     },
 }));
 
 const DownloadButton = ({pdfUrl, fullWidth}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
 
+    const classes = useStyles(combinedTheme);
 
     return (
         <a href={pdfUrl} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>

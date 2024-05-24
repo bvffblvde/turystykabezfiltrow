@@ -15,12 +15,13 @@ import {ReactComponent as FaceBookLogo} from "../../../assets/SocialMediaLogo/fb
 import {ReactComponent as InstagramLogo} from "../../../assets/SocialMediaLogo/inst.svg";
 import {ReactComponent as LinkedinLogo} from "../../../assets/SocialMediaLogo/in.svg";
 import {ReactComponent as TikTokLogo} from "../../../assets/SocialMediaLogo/tt.svg";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 
 const useStyles = makeStyles((theme) => ({
     checkBoxDescription: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         color: ({textColor}) => textColor,
         display: 'inline-block',
         [theme.breakpoints.down('sm')]: {
@@ -112,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         marginBottom: '32px',
         fontFamily: 'Inter-Regular',
-        fontSize: '24px',
+        fontSize: ({h3FontSize}) => h3FontSize,
         fontWeight: '500',
         [theme.breakpoints.down('sm')]: {
             fontSize: '16px',
@@ -157,7 +158,13 @@ const validationSchema = Yup.object().shape({
 
 const ContactForm = React.memo(({paddingBottom}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     // eslint-disable-next-line no-unused-vars
     const [isFormFilled, setIsFormFilled] = useState(false);
 

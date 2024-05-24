@@ -53,11 +53,11 @@ const useStyles = makeStyles((theme) => ({
     },
     date: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         opacity: '0.6',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '12px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         }
     },
     //TODO: refactor
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     },
     description: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         lineClamp: 4,
         boxOrient: 'vertical',
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
         textOverflow: 'ellipsis',
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '14px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
             marginBottom: '16px',
         }
     },

@@ -1,9 +1,6 @@
 import { Global, css } from '@emotion/react';
 
 const globalStyles = css`
-  body {
-    font-family: 'Roboto', sans-serif; /* Используйте любой шрифт по вашему выбору */
-  }
 
   .font-default {
     font-size: 16px; /* Размер по умолчанию */
@@ -15,23 +12,6 @@ const globalStyles = css`
 
   .font-large {
     font-size: 40px; /* Размер A+++ */
-  }
-
-  :root {
-
-    --base-font-size: 16px;
-    --large-font-size: 20px;
-    --high-contrast-background: #ffffff;
-    --high-contrast-text: #000000;
-  }
-
-  body {
-    font-size: var(--base-font-size);
-  }
-
-  .high-contrast {
-    background-color: var(--high-contrast-background);
-    color: var(--high-contrast-text);
   }
 `;
 

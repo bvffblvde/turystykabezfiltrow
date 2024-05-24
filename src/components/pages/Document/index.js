@@ -6,22 +6,23 @@ import BreadCrumbs from "../../UI/BreadCrumbs";
 import Typography from "@material-ui/core/Typography";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     title: {
         fontFamily: 'Inter-Bold',
-        fontSize: '56px',
+        fontSize: ({titleSectionFontSize}) => titleSectionFontSize,
         fontWeight: 700,
         color: ({textColor}) => textColor,
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({titleSectionFontSizeMobile}) => titleSectionFontSizeMobile,
             fontWeight: 700,
         },
     },
     description: {
         fontFamily: 'Inter-Regular',
-        fontSize: '20px',
+        fontSize: ({h4FontSize}) => h4FontSize,
         fontWeight: 400,
         color: ({textColor}) => textColor,
         textAlign: 'left',
@@ -60,7 +61,13 @@ const descriptionText = `Deklaracja dostępności cyfrowej Blog turystyczny, Tur
 
 const DocumentPage = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const {fontSize} = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
 
     useEffect(() => {
         window.scrollTo(0, 0);

@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 import {ReactComponent as ArrowRightForLink} from "../../../assets/Icons/ArrowRightForLink.svg";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0 20px 0',
     },
     useLocationLink: {
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 400,
         color: ({useLocationLinkColor}) => useLocationLinkColor,
         //textTransform: 'none',
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     useLocationLinkNow: {
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: 500,
         color: ({useLocationLinkColorNow}) => useLocationLinkColorNow,
         textTransform: 'capitalize',
@@ -50,7 +51,13 @@ const useStyles = makeStyles((theme) => ({
 const Breadcrumbs = () => {
     const location = useLocation();
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
 
     const createBreadcrumbs = () => {
         const pathSegments = location.pathname.split('/').filter(Boolean);

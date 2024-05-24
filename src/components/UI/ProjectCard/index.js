@@ -5,10 +5,17 @@ import H4 from "../H4";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import useStyles from "./styles";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const ProjectCard = ({post, mediaData}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const featuredMediaId = post.featured_media;
     const media = featuredMediaId ? mediaData[featuredMediaId] : null;
 

@@ -16,19 +16,25 @@ import useStyles from "../styles";
 import {themes} from "../../../../../theme/themeContext/themes";
 import axios from "axios";
 import StyledButton from "../../../../UI/StyledButton";
+import {useFontSize} from "../../../../UI/FontSizeChange/FontSizeContext";
 
 const RegionyPostsPage = () => {
-    const { theme } = useTheme();
-    const classes = useStyles(themes[theme]);
+    const {theme} = useTheme();
+    const {fontSize} = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const postsPerPage = 9;
-    const { tagSlug } = useParams();
+    const {tagSlug} = useParams();
     // eslint-disable-next-line no-unused-vars
     const [currentTagSlug, setCurrentTagSlug] = useState(null);
     const [currentTagName, setCurrentTagName] = useState('');
     const [page, setPage] = useState(1);
-    const [commentCounts, setCommentCounts] = useState({});
 
 
     useEffect(() => {
@@ -76,8 +82,8 @@ const RegionyPostsPage = () => {
     };
 
     useEffect(() => {
-        fetchData(page);
-    },
+            fetchData(page);
+        },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [tagSlug, page]
     );
@@ -145,7 +151,8 @@ const RegionyPostsPage = () => {
                 ))}
             </Grid>
             <Box className={classes.buttonWrapper}>
-                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%" disabled={loading || posts.length % postsPerPage !== 0} />
+                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%"
+                              disabled={loading || posts.length % postsPerPage !== 0}/>
             </Box>
             <DonatBadgeComponent/>
             <ContactForm/>

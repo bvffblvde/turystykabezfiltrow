@@ -6,10 +6,17 @@ import {themes} from "../../../theme/themeContext/themes";
 import {Box, Grid, Typography} from "@material-ui/core";
 import H4 from "../H4";
 import DownloadButton from "../DownloadButton";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const PublicationCard = ({post, mediaData}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const featuredMediaId = post.featured_media;
     const media = featuredMediaId ? mediaData[featuredMediaId] : null;
 

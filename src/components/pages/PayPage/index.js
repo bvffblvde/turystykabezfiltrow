@@ -177,15 +177,6 @@ const PayPage = ({cartItems}) => {
                 >
                     {({isSubmitting, isValid, errors, touched, values, setFieldValue}) => (
                         <Form className={classes.formSection}>
-                            {/*<Box className={classes.buttonWrapper}>*/}
-                            {/*    <StyledButton buttonWithIcon={true} icon={GpayIcon} width="100%" type="submit" disabled={isSubmitting || !isValid} value="google-pay"/>*/}
-                            {/*    <StyledButton buttonWithIcon={true} icon={ApplePayIcon} width="100%" type="submit" disabled={isSubmitting || !isValid} value="apple-pay"/>*/}
-                            {/*</Box>*/}
-                            {/*<Box className={classes.lineWrapper}>*/}
-                            {/*    <hr className={classes.line}/>*/}
-                            {/*    <Typography variant="h2" className={classes.subButtonText}>LUB</Typography>*/}
-                            {/*    <hr className={classes.line}/>*/}
-                            {/*</Box>*/}
                             <Typography variant="h2" className={classes.subTitle}>Płatność i wysyłka</Typography>
                             <Grid container spacing={3} className={classes.formSection}>
                                 <Grid item xs={12} md={6}>
@@ -310,11 +301,14 @@ const PayPage = ({cartItems}) => {
                                         </Box>
                                         <Box className={classes.priceInfoSection}>
                                             <Typography>Koszty wysyłki</Typography>
-                                            <Typography>{deliveryCost} Zł</Typography>
+                                            <Typography>{values.deliveryType === 'delivery' ? deliveryCost : '0.00'} Zł</Typography>
                                         </Box>
                                         <Box className={classes.priceInfoSection}>
                                             <Typography>Płatne na rzecz</Typography>
-                                            <Typography>{finalPrice} Zł</Typography>
+
+                                            <Typography>
+                                                {values.deliveryType === 'self-pickup' ? totalPrice : finalPrice} Zł
+                                            </Typography>
                                         </Box>
                                     </Box>
                                     <StyledButton type="submit" width="100%" text="Złóż zamówienie"

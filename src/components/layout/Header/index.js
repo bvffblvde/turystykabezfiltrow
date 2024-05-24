@@ -10,7 +10,8 @@ import {ReactComponent as WCAGIcon} from "../../../assets/Icons/wcag-logo.svg";
 import SettingsDrawer from "../../UI/WCAGDrawer";
 import ToggleMenu from "../ToggleMenu";
 import {ReactComponent as SearchIcon} from "../../../assets/Icons/search.svg";
-// import {ReactComponent as BasketIcon} from "../../../assets/Icons/Basket.svg";
+import {ReactComponent as BasketIcon} from "../../../assets/Icons/Basket.svg";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 
 const navLinksData = [
@@ -111,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
         transform: "translate(0, -120%)",
     },
     hiddenAbsolute: {
-      position: 'absolute',
+        position: 'absolute',
     },
     menuButton: {
         marginRight: 10,
@@ -160,7 +161,7 @@ const useStyles = makeStyles((theme) => ({
         color: ({postsTextColor}) => postsTextColor,
         transition: "all 0.3s ease-out",
         textDecoration: 'none',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontFamily: 'Inter-Regular',
         textTransform: 'Uppercase',
         fontWeight: 500,
@@ -196,6 +197,7 @@ const useStyles = makeStyles((theme) => ({
     link: {
         textDecoration: 'none',
         color: 'inherit',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         "& path": {
             transition: '300ms ease-in-out',
             fill: ({iconColorFill}) => iconColorFill,
@@ -297,7 +299,13 @@ const useStyles = makeStyles((theme) => ({
 const Header = React.memo(() => {
     // eslint-disable-next-line no-unused-vars
     const {theme, toggleTheme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const {fontSize} = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [visible, setVisible] = useState(true);
     // eslint-disable-next-line no-unused-vars
     const [scrolled, setScrolled] = useState(false);
@@ -357,7 +365,8 @@ const Header = React.memo(() => {
 
 
     return (
-        <AppBar position={'fixed'} className={`${classes.appBar} ${!visible && classes.hidden} ${isMobile && classes.hiddenAbsolute}`}>
+        <AppBar position={'fixed'}
+                className={`${classes.appBar} ${!visible && classes.hidden} ${isMobile && classes.hiddenAbsolute}`}>
             <Toolbar className={classes.toolbar}>
                 <Box>
                     <a href={'/'}>
@@ -447,7 +456,12 @@ const Header = React.memo(() => {
                     {/*</Box>*/}
                 </Box>
                 <Box className={classes.mobileButtonSection}>
-                    <ToggleMenu/>
+                    <Box>
+                        <SettingsDrawer/>
+                    </Box>
+                    <Box>
+                        <ToggleMenu/>
+                    </Box>
                 </Box>
             </Toolbar>
         </AppBar>

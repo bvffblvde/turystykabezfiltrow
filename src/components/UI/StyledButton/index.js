@@ -4,6 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {useNavigate} from 'react-router-dom';
 import {useTheme} from '../../../theme/themeContext';
 import {themes} from '../../../theme/themeContext/themes';
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     defaultButton: {
@@ -14,10 +15,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '6px',
         padding: '10px',
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         textTransform: 'none',
         transition: 'all 0.3s ease-in-out',
+
         '&:hover': {
             backgroundColor: ({defaultHoverButtonBackgroundColor}) => defaultHoverButtonBackgroundColor,
             color: ({defaultHoverButtonTextColor}) => defaultHoverButtonTextColor,
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down('sm')]: {
             padding: '10px 10px',
-            fontSize: '14px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         },
     },
     whiteButton: {
@@ -39,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '6px',
         padding: '10px',
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         textTransform: 'none',
 
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down('sm')]: {
             padding: '10px 10px',
-            fontSize: '14px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         },
     },
     outlinedButton: {
@@ -61,10 +63,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '6px',
         padding: '10px',
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         textTransform: 'none',
-
+        
         '&:hover': {
             backgroundColor: ({defaultButtonBackgroundColor}) => defaultButtonBackgroundColor,
             color: ({darkButtonTextColor}) => darkButtonTextColor,
@@ -72,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down('sm')]: {
             padding: '10px 10px',
-            fontSize: '14px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         },
     },
 
@@ -80,7 +82,13 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledButton = ({variant, text, width, to, clicked, disabled, buttonWithIcon, icon, type}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const navigate = useNavigate();
 
     const getButtonStyle = () => {

@@ -3,17 +3,18 @@ import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import {useTheme} from '../../../theme/themeContext';
 import {themes} from "../../../theme/themeContext/themes";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     h4: {
         color: ({postsTextColor}) => postsTextColor,
         transition: "all 0.5s ease-out",
-        fontSize: '20px',
+        fontSize: ({h4FontSize}) => h4FontSize,
         fontWeight: '500',
         fontFamily: 'Inter-Regular',
         marginBottom: '12px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
             marginBottom: '10px',
 
         }
@@ -22,7 +23,13 @@ const useStyles = makeStyles((theme) => ({
 
 const H4 = ({ children }) => {
     const { theme } = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
 
 
     return (

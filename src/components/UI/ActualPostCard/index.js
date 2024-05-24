@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 import CommentIcon from '../../../assets/Icons/comment-count.svg'
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
             //     transform: 'scale(1.05)',
             // },
         },
-        '&:hover $mainTitle': {
+        '&:hover $h4': {
             transition: "all 0.3s ease-out",
             color: ({postsHoverTextColor}) => postsHoverTextColor,
         },
     },
+
     textContainer: {
         flex: 1,
         //padding: '10px',
@@ -61,11 +63,12 @@ const useStyles = makeStyles((theme) => ({
     },
     date: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
+        transition: "all 0.5s ease-out",
         opacity: '0.6',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '12px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         }
     },
     //TODO: refactor
@@ -78,7 +81,8 @@ const useStyles = makeStyles((theme) => ({
     },
     description: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        transition: "all 0.5s ease-out",
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         lineClamp: 4,
         boxOrient: 'vertical',
@@ -86,23 +90,40 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         marginBottom: '32px',
+
         [theme.breakpoints.down('sm')]: {
-            fontSize: '14px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
             marginBottom: '16px',
-        }
+        },
     },
-    mainTitle: {
+    h4: {
+        color: ({postsTextColor}) => postsTextColor,
+        transition: "all 0.5s ease-out",
+        fontSize: ({h4FontSize}) => h4FontSize,
+        fontWeight: '500',
+        fontFamily: 'Inter-Regular',
+        marginBottom: '12px',
         lineClamp: 2,
         boxOrient: 'vertical',
         display: '-webkit-box',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-    }
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
+            marginBottom: '10px',
+        },
+    },
 }));
 
 const PostCard = ({post, mediaData, commentCount}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const featuredMediaId = post.featured_media;
     const media = featuredMediaId ? mediaData[featuredMediaId] : null;
 
@@ -122,7 +143,7 @@ const PostCard = ({post, mediaData, commentCount}) => {
                     </Box>
                 )}
                 <Box className={classes.textContainer}>
-                    <H4 className={classes.mainTitle}>{post.title.rendered}</H4>
+                    <Typography className={classes.h4} id="myElementId" dangerouslySetInnerHTML={{__html: post.title.rendered}}/>
                     <Typography variant="body2" className={classes.description}
                                 dangerouslySetInnerHTML={{__html: post.excerpt.rendered}}/>
                     <Box style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>

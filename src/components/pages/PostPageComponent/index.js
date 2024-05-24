@@ -15,11 +15,18 @@ import DownloadButton from "../../UI/DownloadButton";
 import ContactForm from "../../UI/ContactForm";
 import CommentsSection from "../../UI/CommentsSection";
 import PostsCard from "../../UI/ActualPostCard";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 
 const PostDetails = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
     // eslint-disable-next-line no-unused-vars
