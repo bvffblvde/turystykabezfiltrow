@@ -8,11 +8,18 @@ import {Box, Typography} from "@material-ui/core";
 import DonatBadge from "../../UI/DonatBadge";
 import ContactForm from "../../UI/ContactForm";
 import SklepCard from "../../UI/SklepCard";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 
 const Sklep = () => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
 
     useEffect(() => {
         window.scrollTo(0, 0);

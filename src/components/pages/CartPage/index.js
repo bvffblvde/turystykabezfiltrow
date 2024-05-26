@@ -13,11 +13,17 @@ import ContactForm from "../../UI/ContactForm";
 import GpayIcon from '../../../assets/Icons/g-pay.svg';
 import ApplePayIcon from '../../../assets/Icons/apple-pay.svg';
 import {Link} from "react-router-dom";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
 
 const CartPage = ({cartItems}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
 
+    const classes = useStyles(combinedTheme);
     const [localCartItems, setLocalCartItems] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [cartItemCount, setCartItemCount] = useState(0);

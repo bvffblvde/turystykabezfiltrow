@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import {
     Backdrop,
     Box,
-    CircularProgress,
+    CircularProgress, Icon,
     Typography
 } from "@material-ui/core";
 import SectionWrapper from "../../UI/SectionWrapper";
@@ -17,14 +17,23 @@ import ContactForm from "../../UI/ContactForm";
 import StyledButton from "../../UI/StyledButton";
 import SklepCard from "../../UI/SklepCard";
 import ProductModal from "../../UI/ProductModal";
+import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
+import {ReactComponent as ArrowIcon} from "../../../assets/Icons/ArrowIcon.svg";
 
-const ProductPage = ({ setCartItems, cartItems }) => {
+
+const ProductPage = ({setCartItems, cartItems}) => {
     const {productSlug} = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const {fontSize} = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для открытия модального окна
@@ -84,7 +93,6 @@ const ProductPage = ({ setCartItems, cartItems }) => {
 
         fetchProduct();
     }, [productSlug]);
-
 
 
     // Функция для открытия модального окна с выбранным товаром
@@ -227,6 +235,17 @@ const ProductPage = ({ setCartItems, cartItems }) => {
         product.attributes.some(attr => attr.name === 'Kolor') &&
         (!selectedSize || !selectedColor);
 
+    const nextImage = () => {
+        const currentIndex = product.images.findIndex(image => image.src === selectedImage);
+        const nextIndex = currentIndex === product.images.length - 1 ? 0 : currentIndex + 1;
+        setSelectedImage(product.images[nextIndex].src);
+    }
+
+    const prevImage = () => {
+        const currentIndex = product.images.findIndex(image => image.src === selectedImage);
+        const prevIndex = currentIndex === 0 ? product.images.length - 1 : currentIndex - 1;
+        setSelectedImage(product.images[prevIndex].src);
+    }
 
 
     return (
@@ -254,6 +273,15 @@ const ProductPage = ({ setCartItems, cartItems }) => {
                         )}
                         {selectedImage && (
                             <Box className={classes.mainImageWrapper}>
+                                <Box className={classes.arrowBoxWrapper}>
+                                    <Box className={classes.arrowBox} onClick={prevImage}>
+                                        <Icon component={ArrowIcon} src={ArrowIcon} className={classes.arrowIcon}/>
+                                    </Box>
+                                    <Box className={classes.arrowBox} onClick={nextImage}>
+                                        <Icon component={ArrowIcon} src={ArrowIcon}
+                                              className={classes.arrowIcon + ' ' + classes.arrowIconReverse}/>
+                                    </Box>
+                                </Box>
                                 <img src={selectedImage} alt={product?.name} className={classes.image}/>
                             </Box>
                         )}

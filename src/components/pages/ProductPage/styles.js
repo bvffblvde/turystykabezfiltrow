@@ -3,12 +3,12 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     titleSection: {
         fontFamily: 'Inter-Bold',
-        fontSize: '24px',
+        fontSize: ({h3FontSize}) => h3FontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         textAlign: 'left',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({h3FontSizeMobile}) => h3FontSizeMobile,
         }
     },
     backdrop: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     mainImageWrapper: {
         height: '100%',
+        position: 'relative',
     },
     smallImage: {
         width: '100%',
@@ -40,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'space-between',
         gap: '20px', // Отступ между карточками
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
+        }
     },
     imageWrapper: {
         flex: 1,
@@ -53,11 +57,11 @@ const useStyles = makeStyles((theme) => ({
     },
     price: {
         fontFamily: 'Inter-Bold',
-        fontSize: '24px',
+        fontSize: ({h3FontSize}) => h3FontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({h3FontSizeMobile}) => h3FontSizeMobile,
         }
     },
     mainInfoRoot: {
@@ -65,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         gap: '20px',
         marginBottom: '60px',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+            marginBottom: '32px',
+        }
 
     },
     textContainer: {
@@ -85,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     },
     sizeTag: {
         fontFamily: 'Inter-Bold',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         backgroundColor: ({backgroundColor}) => backgroundColor,
@@ -102,6 +110,9 @@ const useStyles = makeStyles((theme) => ({
             transition: "all 0.5s ease-out",
             transform: 'scale(1.05)',
             color: ({postsHoverTextColor}) => postsHoverTextColor,
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         }
     },
     selectedSize: {
@@ -129,37 +140,75 @@ const useStyles = makeStyles((theme) => ({
     },
     info: {
         fontFamily: 'Inter-Bold',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         textAlign: 'left',
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+        }
     },
     displayNoneTextColor: {
         display: 'none',
     },
     titleDescriptionSection: {
         fontFamily: 'Inter-Regular',
-        fontSize: '24px',
+        fontSize: ({h3FontSize}) => h3FontSize,
         fontWeight: '700',
         color: ({textColor}) => textColor,
         textAlign: 'left',
         marginBottom: '16px',
         textTransform: 'uppercase',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({h3FontSizeMobile}) => h3FontSizeMobile,
+        }
     },
     description: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         color: ({textColor}) => textColor,
         textAlign: 'left',
         marginBottom: '100px',
         [theme.breakpoints.down('sm')]: {
             marginBottom: '60px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+
         }
     },
     nextInSection: {
         display: 'flex',
         flexDirection: 'column',
         marginBottom: '80px',
+    },
+    arrowBox: {
+        width: '40px',
+        height: '40px',
+        borderRadius: '6px',
+        backgroundColor: ({backgroundColor}) => backgroundColor,
+        display: 'none',
+        [theme.breakpoints.down('sm')]: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }
+    },
+    arrowIcon: {
+        "& path": {
+            transition: '0.3ms ease-in-out',
+            stroke: ({iconColorFill}) => iconColorFill,
+        },
+    },
+
+    arrowIconReverse: {
+        transform: 'rotate(180deg)',
+    },
+    arrowBoxWrapper: {
+        position: 'absolute',
+        top: '50%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
     }
 }));
 

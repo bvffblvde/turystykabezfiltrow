@@ -3,22 +3,25 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     titleSection: {
         fontFamily: 'Inter-Bold',
-        fontSize: '60px',
+        fontSize: ({titleSectionFontSize}) => titleSectionFontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         textAlign: 'center',
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({titleSectionFontSizeMobile}) => titleSectionFontSizeMobile,
             marginBottom: '20px',
         }
     },
     titleEmptyCardSection: {
         fontFamily: 'Inter-Regular',
-        fontSize: '24px',
+        fontSize: ({h3FontSize}) => h3FontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         textAlign: 'center',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({h3FontSizeMobile}) => h3FontSizeMobile,
+        }
     },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
@@ -36,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         objectFit: 'cover',
         borderRadius: '10px',
+        [theme.breakpoints.down('sm')]: {
+            width: '100px',
+            height: '100px',
+        }
     },
     root: {
         display: 'flex',
@@ -103,15 +110,23 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         justifyContent: 'space-between',
         marginBottom: '12px',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+            gap: '10px',
+        }
     },
     textContainer: {
         width: '100%',
     },
     name: {
         fontFamily: 'Inter-Regular',
-        fontSize: '24px',
+        fontSize: ({h3FontSize}) => h3FontSize,
         fontWeight: 700,
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({h3FontSizeMobile}) => h3FontSizeMobile,
+
+        }
     },
     colorInfo: {
         display: 'flex',
@@ -134,6 +149,10 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '20px',
         borderBottom: '1px solid #E5E5E5',
         paddingRight: '20px',
+        [theme.breakpoints.down('sm')]: {
+            paddingRight: '0',
+            borderBottom: 'none'
+        }
 
     },
     aboutPaymentSection: {
@@ -142,6 +161,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
+        [theme.breakpoints.down('sm')]: {
+          display: 'none',
+        }
     },
     paymentSystem: {
       display: 'flex',
@@ -150,8 +172,12 @@ const useStyles = makeStyles((theme) => ({
     },
     aboutPaymentTitle: {
       fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+
+        }
     },
     priceSection: {
         display: 'flex',
@@ -159,6 +185,11 @@ const useStyles = makeStyles((theme) => ({
         gap: '15px',
         paddingLeft: '20px',
         borderLeft: '1px solid #E5E5E5',
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '0',
+            borderLeft: 'none',
+            marginBottom: '32px',
+        }
     },
     attributeInfo: {
       display: 'flex',
@@ -207,19 +238,29 @@ const useStyles = makeStyles((theme) => ({
     },
     summaryTitle: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
         fontWeight: 700,
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+        }
     },
     summaryPrice: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+
+        }
     },
     settingsProductButtonSection: {
         display: 'flex',
         flexDirection: 'row',
         gap: '10px',
+        [theme.breakpoints.down('sm')]: {
+            justifyContent: 'flex-end',
+        }
 
     }
 }));

@@ -6,11 +6,18 @@ import useStyles from "./styles";
 import {useTheme} from "../../../theme/themeContext";
 import {themes} from "../../../theme/themeContext/themes";
 import {ReactComponent as BasketIcon} from "../../../assets/Icons/Basket.svg";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 
 const SklepCardWrapper = ({product}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
 
     return (
         <Link to={`/sklep/${product.slug}`} className={classes.linkWrapper}>

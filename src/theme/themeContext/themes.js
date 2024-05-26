@@ -181,6 +181,7 @@ const themes = {
         descriptionTextFontSizeMobile: '14px',
 
         h3FontSize: '24px',
+        h3FontSizeMobile: '20px',
 
         h1FontSize: '40px',
         h1FontSizeMobile: '24px',
@@ -206,6 +207,7 @@ const themes = {
         descriptionTextFontSizeMobile: '16px',
 
         h3FontSize: '26px',
+        h3FontSizeMobile: '22px',
 
         h1FontSize: '42px',
         h1FontSizeMobile: '26px',
@@ -231,6 +233,7 @@ const themes = {
         descriptionTextFontSizeMobile: '18px',
 
         h3FontSize: '28px',
+        h3FontSizeMobile: '24px',
 
         h1FontSize: '44px',
         h1FontSizeMobile: '28px',

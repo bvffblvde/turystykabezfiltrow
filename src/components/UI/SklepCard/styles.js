@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
     },
     description: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         lineClamp: 4,
         boxOrient: 'vertical',
@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
         textOverflow: 'ellipsis',
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '14px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
             marginBottom: '16px',
         }
     },
@@ -122,10 +122,10 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         transition: "all 0.3s ease-out",
         color: ({textColor}) => textColor,
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         marginBottom: '12px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '14px',
+            fontSize: ({descriptionFontSizeMobile}) => descriptionFontSizeMobile,
             marginBottom: '10px',
         }
     },
@@ -133,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Inter-Regular',
         transition: "all 0.3s ease-out",
         color: ({textColor}) => textColor,
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         marginBottom: '12px',
         lineClamp: 2,
         boxOrient: 'vertical',
@@ -141,42 +141,23 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '14px',
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
             marginBottom: '10px',
         }
     },
     price: {
         fontFamily: 'Inter-Regular',
-        fontSize: '20px',
+        fontSize: ({h4FontSize}) => h4FontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
         }
     },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
-    // iconLink: {
-    //     width: '40px',
-    //     height: '40px',
-    //     position: 'relative',
-    //     backgroundColor: ({backgroundColor}) => backgroundColor,
-    //     borderRadius
-    //
-    //     "& path": {
-    //         transition: '300ms ease-in-out',
-    //         stroke: ({iconColorFill}) => iconColorFill,
-    //     },
-    //     '&:hover': {
-    //         backgroundColor: 'transparent',
-    //         "& path": {
-    //             transition: '300ms ease-in-out',
-    //             stroke: ({iconColorFillHover}) => iconColorFillHover,
-    //         },
-    //     },
-    // },
     iconLink: {
         border: '1px solid',
         borderColor: ({backgroundColor}) => backgroundColor,

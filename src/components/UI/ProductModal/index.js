@@ -6,10 +6,17 @@ import useStyles from "./styles";
 import {themes} from "../../../theme/themeContext/themes";
 import StyledButton from "../StyledButton";
 import SklepCard from "../SklepCard";
+import {useFontSize} from "../FontSizeChange/FontSizeContext";
 
 const ProductModal = ({isOpen, handleClose, cartItems}) => {
     const {theme} = useTheme();
-    const classes = useStyles(themes[theme]);
+    const { fontSize } = useFontSize();
+    const combinedTheme = {
+        ...themes[theme],
+        ...themes[fontSize]
+    };
+
+    const classes = useStyles(combinedTheme);
 
     const [lastCartItem, setLastCartItem] = useState(null);
 

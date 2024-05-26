@@ -3,13 +3,13 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     titleSection: {
         fontFamily: 'Inter-Bold',
-        fontSize: '60px',
+        fontSize: ({titleSectionFontSize}) => titleSectionFontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         textAlign: 'center',
         marginBottom: '32px',
         [theme.breakpoints.down('sm')]: {
-            fontSize: '20px',
+            fontSize: ({titleSectionFontSizeMobile}) => titleSectionFontSizeMobile,
             marginBottom: '20px',
         }
     },

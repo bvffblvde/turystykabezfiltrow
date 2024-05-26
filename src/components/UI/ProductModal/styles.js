@@ -7,6 +7,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         width: '60vw',
         margin: 'auto',
+        [theme.breakpoints.down('sm')]: {
+            width: '100vw',
+            height: '100vh',
+        }
     },
     paper: {
         position: 'relative',
@@ -14,8 +18,14 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: 'none',
         padding: '20px 20px 30px 20px',
         borderRadius: '16px',
+        [theme.breakpoints.down('sm')]: {
+            borderRadius: '0',
+            padding: '20px',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+        }
     },
-    closeButton: {},
     headerModal: {
         display: 'flex',
         justifyContent: 'flex-end',
@@ -31,11 +41,14 @@ const useStyles = makeStyles((theme) => ({
     },
     modalTitle: {
         fontFamily: 'Inter-Regular',
-        fontSize: '24px',
+        fontSize: ({h3FontSize}) => h3FontSize,
         fontWeight: '500',
         color: ({textColor}) => textColor,
         textAlign: 'center',
         marginBottom: '20px',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({h3FontSizeMobile}) => h3FontSizeMobile,
+        }
     },
     infoAboutSelectProduct: {
         display: 'flex',
@@ -51,9 +64,12 @@ const useStyles = makeStyles((theme) => ({
     },
     nameProduct: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '700',
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+        }
     },
     textInfoAboutProductWrapper: {
         display: 'flex',
@@ -69,15 +85,21 @@ const useStyles = makeStyles((theme) => ({
     },
     colorAndSizeInfoText: {
         fontFamily: 'Inter-Regular',
-        fontSize: '14px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '400',
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+        }
     },
     priceInfo: {
         fontFamily: 'Inter-Regular',
-        fontSize: '16px',
+        fontSize: ({descriptionTextFontSize}) => descriptionTextFontSize,
         fontWeight: '700',
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({descriptionTextFontSizeMobile}) => descriptionTextFontSizeMobile,
+        }
     },
     buttonWrapper: {
         display: 'flex',
@@ -89,12 +111,18 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         gap: '20px',
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
+        }
     },
     propossalText: {
         fontFamily: 'Inter-Regular',
-        fontSize: '18px',
+        fontSize: ({h4FontSize}) => h4FontSize,
         fontWeight: '700',
         color: ({textColor}) => textColor,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: ({h4FontSizeMobile}) => h4FontSizeMobile,
+        }
     }
 }));
 
