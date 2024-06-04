@@ -445,7 +445,7 @@ const ProjectDetails = () => {
                 <DonatBadgeComponent/>
             </Box>
             <Box className={classes.nextSectionWrapper}>
-                <Typography variant="h2" className={classes.titleNextInSection}>Wyglądają tak samo</Typography>
+                <Typography variant="h2" className={classes.titleNextInSection}>Podobne</Typography>
                 <PostsCard postLimit={3} random={true}/>
             </Box>
             <Box className={classes.root}>

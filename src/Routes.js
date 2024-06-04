@@ -28,9 +28,7 @@ const RedirectOldUrl = () => {
 
 
     useEffect(() => {
-        // Проверка, что текущий путь — старый URL /szlaki/
         if (window.location.pathname === '/szlaki/') {
-            // Перенаправление на новый URL /artykuly/bartodzieje-szlak
             navigate('/aktualnosci/bartodzieje-szlak', {replace: true});
         }
         if (window.location.pathname === '/projekty') {
@@ -38,7 +36,6 @@ const RedirectOldUrl = () => {
         }
     }, [navigate]);
 
-    // Если не нужно рендерить компонент при редиректе, можно вернуть null
     return null;
 };
 

@@ -112,11 +112,14 @@ const useStyles = makeStyles((theme) => ({
     subTitleSection: {
         textAlign: 'center',
         marginBottom: '32px',
+        width: '70%',
+        margin: 'auto',
         fontFamily: 'Inter-Regular',
         fontSize: ({h3FontSize}) => h3FontSize,
         fontWeight: '500',
         [theme.breakpoints.down('sm')]: {
             fontSize: '16px',
+            width: '100%'
         }
     },
     icon: {
@@ -187,7 +190,7 @@ const ContactForm = React.memo(({paddingBottom}) => {
         <SectionWrapper id="main-contact" paddingBottom={paddingBottom}>
             <H1 text="Kontakt"/>
             <Typography variant="h2" className={classes.subTitleSection}>
-                Zapytaj o konkretny materiał, wycieczkę lub możliwość współpracy
+                Chcesz na bieżąco otrzymywać informacje o wycieczkach oraz innych realizowanych przez nas wydarzeniach, a także o pojawiających się na blogu materiałach?
             </Typography>
             <Box className={classes.formWrapper}>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}
@@ -236,7 +239,7 @@ const ContactForm = React.memo(({paddingBottom}) => {
                                                     error={form.errors.checkbox && form.touched.checkbox}/>}
                                                 label={
                                                     <Typography className={classes.checkBoxDescription}>
-                                                        Wyrażam zgodę na przetwarzanie
+                                                        Zapisz się do newslettera!
                                                         {/*<a*/}
                                                         {/*href="https://drive.google.com/file/d/11HQYLksadgMaGXe3DmrOt37ldEO1qQiv/view?usp=drive_link"*/}
                                                         {/*target="_blank" rel="noreferrer"*/}

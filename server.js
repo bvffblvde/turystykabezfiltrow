@@ -26,14 +26,14 @@ function sendHTMLFileWithMetadata( title, description, imagePath, res) {
 app.get('/', function (req, res) {
     sendHTMLFileWithMetadata( 'TURYSTYKA BEZ FILTRÓW',
         'Description for Main Page',
-        '/static/media/main-image.png', res);
+        'https://i.ibb.co/G7Bc9Q0/image.png', res);
 });
 
 app.get('/bydgoszcz', async  function (req, res) {
     const bydgoszczCategoryIdResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?slug=bydgoszcz`);
     const d = await   bydgoszczCategoryIdResponse.data;
 
-    sendHTMLFileWithMetadata(d[0].yoast_head_json.og_title, d[0].yoast_head_json.og_title, '/static/media/bydgoszcz-image.png', res);
+    sendHTMLFileWithMetadata(d[0].yoast_head_json.og_title, d[0].yoast_head_json.og_title, 'https://i.ibb.co/559KBvg/image.png', res);
 });
 
 app.get('/bydgoszcz/:categorySlug', function (req, res) {
@@ -51,7 +51,7 @@ app.get('/bydgoszcz/:categorySlug/:postSlug', async function (req, res) {
 });
 
 app.get('/regiony', function (req, res) {
-    sendHTMLFileWithMetadata( 'Regiony', 'Description for Regiony', '/static/media/regiony-image.png', res);
+    sendHTMLFileWithMetadata( 'Regiony', 'Description for Regiony', 'https://i.ibb.co/VMBq5DJ/image.png', res);
 });
 
 app.get('/regiony/:tagSlug', function (req, res) {
@@ -67,7 +67,7 @@ app.get('/regiony/:tagSlug/:postSlug',async function (req, res) {
 });
 
 app.get('/kraje', function (req, res) {
-    sendHTMLFileWithMetadata( 'Kraje', 'Description for Kraje', '/static/media/kraje-image.png', res);
+    sendHTMLFileWithMetadata( 'Kraje', 'Description for Kraje', 'https://i.ibb.co/sH5MVGq/image.png', res);
 });
 
 app.get('/kraje/:tagSlug', function (req, res) {
@@ -82,13 +82,13 @@ app.get('/kraje/:tagSlug/:postSlug', async function (req, res) {
 });
 
 app.get('/aktualnosci', function (req, res) {
-    sendHTMLFileWithMetadata( 'Aktualności', 'Description for Artykuly', '/static/media/artykuly-image.png', res);
+    sendHTMLFileWithMetadata( 'Aktualności', 'Description for Artykuly', 'https://i.ibb.co/RSwnbXj/2024-06-04-16-12-32.png', res);
 });
 
-app.get('/artykuly/:postSlug', async function (req, res) {
-    
-    res.redirect(`/aktualnosci/${req.params.postSlug}`);
-});
+// app.get('/artykuly/:postSlug', async function (req, res) {
+//
+//     res.redirect(`/aktualnosci/${req.params.postSlug}`);
+// });
 
 app.get('/aktualnosci/:postSlug', async function (req, res) {
     const response = await fetch(
@@ -100,7 +100,7 @@ app.get('/aktualnosci/:postSlug', async function (req, res) {
 });
 
 app.get('/wycieczki', function (req, res) {
-    sendHTMLFileWithMetadata( 'Wycieczki', 'Description for Wycieczki', '/static/media/wycieczki-image.png', res);
+    sendHTMLFileWithMetadata( 'Wycieczki', 'Description for Wycieczki', 'https://i.ibb.co/C8pVgT7/image.png', res);
 });
 
 app.get('/wycieczki/:projectSlug', async function (req, res) {
@@ -129,7 +129,7 @@ app.get('/wycieczki/:projectSlug', async function (req, res) {
 });
 
 app.get('/wydarzenia', function (req, res) {
-    sendHTMLFileWithMetadata( 'Wydarzenia', 'Description for Wydarzenia', '/static/media/wydarzenia-image.png', res);
+    sendHTMLFileWithMetadata( 'Wydarzenia', 'Description for Wydarzenia', 'https://i.ibb.co/nRpdXQQ/image.png', res);
 });
 
 app.get('/wydarzenia/:postSlug', async function (req, res) {
@@ -143,7 +143,7 @@ app.get('/wydarzenia/:postSlug', async function (req, res) {
 });
 
 app.get('/filmy', function (req, res) {
-    sendHTMLFileWithMetadata('Filmy', 'Filmy', '/static/media/filmy.png', res);
+    sendHTMLFileWithMetadata('Filmy', 'Filmy', 'https://i.ibb.co/t2RnwsH/image.png', res);
 });
 
 app.get('/wyszukiwarka', function (req, res) {
@@ -162,11 +162,34 @@ app.get('/szlaki/*', async function (req, res) {
 });
 
 app.get('/declaracja-dostepnosci', function (req, res) {
-    sendHTMLFileWithMetadata('Declaracja Dostepnosci', 'Description for Declaracja Dostepnosci', '/static/media/declaracja-dostepnosci-image.png', res);
+    sendHTMLFileWithMetadata('Declaracja Dostepnosci', 'Description for Declaracja Dostepnosci', 'https://i.ibb.co/f2HNYrk/2024-06-04-16-36-31.png', res);
 });
 
+app.get('/sklep', function (req, res) {
+    sendHTMLFileWithMetadata('Sklep', 'Description for Sklep', 'https://i.ibb.co/HxnVFs0/2024-06-04-16-40-22.png', res);
+});
+
+app.get('/sklep/:productSlug', async function (req, res) {
+
+    const response = await fetch(
+        `https://weckwerthblog.wpcomstaging.com/wp-json/wc/v3/products?slug=${req.params.productSlug}`
+    );
+    const d = await response.json();
+
+    sendHTMLFileWithMetadata(d[0].yoast_head_json.title, d[0].yoast_head_json.description, d[0].jetpack_featured_media_url, res);
+});
+
+app.get('/sklep/koszyk', function (req, res) {
+    sendHTMLFileWithMetadata('Koszyk', 'Description for Koszyk', 'https://i.ibb.co/HK5mpmv/2024-06-04-16-40-34.png', res);
+});
+
+
+    app.get('/sklep/koszyk/podsumowanie', function (req, res) {
+        sendHTMLFileWithMetadata('Podsumowanie', 'Description for Podsumowanie', 'https://i.ibb.co/0VxmrGq/2024-06-04-16-49-08.png\n', res);
+    });
+
 app.get('/o-nas', function (req, res) {
-    sendHTMLFileWithMetadata( 'O Nas', 'Description for O Nas', '/static/media/main-about-page.*.png', res);
+    sendHTMLFileWithMetadata( 'O Nas', 'Description for O Nas', 'https://i.ibb.co/HgjXspB/image.png', res);
 });
 
 app.get('/projekty/:projectSlug', async function (req, res) {
@@ -234,7 +257,6 @@ app.get('*', async (request, response)=> {
     // sendHTMLFileWithMetadata( '404', '404', '/static/media/main-about-page.*.png');
 
     const filePath = path.resolve(__dirname, './build', 'index.html');
-    //
     response.sendFile(filePath);
 });
 

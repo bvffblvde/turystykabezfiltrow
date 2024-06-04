@@ -145,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
     },
     commentLayout: {
         display: 'flex',
-        flexDirection: 'column-reverse',
+        flexDirection: 'column',
         gap: '20px',
     },
     replyToBox: {
@@ -199,8 +199,10 @@ const CommentsSection = ({comments, postId}) => {
     const [replyAuthorEmail, setReplyAuthorEmail] = useState('');
     const [replyComment, setReplyComment] = useState('');
     const [replyToCommentId, setReplyToCommentId] = useState(null);
-    const [snackbarOpen, setSnackbarOpen] = useState(false); // Состояние для управления отображением snackbar
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [displayedCommentsCount, setDisplayedCommentsCount] = useState(5);
 
+    const sortedComments = [...comments].reverse();
 
     const handleCommentChange = (event) => {
         setNewComment(event.target.value);
@@ -298,6 +300,10 @@ const CommentsSection = ({comments, postId}) => {
         setSnackbarOpen(false);
     };
 
+    const handleShowMoreComments = () => {
+        setDisplayedCommentsCount(sortedComments.length);
+    };
+
     return (
         <Box className={classes.commentsWrapper}>
             <Box className={classes.addCommentBoxWrapper}>
@@ -339,8 +345,8 @@ const CommentsSection = ({comments, postId}) => {
                 />
             </Box>
             <Box className={classes.commentLayout}>
-                {comments.map((comment) => (
-                    <div key={comment?.id ?? ''} className={classes.commentBoxWrapper}>
+                {sortedComments.slice(0, displayedCommentsCount).map((comment) => (
+                    <div key={sortedComments?.id ?? ''} className={classes.commentBoxWrapper}>
                         <Box className={classes.userCommentDate}>
                             <Typography
                                 variant="body1"
@@ -418,6 +424,15 @@ const CommentsSection = ({comments, postId}) => {
                     </div>
                 ))}
             </Box>
+            {comments.length > displayedCommentsCount && (
+                <Box className={classes.showMoreButtonWrapper}>
+                    <StyledButton
+                        text="Pokaż więcej komentarzy"
+                        width="100%"
+                        clicked={handleShowMoreComments}
+                    />
+                </Box>
+            )}
             <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleCloseSnackbar}>
                 <Box
                     sx={{

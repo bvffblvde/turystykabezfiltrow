@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
                 padding: '10px',
             },
         },
+        '& p.text-align-right': {
+          textAlign: 'right'
+        },
         '& div': {
             borderRadius: '6px',
             backgroundColor: ({spisBackgroundColor}) => spisBackgroundColor,
