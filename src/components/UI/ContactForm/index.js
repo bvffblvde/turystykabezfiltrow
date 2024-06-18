@@ -188,7 +188,7 @@ const ContactForm = React.memo(({paddingBottom}) => {
 
     return (
         <SectionWrapper id="main-contact" paddingBottom={paddingBottom}>
-            <H1 text="Kontakt"/>
+            <H1 text="Zapisz się do newslettera!"/>
             <Typography variant="h2" className={classes.subTitleSection}>
                 Chcesz na bieżąco otrzymywać informacje o wycieczkach oraz innych realizowanych przez nas wydarzeniach, a także o pojawiających się na blogu materiałach?
             </Typography>
@@ -239,7 +239,7 @@ const ContactForm = React.memo(({paddingBottom}) => {
                                                     error={form.errors.checkbox && form.touched.checkbox}/>}
                                                 label={
                                                     <Typography className={classes.checkBoxDescription}>
-                                                        Zapisz się do newslettera!
+                                                        Wyrażam zgodę na przetwarzanie
                                                         {/*<a*/}
                                                         {/*href="https://drive.google.com/file/d/11HQYLksadgMaGXe3DmrOt37ldEO1qQiv/view?usp=drive_link"*/}
                                                         {/*target="_blank" rel="noreferrer"*/}

@@ -62,6 +62,8 @@ const BydgoszczPostsPage = () => {
                     const categoryId = categoryData[0].id;
                     setCurrentCategorySlug(categoryId);
                     setCurrentCategoryName(categoryData[0].name);
+                    setPosts([]); // Очищаем посты при изменении категории
+                    setPage(1); // Сбрасываем страницу на первую
                 } else {
                     console.error('Category not found.');
                 }
@@ -153,7 +155,7 @@ const BydgoszczPostsPage = () => {
                 ))}
             </Grid>
             <Box className={classes.buttonWrapper}>
-                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%"/>
+                <StyledButton text="Załaduj więcej" clicked={handleLoadMore} width="100%" disabled={loadingPosts || posts.length % postsPerPage !== 0}/>
             </Box>
             <DonatBadgeComponent/>
             <ContactForm/>

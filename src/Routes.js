@@ -26,13 +26,13 @@ import NotFoundPage from "./components/pages/404";
 const RedirectOldUrl = () => {
     const navigate = useNavigate();
 
-
     useEffect(() => {
-        if (window.location.pathname === '/szlaki/') {
-            navigate('/aktualnosci/bartodzieje-szlak', {replace: true});
+        const currentPath = window.location.pathname;
+        if (currentPath === '/szlaki/' || currentPath === '/szlaki') {
+            navigate('/aktualnosci/bartodzieje-szlak', { replace: true });
         }
-        if (window.location.pathname === '/projekty') {
-            navigate('/o-nas#projekty', {replace: true});
+        if (currentPath === '/projekty' || currentPath === '/projekty/') {
+            navigate('/o-nas#projekty', { replace: true });
         }
     }, [navigate]);
 
@@ -177,14 +177,7 @@ const MyRoutes = () => {
                 priority='1'
                 element={<Wyszukiwarka/>}
             />
-            <Route
-                path="/szlaki/*"
-                sitemapIndex='true'
-                changefreq='weekly'
-                priority='1'
-                element={<RedirectOldUrl/>}
-            />
-
+            <Route path="/szlaki/*" element={<RedirectOldUrl />} />
             <Route
                 path="/declaracja-dostepnosci"
                 sitemapIndex='true'

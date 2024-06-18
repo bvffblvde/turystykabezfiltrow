@@ -397,18 +397,30 @@ const Header = React.memo(() => {
                                         <Box className={classes.subMenu}>
                                             <div className={classes.line}/>
                                             {navLink.subLinks.map((subLink, subIndex) => (
-                                                <Link
+                                                // <Link
+                                                //     key={subIndex}
+                                                //     to={subLink.sectionId ? `${subLink.url}#${subLink.sectionId}` : subLink.url} // Проверка наличия sectionId перед добавлением к URL
+                                                //     onClick={() => subLink.sectionId && scrollToSection(subLink.sectionId)}
+                                                //     className={classes.link}
+                                                //     {...(navLink.openInNewTab && {
+                                                //         target: '_blank',
+                                                //         rel: 'noopener noreferrer',
+                                                //     })}
+                                                // >
+                                                //     {subLink.text}
+                                                // </Link>
+                                                <a
                                                     key={subIndex}
-                                                    to={subLink.sectionId ? `${subLink.url}#${subLink.sectionId}` : subLink.url} // Проверка наличия sectionId перед добавлением к URL
+                                                    href={subLink.sectionId ? `${subLink.url}#${subLink.sectionId}` : subLink.url} // Проверка наличия sectionId перед добавлением к URL
                                                     onClick={() => subLink.sectionId && scrollToSection(subLink.sectionId)}
                                                     className={classes.link}
-                                                    {...(navLink.openInNewTab && {
+                                                    {...(subLink.openInNewTab && {
                                                         target: '_blank',
                                                         rel: 'noopener noreferrer',
                                                     })}
                                                 >
                                                     {subLink.text}
-                                                </Link>
+                                                </a>
                                             ))}
                                         </Box>
                                     </React.Fragment>

@@ -16,6 +16,7 @@ import ContactForm from "../../UI/ContactForm";
 import CommentsSection from "../../UI/CommentsSection";
 import PostsCard from "../../UI/ActualPostCard";
 import {useFontSize} from "../../UI/FontSizeChange/FontSizeContext";
+import SocialCard from "../../UI/SocialCard";
 
 
 const PostDetails = () => {
@@ -96,8 +97,11 @@ const PostDetails = () => {
                 link.addEventListener('click', (event) => handleSmoothScroll(event, href.slice(1)));
                 console.log('Modified href:', newHref);
             }
+            if (href === 'https://www.instagram.com/turystykabezfiltrow/') {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            }
         });
-
 
         return doc.body.innerHTML;
     };
@@ -131,7 +135,7 @@ const PostDetails = () => {
     const updatedDescriptionWithImages = descriptionWithImages.replace(/<img[^>]*>/g, (imgTag) => {
         const imageUrl = extractImageUrl(imgTag);
         if (imageUrl) {
-            return `<a href="${imageUrl}" target="_blank"><img src="${imageUrl}" alt="post image" loading="lazy" /></a>`;
+            return `<a href="${imageUrl}" target="_blank"><img src="${imageUrl}" alt="post image" /></a>`;
         }
         return imgTag;
     });
@@ -234,6 +238,7 @@ const PostDetails = () => {
                 <Box className={classes.imageWrapper}>
                     <Sidebar>
                         <ProjectCard projectLimit={3} smallProjectView seasonCard/>
+                        <SocialCard/>
                     </Sidebar>
                 </Box>
             </Box>
