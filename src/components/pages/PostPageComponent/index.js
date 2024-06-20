@@ -90,21 +90,33 @@ const PostDetails = () => {
 
         allLinks.forEach((link) => {
             const href = link.getAttribute('href');
-            if (href && href.includes('#')) {
-                const currentPath = window.location.pathname;
-                const newHref = `${currentPath}${href.slice(href.indexOf('#'))}`;
-                link.setAttribute('href', newHref);
-                link.addEventListener('click', (event) => handleSmoothScroll(event, href.slice(1)));
-                console.log('Modified href:', newHref);
-            }
-            if (href === 'https://www.instagram.com/turystykabezfiltrow/') {
-                link.setAttribute('target', '_blank');
-                link.setAttribute('rel', 'noopener noreferrer');
+
+            if (href) {
+                // Обработка ссылок, содержащих #
+                if (href.includes('#')) {
+                    const currentPath = window.location.pathname;
+                    const newHref = `${currentPath}${href.slice(href.indexOf('#'))}`;
+                    link.setAttribute('href', newHref);
+                    link.addEventListener('click', (event) => handleSmoothScroll(event, href.slice(1)));
+                    console.log('Modified href:', newHref);
+                }
+                // Открытие ссылок на Instagram в новом окне
+                if (href === 'https://www.instagram.com/turystykabezfiltrow/') {
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                }
+                // Замена ссылок на страницы "artykuly" на "actualnosci"
+                if (href.startsWith('https://turystykabezfiltrow.com/artykuly/')) {
+                    const newHref = href.replace('https://turystykabezfiltrow.com/artykuly/', 'https://turystykabezfiltrow.com/aktualnosci/');
+                    link.setAttribute('href', newHref);
+                    console.log('Replaced href:', newHref);
+                }
             }
         });
 
         return doc.body.innerHTML;
     };
+
 
     const extractImageUrl = (imgTag) => {
         const srcsetRegex = /srcset="([^"]*)"/;
