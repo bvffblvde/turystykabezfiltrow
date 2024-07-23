@@ -37,7 +37,7 @@ const initialValuesData = {
     postalCode: '',
     region: '',
     apartment: '',
-    buyType: 'google-pay', // По умолчанию выбран Google Pay
+    buyType: 'iban',
     cvv: '',
     cardNumber: '',
     expirationDate: '',
@@ -273,8 +273,8 @@ const PayPage = ({cartItems}) => {
                                                     control={<Radio/>}
                                                     label="Odbiór osobisty: ul.Bohaterów Westerplatte 1, 85-827 Bydgoszcz, tel.+48884002977"
                                                 />
-                                                <Typography className={classes.deliveryTitle}>Jest
-                                                    bezpłatny</Typography>
+                                                {/*<Typography className={classes.deliveryTitle}>Jest*/}
+                                                {/*    bezpłatny</Typography>*/}
                                             </Box>
                                         </Box>
                                         <Box className={classes.radioSection}>
@@ -289,6 +289,19 @@ const PayPage = ({cartItems}) => {
                                             {values.deliveryType === 'delivery' && (deliveryForm(values, setFieldValue))}
                                         </Box>
                                     </RadioGroup>
+                                </Grid>
+                            </Grid>
+                            <Typography variant="h2" className={classes.subTitle}>Zapłata</Typography>
+                            <Grid container spacing={3}>
+                                <Grid item md={12} xs={12}>
+                                    <Typography variant="h3" className={classes.paymentManual}><bold>BANK:</bold> mBank S.A.</Typography>
+
+                                    <Typography variant="h3" className={classes.paymentManual}><bold>ACCOUNT NUMBER:</bold> 15 1140 2004 0000 3502 8194 7323 </Typography>
+
+                                    <Typography variant="h3" className={classes.paymentManual}><bold>IBAN:</bold> PL15 1140 2004 0000 3502 8194 7323</Typography>
+
+                                    <Typography variant="h3" className={classes.paymentManual}><bold>BIC:</bold>BREXPLPWMBK </Typography>
+
                                 </Grid>
                             </Grid>
                             <Grid container spacing={3} className={classes.formSection}>
@@ -326,9 +339,17 @@ const PayPage = ({cartItems}) => {
                                         <Box className={classes.radioSection}>
                                             <Box className={classes.deliveryWrapper}>
                                                 <FormControlLabel
+                                                    value="iban"
+                                                    control={<Radio/>}
+                                                    label="Przelew bankowy"
+                                                />
+                                            </Box>
+                                            <Box className={classes.deliveryWrapper}>
+                                                <FormControlLabel
                                                     value="google-pay"
                                                     control={<Radio/>}
-                                                    label="Google Pay"
+                                                    label="Google Pay (Wkrótce)"
+                                                    disabled={true}
                                                 />
                                                 <img src={GpayIcon} alt="Google Pay" className={classes.paymentIcon}/>
                                             </Box>
@@ -336,7 +357,8 @@ const PayPage = ({cartItems}) => {
                                                 <FormControlLabel
                                                     value="apple-pay"
                                                     control={<Radio/>}
-                                                    label="Apple Pay"
+                                                    label="Apple Pay (Wkrótce)"
+                                                    disabled={true}
                                                 />
                                                 <img src={ApplePayIcon} alt="Apple Pay"
                                                      className={classes.paymentIcon}/>
@@ -347,7 +369,8 @@ const PayPage = ({cartItems}) => {
                                                 <FormControlLabel
                                                     value="visaOrMastercard"
                                                     control={<Radio/>}
-                                                    label="Karta"
+                                                    label="Karta (Wkrótce)"
+                                                    disabled={true}
                                                 />
                                                 <img src={CardType} alt="Visa Or Mastercard"
                                                      className={classes.paymentIcon}/>

@@ -29,6 +29,10 @@ app.get('/', function (req, res) {
         'https://i.ibb.co/G7Bc9Q0/image.png', res);
 });
 
+app.get(['/szlaki', '/szlaki/'], function (req, res) {
+    res.redirect('/aktualnosci/bartodzieje-szlak');
+});
+
 app.get('/bydgoszcz', async  function (req, res) {
     const bydgoszczCategoryIdResponse = await axios.get(`https://weckwerthblog.wpcomstaging.com/wp-json/wp/v2/categories?slug=bydgoszcz`);
     const d = await   bydgoszczCategoryIdResponse.data;

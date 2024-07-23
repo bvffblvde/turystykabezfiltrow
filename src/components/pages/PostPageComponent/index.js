@@ -30,14 +30,26 @@ const PostDetails = () => {
     const classes = useStyles(combinedTheme);
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
-    // eslint-disable-next-line no-unused-vars
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-    const [comments, setComments] = useState([]);  // Добавление состояния для комментариев
-
-    const {postSlug} = useParams();
+    const [comments, setComments] = useState([]);
+    const { postSlug } = useParams();
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        const handleBeforeUnload = () => {
+            localStorage.setItem('scrollPosition', window.scrollY);
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        const scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition));
+        }
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            localStorage.removeItem('scrollPosition');
+        };
     }, []);
 
     useEffect(() => {

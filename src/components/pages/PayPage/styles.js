@@ -101,9 +101,9 @@ const useStyles = makeStyles((theme) => ({
                 color: ({hoverBorderColor}) => hoverBorderColor,
             }
         },
-        [theme.breakpoints.down('sm')]: {
-            width: '100%',
-        }
+        // [theme.breakpoints.down('sm')]: {
+        //     width: '100%',
+        // }
     },
     radioSection: {
         display: 'flex',
@@ -126,6 +126,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '16px',
         fontWeight: '700',
         color: ({textColor}) => textColor,
+
     },
     costCardWrapper: {
         display: 'flex',
@@ -154,7 +155,31 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: '500',
         textAlign: 'center',
         color: ({textColor}) => textColor,
-    }
+    },
+
+    paymentManual: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '20px',
+        marginBottom: '20px',
+        fontFamily: 'Inter-Regular',
+        fontSize: '20px',
+        fontWeight: '500',
+        color: ({textColor}) => textColor,
+
+        '& bold': {
+            fontFamily: 'Inter-Bold',
+            fontSize: '22px',
+            fontWeight: '700',
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '18px',
+            }
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '16px',
+        }
+},
 }));
 
 export default useStyles;
