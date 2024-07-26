@@ -352,13 +352,18 @@ const Footer = React.memo(() => {
                         <LinedButton text="Zaproponuj pomysł!" to="https://forms.gle/1VHjeKPrECwrDMtA7" width="100%"
                                      icon={SecondButtonIcon}/>
                     </Box>
-                    <Box className={classes.buttonWrapper}>
+                    <Box className={classes.buttonWrapper} style={{marginBottom: '30px'}}>
                         {socialLinks.map((link, index) => (
                             <Link to={link.to} key={index} className={classes.socialLink}>
                                 <Icon component={link.icon} className={classes.socialIcon}/>
                             </Link>
                         ))}
                     </Box>
+
+                    <LinkText text="Polityka prywatności" to="/polityka-prywatnosci"/>
+                    <LinkText text="Regulamin sklep" to="/regulamin"/>
+                    <LinkText text="Decaracja dostępności" to="/declaracja-dostepnosci"/>
+
                 </Box>
                 <div className={classes.root}>
                     <Box className={classes.navWrapper}>
@@ -447,6 +452,10 @@ const Footer = React.memo(() => {
                             </Link>
                         ))}
                     </Box>
+
+                    <LinkText text="Polityka prywatności" to="/polityka-prywatnosci"/>
+                    <LinkText text="Regulamin sklep" to="/regulamin"/>
+                    <LinkText text="Decaracja dostępności" to="/declaracja-dostepnosci"/>
                 </Box>
             </Box>
             <AdbisBadge/>

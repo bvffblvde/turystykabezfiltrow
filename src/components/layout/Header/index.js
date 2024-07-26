@@ -56,9 +56,9 @@ const navLinksData = [
     {
         url: '/sklep',
         text: 'Sklep',
-        subLinks: [
-            {url: '/sklep/koszyk', text: 'Koszyk'},
-        ]
+        // subLinks: [
+        //     {url: '/sklep/koszyk', text: 'Koszyk'},
+        // ]
     },
     {
         url: '/wydarzenia',
