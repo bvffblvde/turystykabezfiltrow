@@ -6,7 +6,7 @@ import {
     TextField,
     Radio,
     RadioGroup,
-    FormControlLabel, Button,
+    FormControlLabel, Button, Snackbar,
 } from '@material-ui/core';
 import {useTheme} from '../../../theme/themeContext';
 import {themes} from '../../../theme/themeContext/themes';
@@ -31,7 +31,7 @@ const initialValuesData = {
     phoneNumber: '',
     email: '',
     city: '',
-    deliveryType: 'self-pickup', // По умолчанию выбран самовывоз
+    deliveryType: 'self-pickup',
     street: '',
     houseNumber: '',
     postalCode: '',
@@ -49,6 +49,7 @@ const PayPage = ({cartItems}) => {
     const {theme} = useTheme();
     const classes = useStyles(themes[theme]);
     const [localCartItems, setLocalCartItems] = useState([]);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
 
     useEffect(() => {
         const storedCartItems = localStorage.getItem('cartItems');
@@ -57,7 +58,7 @@ const PayPage = ({cartItems}) => {
         }
     }, []);
 
-    const handleSubmit = async (values, {setSubmitting}) => {
+    const handleSubmit = async (values, {setSubmitting, resetForm}) => {
         setSubmitting(true);
 
         try {
@@ -65,7 +66,6 @@ const PayPage = ({cartItems}) => {
             const apiSecret = process.env.REACT_APP_CONSUMER_SECRET;
             const authHeader = `Basic ${btoa(`${apiKey}:${apiSecret}`)}`;
 
-            // Получаем элементы корзины из localStorage
             const localCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
             const lineItems = localCartItems.map(item => ({
@@ -100,17 +100,16 @@ const PayPage = ({cartItems}) => {
                 line_items: lineItems,
             };
 
-            // Если выбран способ доставки "Courier", добавляем информацию о доставке
             if (values.deliveryType === 'delivery') {
                 orderData.shipping = {
                     first_name: values.firstName,
                     last_name: values.lastName,
                     address_1: values.street,
-                    address_2: values.houseNumber, // Вторая линия адреса (номер дома)
+                    address_2: values.houseNumber,
                     city: values.city,
                     postcode: values.postalCode,
                     country: values.region,
-                    state: values.region, // Регион (например, Воеводство / Регион)
+                    state: values.region,
                     phone: values.phoneNumber,
                     email: values.email,
                 };
@@ -129,6 +128,7 @@ const PayPage = ({cartItems}) => {
                 },
             });
 
+            setSnackbarOpen(true);
             console.log('Order created:', response.data);
         } catch (error) {
             console.error('Error creating order:', error);
@@ -143,7 +143,15 @@ const PayPage = ({cartItems}) => {
             }
         }
 
+        localStorage.removeItem('cartItems');
+        setLocalCartItems([]);
+        resetForm();
+
         setSubmitting(false);
+    };
+
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
     };
 
 
@@ -386,6 +394,23 @@ const PayPage = ({cartItems}) => {
             </Box>
             <DonatBadge/>
             <ContactForm/>
+            <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+                <Box
+                    sx={{
+                        width: '100%',
+                        bgcolor: '#4CAF50',
+                        color: 'white',
+                        fontFamily: 'Inter-Regular',
+                        fontSize: '16px',
+                        textAlign: 'center',
+                        p: 2,
+                        borderRadius: '6px',
+                    }}
+                    elevation={6}
+                >
+                    Zamówienie zostało złożone
+                </Box>
+            </Snackbar>
         </SectionWrapper>
     );
 };

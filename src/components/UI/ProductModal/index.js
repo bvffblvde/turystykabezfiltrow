@@ -81,14 +81,14 @@ const ProductModal = ({isOpen, handleClose, cartItems}) => {
                             <StyledButton width="100%" text="Kontynuować zakupy" clicked={handleClose} variant='outlined'/>
                             <StyledButton width="100%" text="Przejdź do koszyka" to="/sklep/koszyk"/>
                         </Box>
-                        <Box className={classes.propossal}>
-                            <Typography variant="body1" id="product-modal-description" className={classes.propossalText}>
-                                Często kupowane od razu
-                            </Typography>
-                            <Box>
-                                <SklepCard postLimit={4} random={true} smallCardVariant={true}/>
-                            </Box>
-                        </Box>
+                        {/*<Box className={classes.propossal}>*/}
+                        {/*    <Typography variant="body1" id="product-modal-description" className={classes.propossalText}>*/}
+                        {/*        Często kupowane od razu*/}
+                        {/*    </Typography>*/}
+                        {/*    <Box>*/}
+                        {/*        <SklepCard postLimit={4} random={true} smallCardVariant={true}/>*/}
+                        {/*    </Box>*/}
+                        {/*</Box>*/}
                     </Box>
                 </div>
             )}
