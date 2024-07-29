@@ -39,6 +39,7 @@ const navLinksData = [
             {url: '/regiony/grudziadz', text: 'GRUDZIĄDZ'},
             {url: '/regiony/chojnice', text: 'CHOJNICE I OKOLICE'},
             {url: '/regiony/dolnyslask', text: 'GÓRY SOWIE'},
+            {url: '/regiony/torunskieosiedla', text: 'TORUŃSKIE OSIEDLA'},
         ].sort((a, b) => a.text.localeCompare(b.text)),
     },
     {

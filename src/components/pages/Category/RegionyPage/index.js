@@ -41,8 +41,8 @@ const RegionyPage = () => {
         SZCZECIN: 'https://i.ibb.co/XxfgQCW/szczecin.png',
         GRUDZIĄDZ: 'https://i.ibb.co/mqzn8H7/grudzia-dz.png',
         CHOJNICEIOKOLICE: 'https://i.ibb.co/HhcRWvZ/chojnice.png',
-        GÓRYSOWIE: 'https://i.ibb.co/ZmSN2f2/go-ry-sowie.png'
-        // Добавьте другие регионы и соответствующие URL изображений
+        GÓRYSOWIE: 'https://i.ibb.co/ZmSN2f2/go-ry-sowie.png',
+        TORUŃ: 'https://i.ibb.co/ydQh88n/torun.png',
     };
 
     useEffect(() => {
@@ -55,6 +55,8 @@ const RegionyPage = () => {
                     console.error('No tags found.');
                     return;
                 }
+
+                console.log('Fetched tags data:', tagsResponse.data);
 
                 const filteredTags = tagsResponse.data.filter(tag =>
                     regionImages.hasOwnProperty(tag.name.toUpperCase())
@@ -91,6 +93,7 @@ const RegionyPage = () => {
 
         fetchData().then(() => console.log('Posts data fetched'));
     }, []);
+
 
     const formatTagName = (postTitle) => {
         // Assuming tagName is in CamelCase format
